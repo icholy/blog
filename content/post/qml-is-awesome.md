@@ -13,7 +13,7 @@ The way I describe it to people is:
 
 > it's like html and css combined with the power of Qt in a extremely simple syntax.
 
-{{% youtube TN4RrBIft6A %}}
+{{< youtube TN4RrBIft6A >}}
 
 ### Why?
 
