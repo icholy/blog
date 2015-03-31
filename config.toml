@@ -1,0 +1,22 @@
+baseurl = "http://choly.ca"
+languageCode = "en-us"
+title = "Choly's Blog"
+theme = "hyde"
+
+[params]
+  Description = "Documented Procrastination"
+
+[[menu.main]]
+  name = "Github"
+  url = "https://github.com/icholy"
+
+[[menu.main]]
+  name = "Stack Overflow"
+  url = "http://stackoverflow.com/users/215969/ilia-choly"
+
+[[menu.main]]
+  name = "Twitter"
+  url = "https://twitter.com/icholy"
+    
+
+  
