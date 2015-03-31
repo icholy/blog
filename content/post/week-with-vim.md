@@ -9,7 +9,7 @@ title = "A week with Vim"
 
 During the past week I've been learning to use Vim (gVim). Day 1 and 2 weren't fun to say the least. But now I'm completely hooked. I'm the type of person who will sit there for hours customizing my development environment until I think it's perfect. I've been playing with almost every cool plugin i can find (and wasting a lot of time in the process).
 
-![vim cheatsheet](images/vim-cheatsheet.png)
+![vim cheatsheet](/images/vim-cheatsheet.png)
 
 So Vim is, without a doubt, the best text editor I've ever used. However, that's all it is. It's just a text editor and I know a lot people don't agree with me on this one, but IDE's do help. They just make everything better. Therefore the ultimate combination would be an ide with vim as the text editor. 
 
