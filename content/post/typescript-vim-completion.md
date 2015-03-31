@@ -12,7 +12,7 @@ I recently got [TypeScript](http://www.typescriptlang.org/) auto-completion work
 
 ### Demo:
 
-![demo](http://i.imgur.com/zIiGauZ.gif)
+![demo](images/typescript-vim-completion.gif)
 
 ### 1. Install TSS
 

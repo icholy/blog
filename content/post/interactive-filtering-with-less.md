@@ -22,5 +22,5 @@ I discovered a cool little feature in [less](http://linux.die.net/man/1/less) (n
 
 Demo:
 
-![demo](https://i.imgur.com/cfhrP28.gif)
+![demo](images/less-filtering.gif)
 
