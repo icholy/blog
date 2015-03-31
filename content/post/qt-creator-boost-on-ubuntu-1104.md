@@ -2,7 +2,7 @@
 Categories = ["Development", "C++"]
 Description = ""
 Tags = ["Development", "cpp"]
-date = "2012-09-26T12:23:39-04:00"
+date = "2011-09-26T12:23:39-04:00"
 title = "Qt Creator + Boost on Ubuntu 11.04"
 
 +++

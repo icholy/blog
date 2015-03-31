@@ -2,7 +2,7 @@
 Categories = ["Development", "VMWare"]
 Description = ""
 Tags = ["Development", "vmware"]
-date = "2012-10-16T12:14:52-04:00"
+date = "2011-10-16T12:14:52-04:00"
 title = "VMware Workstation Ubuntu problems"
 
 +++

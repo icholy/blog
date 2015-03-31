@@ -2,7 +2,7 @@
 Categories = ["Development", "CSS"]
 Description = ""
 Tags = ["Development", "css", "scss"]
-date = "2012-09-20T12:27:52-04:00"
+date = "2011-09-20T12:27:52-04:00"
 title = "Compile CompassApp on Ubuntu 11.04"
 
 +++
