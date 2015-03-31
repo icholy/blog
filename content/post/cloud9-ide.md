@@ -3,7 +3,6 @@ Categories = ["Development"]
 Description = ""
 Tags = ["Development"]
 date = "2011-08-31T12:31:21-04:00"
-menu = "main"
 title = "Cloud9 IDE"
 
 +++

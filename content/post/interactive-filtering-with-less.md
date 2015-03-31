@@ -2,8 +2,7 @@
 Categories = ["Development", "linux"]
 Description = ""
 Tags = ["Development", "linux"]
-date = "2015-03-31T12:56:53-04:00"
-menu = "main"
+date = "2014-03-31T12:56:53-04:00"
 title = "interactive filtering with less"
 
 +++
