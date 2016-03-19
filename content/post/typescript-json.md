@@ -48,7 +48,7 @@ and convert from `UserData` -> `User` after parsing from JSON.
 Here's an example of some client code doing this.
 
 ``` ts
-function getUser(): Promise<User[]> {
+function getUsers(): Promise<User[]> {
   return ajax.get<UserData[]>('/users').then(data => {
     return data.data.map(decodeUser);
   });
