@@ -82,7 +82,7 @@ function decodeUser(data: UserData): User {
 
 This works, but it's a contrived example.
 In real cases, there will be a lot more properties and this quickly turns into a huge pain in the ass.
-let's use `Object.assign` to clean it up a bit.  
+Let's use `Object.assign` to clean it up a bit.  
 
 ``` ts
 function encodeUser(user: User): UserData {
