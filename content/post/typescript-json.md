@@ -3,7 +3,6 @@ Categories = ["Development", "GoLang"]
 Description = ""
 Tags = ["Development", "golang"]
 date = "2016-03-19T15:41:44-04:00"
-menu = "main"
 title = "TypeScript: Working with JSON"
 
 +++
