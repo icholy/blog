@@ -4,6 +4,7 @@ title = "Choly's Blog"
 theme = "hyde"
 
 [params]
+  disqusShortname = "choly"
   description = "Documented Procrastination"
 
 [[menu.main]]
