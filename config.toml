@@ -4,7 +4,7 @@ title = "Choly's Blog"
 theme = "hyde"
 
 [params]
-  Description = "Documented Procrastination"
+  description = "Documented Procrastination"
 
 [[menu.main]]
   name = "Github"
