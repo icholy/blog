@@ -45,7 +45,8 @@ interface UserData {
 ```
 
 Then I convert from `User` -> `UserData` before converting to JSON
-and convert from `UserData` -> `User` after parsing from json.
+and convert from `UserData` -> `User` after parsing from JSON.
+Here's an example of some client code doing this.
 
 ``` ts
 function getUser(): Promise<User[]> {
@@ -55,7 +56,7 @@ function getUser(): Promise<User[]> {
 }
 
 function updateUser(id: number|string, user: User): Promise<{}> {
-  return ajax.put(`/users/${id}`, encodeUser(user));
+  return ajax.put<{}>(`/users/${id}`, encodeUser(user));
 }
 ```
 
@@ -117,8 +118,8 @@ class User {
 }
 ```
 
-For this to work, I use `Object.create` to make a new object who's prototype point to `User.prototype`.  
-Then assign the properties to that. The encoding function doesn't change.
+For this to work, I use `Object.create` to make a new object who's prototype point to `User.prototype`.
+ Then assign the properties to that. The encoding function doesn't change.
 
 ``` ts
 function decodeUser(data: UserData): User {
