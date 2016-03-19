@@ -1,4 +1,4 @@
-baseurl = "http://choly.ca"
+baseurl = "http://choly.ca/"
 languageCode = "en-us"
 title = "Choly's Blog"
 theme = "hyde"
