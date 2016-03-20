@@ -9,7 +9,7 @@ title = "TypeScript: Working with JSON"
 
 **EDITS:**
 
-* I'm aware that calling `toString` on `Date` is redundant.
+* Calling `toString` on `Date` is for illustrative purposes.
 * There's a full commented example at the end.
 * Use `toJSON` method as suggested by [Schipperz](http://choly.ca/post/typescript-json/#comment-2579762437).
 * Add `reviver` method as suggested by [Anders Ringqvist](http://choly.ca/post/typescript-json/#comment-2579491209).
