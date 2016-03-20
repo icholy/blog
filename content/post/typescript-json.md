@@ -226,43 +226,6 @@ let user = JSON.parse(data, User.reviver);
 
 Not too shabby...
 
-One final adjustment is that a client might get confused when `fromJSON` doesn't actually
-accept a JSON string. Let's fix that.
-
-``` ts
-class User {
-
-  /* ... */
-  
-  static fromJSON(json: UserJSON|string): User {
-    if (typeof json === 'string') {
-      return JSON.parse(json, User.reviver);
-    } else {
-      let user = Object.create(User.prototype);
-      return Object.assign(user, json, {
-        created: new Date(json.created),
-      });
-    }
-  }
-}
-```
-
-Let's look at some client code:
-
-``` ts
-
-function getUsers(): Promise<User[]> {
-  return ajax.get<UserJSON[]>('/users').then(data => {
-    return data.data.map(User.fromJSON);
-  });
-}
-
-function updateUser(id: number|string, user: User): Promise<{}> {
-  return ajax.put<{}>(`/users/${id}`, user);
-}
-
-```
-
 The nice thing about using this pattern is that it composes very well.  
 Say the user had an `account` property which contained an instance of `Account`.
 
