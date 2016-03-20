@@ -212,13 +212,6 @@ class User {
 
   /* ... */
 
-  static fromJSON(json: UserJSON): User {
-    let user = Object.create(User.prototype);
-    return Object.assign(user, json, {
-      created: new Date(json.created)
-    });
-  }
-
   static reviver(key: string, value: any): any {
     return key === "" ? User.fromJSON(value) : value;
   }
