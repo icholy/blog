@@ -52,7 +52,7 @@ interface UserJSON {
 }
 ```
 
-Then I convert from `User` -> `UserJSON` before converting to JSON
+Then I convert from `User` -> `UserJSON` before 'stringifying' to JSON
 and convert from `UserJSON` -> `User` after parsing from JSON.
 Here's an example of some client code doing this.
 
