@@ -126,7 +126,7 @@ class User {
 }
 ```
 
-For this to work, I use `Object.create` to make a new object who's prototype points to `User.prototype`.
+For this to work, I use `Object.create` to make a new instance of `User` without using the constructor.
  Then assign the properties to that. The encoding function doesn't change.
 
 ``` ts
