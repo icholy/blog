@@ -10,6 +10,7 @@ title = "TypeScript: Working with JSON"
 **EDITS:**
 
 * I'm aware that calling `toString` on `Date` is redundant.
+* There's a full commented example at the end.
 * Use `toJSON` method as suggested by [Schipperz](http://choly.ca/post/typescript-json/#comment-2579762437).
 * Add `reviver` method as suggested by [Anders Ringqvist](http://choly.ca/post/typescript-json/#comment-2579491209).
 
@@ -105,7 +106,7 @@ function decodeUser(json: UserJSON): User {
 }
 ```
 
-So far so good, but what happens when `User` is a `class`?
+So far so good, but what happens when `User` is a class?
 
 ``` ts
 class User {
@@ -194,16 +195,16 @@ class User {
 }
 ```
 
-The client code will look like this:
+We don't need to call `user.encode()` explicitly anymore!
 
 ``` ts
 let data = JSON.stringify(new User("Steve", 39));
 let user = User.fromJSON(JSON.parse(data));
 ```
 
-This is ok, but we can do better. `JSON.parse` accepts a second parameter called
+This is good, but we can do better. `JSON.parse` accepts a second parameter called
 `reviver` which is a function that gets called with every key/value pair in the object
-being parsed. The root object is passed to `reviver` with an empty string as the key.
+as it's being parsed. The root object is passed to `reviver` with an empty string as the key.
 Let's add a `reviver` function to our `User` class.
 
 ``` ts
@@ -289,7 +290,6 @@ class User {
 }
 ```
 
-
 And here's the full commented `User` class.
 
 ``` ts
@@ -340,5 +340,14 @@ class User {
     return key === "" ? User.fromJSON(value) : value;
   }
 }
+
+// A representation of User's data that can be converted to
+// and from JSON without being altered.
+interface UserJSON {
+  name:    string;
+  age:     number;
+  created: string;
+}
+
 ```
 
