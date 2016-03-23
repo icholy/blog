@@ -103,6 +103,10 @@ class ListenerGroup {
   link($scope) {
     $scope.$on('$destroy', () => this.unbind());
   }
+
+  static for($scope) {
+    return new ListenerGroup($scope);
+  }
 }
 ```
 
