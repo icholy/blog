@@ -1,0 +1,381 @@
+	<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.15" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title> TypeScript: Working with JSON &middot; Choly&#39;s Blog </title>
+
+  
+  <link rel="stylesheet" href="http://choly.ca/css/poole.css">
+  <link rel="stylesheet" href="http://choly.ca/css/syntax.css">
+  <link rel="stylesheet" href="http://choly.ca/css/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link rel="stylesheet" href="http://choly.ca/styles/github.css">
+  <script src="http://choly.ca/scripts/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-36797023-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="Choly&#39;s Blog" />
+</head>
+
+	<body class="">
+		<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="http://choly.ca/"><h1>Choly&#39;s Blog</h1></a>
+      <p class="lead">
+       Documented Procrastination 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><a href="/">Home</a> </li>
+      
+        <li><a href="https://github.com/icholy"> Github </a></li>
+      
+        <li><a href="http://stackoverflow.com/users/215969/ilia-choly"> Stack Overflow </a></li>
+      
+        <li><a href="https://twitter.com/icholy"> Twitter </a></li>
+      
+    </ul>
+
+    <p>&copy; 2016. All rights reserved. </p>
+  </div>
+</div>
+
+
+		<div class="content container">
+			<div class="post">
+			 	<h1>TypeScript: Working with JSON</h1>
+			  <span class="post-date">Sat, Mar 19, 2016</span>
+			      <p><strong>EDITS:</strong></p>
+
+<ul>
+<li>Calling <code>toString</code> on <code>Date</code> is for illustrative purposes.</li>
+<li>There&rsquo;s a full commented example at the end.</li>
+<li>Use <code>toJSON</code> method as suggested by <a href="http://choly.ca/post/typescript-json/#comment-2579762437">Schipperz</a>.</li>
+<li>Add <code>reviver</code> method as suggested by <a href="http://choly.ca/post/typescript-json/#comment-2579491209">Anders Ringqvist</a>.</li>
+</ul>
+
+<hr />
+
+<p>So you have a <code>User</code> type in your code.</p>
+
+<pre><code class="language-ts">interface User {
+  name:    string;
+  age:     number;
+  created: Date;
+}
+</code></pre>
+
+<p>At some point you&rsquo;re going to want to encode this as JSON.
+This works as you&rsquo;d expect.</p>
+
+<pre><code> &gt; JSON.stringify({ name: &quot;bob&quot;, age: 34, created: new Date() });
+'{&quot;name&quot;:&quot;bob&quot;,&quot;age&quot;:34,&quot;created&quot;:&quot;2016-03-19T18:15:12.710Z&quot;}'
+</code></pre>
+
+<p>The problem is that the <code>created</code> field is no longer a <code>Date</code> when you parse it back.</p>
+
+<pre><code>&gt; JSON.parse('{&quot;name&quot;:&quot;bob&quot;,&quot;age&quot;:34,&quot;created&quot;:&quot;2016-03-19T18:15:12.710Z&quot;}')
+{ name: 'bob', age: 34, created: '2016-03-19T18:15:12.710Z' }
+</code></pre>
+
+<p>The way I went about fixing this is by introducing a <code>UserJSON</code> interface.<br />
+Since it only contains primitives, it can be converter to and from JSON without altering it.</p>
+
+<pre><code class="language-ts">interface UserJSON {
+  name:    string;
+  age:     number;
+  created: string;
+}
+</code></pre>
+
+<p>Then I convert from <code>User</code> -&gt; <code>UserJSON</code> before &lsquo;stringifying&rsquo; to JSON
+and convert from <code>UserJSON</code> -&gt; <code>User</code> after parsing from JSON.
+Here&rsquo;s an example of some client code doing this.</p>
+
+<pre><code class="language-ts">function getUsers(): Promise&lt;User[]&gt; {
+  return ajax.get&lt;UserJSON[]&gt;('/users').then(data =&gt; {
+    return data.data.map(decodeUser);
+  });
+}
+
+function updateUser(id: number|string, user: User): Promise&lt;{}&gt; {
+  return ajax.put&lt;{}&gt;(`/users/${id}`, encodeUser(user));
+}
+</code></pre>
+
+<p>Here are the conversion functions.</p>
+
+<pre><code class="language-ts">function encodeUser(user: User): UserJSON {
+  return {
+    name:    user.name,
+    age:     user.age,
+    created: user.created.toString()
+  };
+}
+
+function decodeUser(json: UserJSON): User {
+  return {
+    name:    json.name,
+    age:     json.age,
+    created: new Date(json.created)
+  };
+}
+</code></pre>
+
+<p>This works, but it&rsquo;s a contrived example.
+In real cases, there will be a lot more properties and this quickly turns into a huge pain in the ass.
+Let&rsquo;s use <code>Object.assign</code> to clean it up a bit.</p>
+
+<pre><code class="language-ts">function encodeUser(user: User): UserJSON {
+  return Object.assign({}, user, {
+    created: user.created.toString()
+  });
+}
+
+function decodeUser(json: UserJSON): User {
+  return Object.assign({}, json, {
+    created: new Date(json.created)
+  });
+}
+</code></pre>
+
+<p>So far so good, but what happens when <code>User</code> is a class?</p>
+
+<pre><code class="language-ts">class User {
+
+  private created: Date;
+
+  constructor(
+    private name: string,
+    private age:  string
+  ) {
+    this.created = new Date();
+  }
+
+  getName(): string {
+    return this.name;
+  }
+}
+</code></pre>
+
+<p>For this to work, I use <code>Object.create</code> to make a new instance of <code>User</code> without using the constructor.
+ Then assign the properties to that. The encoding function doesn&rsquo;t change.</p>
+
+<pre><code class="language-ts">function decodeUser(json: UserJSON): User {
+  let user = Object.create(User.prototype);
+  return Object.assign(user, json, {
+    created: new Date(json.created)
+  });
+}
+</code></pre>
+
+<p>Finally, the <code>encode</code> and <code>decode</code> functions can just be methods on the <code>User</code> class.</p>
+
+<pre><code class="language-ts">class User {
+
+  private created: Date;
+
+  constructor(
+    private name: string,
+    private age:  string
+  ) {
+    this.created = new Date();
+  }
+
+  getName(): string {
+    return this.name;
+  }
+
+  encode(): UserJSON {
+    return Object.assign({}, this, {
+      created: this.created.toString()
+    });
+  }
+
+  static decode(json: UserJSON): User {
+    let user = Object.create(User.prototype);
+    return Object.assign(user, json, {
+      created: new Date(json.created)
+    });
+  }
+}
+</code></pre>
+
+<p>When <code>JSON.stringify</code> is invoked on an object, it checks for a method called <code>toJSON</code>
+to convert the data before &lsquo;stringifying&rsquo; it. In light of this, let&rsquo;s rename <code>encode</code> and
+<code>decode</code> to <code>toJSON</code> and <code>fromJSON</code>.</p>
+
+<pre><code class="language-ts">class User {
+
+  /* ... */
+
+  toJSON(): UserJSON {
+    return Object.assign({}, this, {
+      created: this.created.toString()
+    });
+  }
+
+  static fromJSON(json: UserJSON): User {
+    let user = Object.create(User.prototype);
+    return Object.assign(user, json, {
+      created: new Date(json.created)
+    });
+  }
+}
+</code></pre>
+
+<p>We don&rsquo;t need to call <code>user.encode()</code> explicitly anymore!</p>
+
+<pre><code class="language-ts">let data = JSON.stringify(new User(&quot;Steve&quot;, 39));
+let user = User.fromJSON(JSON.parse(data));
+</code></pre>
+
+<p>This is good, but we can do better. <code>JSON.parse</code> accepts a second parameter called
+<code>reviver</code> which is a function that gets called with every key/value pair in the object
+as it&rsquo;s being parsed. The root object is passed to <code>reviver</code> with an empty string as the key.
+Let&rsquo;s add a <code>reviver</code> function to our <code>User</code> class.</p>
+
+<pre><code class="language-ts">class User {
+
+  /* ... */
+
+  static reviver(key: string, value: any): any {
+    return key === &quot;&quot; ? User.fromJSON(value) : value;
+  }
+}
+</code></pre>
+
+<p>Now we can write:</p>
+
+<pre><code class="language-ts">let user = JSON.parse(data, User.reviver);
+</code></pre>
+
+<p>Not too shabby&hellip;</p>
+
+<p>The nice thing about using this pattern is that it composes very well.<br />
+Say the user had an <code>account</code> property which contained an instance of <code>Account</code>.</p>
+
+<pre><code class="language-ts">class User {
+
+  private account: Account;
+
+  /* ... */
+  
+  static fromJSON(json: UserJSON): User {
+    let user = Object.create(User.prototype);
+    return Object.assign(user, json, {
+      created: new Date(json.created),
+      account: Account.fromJSON(json.account)
+    });
+  }
+}
+</code></pre>
+
+<p>And here&rsquo;s the full commented <code>User</code> class.</p>
+
+<pre><code class="language-ts">class User {
+
+  private created: Date;
+
+  constructor(
+    private name: string,
+    private age:  string
+  ) {
+    this.created = new Date();
+  }
+
+  getName(): string {
+    return this.name;
+  }
+
+  // toJSON is automatically used by JSON.stringify
+  toJSON(): UserJSON {
+    // copy all fields from `this` to an empty object and return in
+    return Object.assign({}, this, {
+      // convert fields that need converting
+      created: this.created.toString()
+    });
+  }
+
+  // fromJSON is used to convert an serialized version
+  // of the User to an instance of the class
+  static fromJSON(json: UserJSON|string): User {
+    if (typeof json === 'string') {
+      // if it's a string, parse it first
+      return JSON.parse(json, User.reviver);
+    } else {
+      // create an instance of the User class
+      let user = Object.create(User.prototype);
+      // copy all the fields from the json object
+      return Object.assign(user, json, {
+        // convert fields that need converting
+        created: new Date(json.created),
+      });
+    }
+  }
+
+  // reviver can be passed as the second parameter to JSON.parse
+  // to automatically call User.fromJSON on the resulting value.
+  static reviver(key: string, value: any): any {
+    return key === &quot;&quot; ? User.fromJSON(value) : value;
+  }
+}
+
+// A representation of User's data that can be converted to
+// and from JSON without being altered.
+interface UserJSON {
+  name:    string;
+  age:     number;
+  created: string;
+}
+
+</code></pre>
+
+			</div>
+
+			
+				<h2>Comments</h2>
+				<div id="disqus_thread"></div>
+<script type="text/javascript">
+     
+    var disqus_shortname = 'choly'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+			
+		</div>
+
+  </body>
+</html>

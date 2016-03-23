@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>C on Choly&#39;s Blog</title>
+    <link>http://choly.ca/categories/c/</link>
+    <description>Recent content in C on Choly&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 31 Dec 2012 11:26:44 -0400</lastBuildDate>
+    <atom:link href="http://choly.ca/categories/c/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>C&#43;&#43;: Make Repl</title>
+      <link>http://choly.ca/post/c-plus-plus-make-repl/</link>
+      <pubDate>Mon, 31 Dec 2012 11:26:44 -0400</pubDate>
+      
+      <guid>http://choly.ca/post/c-plus-plus-make-repl/</guid>
+      <description>&lt;p&gt;One of the things I really like about dynamic languages like javascript &amp;amp; python is the repl. After you’ve gotten used to that type of exploratory programming, it’s hard to go back to the edit/compile/run cycle.&lt;/p&gt;
+
+&lt;p&gt;Luckily that has finally changed with &lt;a href=&#34;http://root.cern.ch/drupal/content/cling&#34;&gt;cling&lt;/a&gt;. It’s an interactive C++ environment that behaves pretty much like a repl. In my recent projects I’ve been adding a new make rule: repl which lets me interactively play with the code I’m working on and it has drastically improved my productivity.&lt;/p&gt;
+
+&lt;p&gt;Here’s how I set it up. Compiling cling is the first step. Below are how I did it on OSX.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;brew install gcc
+brew install make
+
+
+# Check out the sources:
+
+mkdir src
+cd src
+svn co http://llvm.org/svn/llvm-project/llvm/trunk llvm
+cd llvm/tools
+svn co http://llvm.org/svn/llvm-project/cfe/trunk clang
+svn co http://root.cern.ch/svn/root/trunk/cint/cling cling
+cd ..
+
+# Apply some patches
+
+cat tools/cling/patches/* | patch -p0
+
+# Configure, build and install them
+
+cd ..
+mkdir build
+cd build
+../llvm/configure --enable-targets=host
+make
+make install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Next there’s an &lt;code&gt;init_repl.cpp&lt;/code&gt; file I keep in the root of my project. It’s responsible for pulling in all the required headers and doing some initial setup. For the setup, I use C++’s version of a static block.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;#include &amp;lt;my_project.h&amp;gt;
+#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;string&amp;gt;
+
+struct ReplInit {
+  ReplInit () {
+    std::cout &amp;lt;&amp;lt; &amp;quot;initializing some stuff&amp;quot; &amp;lt;&amp;lt; std::endl;
+  }
+};
+
+static ReplInit repl_init;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Next the make rule.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-make&#34;&gt;repl:
+  cling -std=c++11 -linit_repl.cpp -llibmy_project.so -I./include -I./src -I./lib
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After that you should just be able to run &lt;code&gt;make repl&lt;/code&gt; and you’ll be dropped into a shell where you can dynamically explore you project. I’ve only been using it for a little while and I’m hooked. I look forward to the day where every project supports &lt;code&gt;make &amp;amp;&amp;amp; make repl&lt;/code&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>C&#43;&#43;: Inline Functions</title>
+      <link>http://choly.ca/post/c-plus-plus-inline-functions/</link>
+      <pubDate>Mon, 31 Dec 2012 11:21:15 -0400</pubDate>
+      
+      <guid>http://choly.ca/post/c-plus-plus-inline-functions/</guid>
+      <description>&lt;p&gt;Even though overuse of getter and setter functions can be frowned upon, they can help a lot if you’re looking to provide a intuitive api. However the overhead the additional function call introduces is undesirable. Thankfully, there’s the &lt;code&gt;inline&lt;/code&gt; keyword. It tells the compiler to replace each invocation of the function with the body of the function.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;struct Foo {
+  int m_number = 123;
+
+  inline int number () {
+    return m_number;
+  }
+};
+
+int main () {
+  Foo foo;
+
+  // used like a regular function
+  std::cout &amp;lt;&amp;lt; foo.number() &amp;lt;&amp;lt; std::endl;
+
+  // compiled to almost identical assembly as this
+  std::cout &amp;lt;&amp;lt; foo.m_number &amp;lt;&amp;lt; std::endl;
+
+  return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;However the &lt;code&gt;inline&lt;/code&gt; keyword isn’t a guarantee that the compiler will do this. It’s more of a hint to the compiler. So keep in mind that the compiler is free to ignore the fact that a function is declared &lt;code&gt;inline&lt;/code&gt; and it can inline functions that haven’t been delcared as such. But in examples similar to the one above, you can assume it will behave as expected.&lt;/p&gt;
+
+&lt;p&gt;Another important piece of information is that the function definition needs to be available in every translation unit.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;// foo.h
+inline int foo ();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;// foo.cpp
+#include &amp;quot;foo.h&amp;quot;
+
+int foo () {
+  return 123;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If I try to use the &lt;code&gt;foo&lt;/code&gt; function by including &lt;code&gt;foo.h&lt;/code&gt; I’d get a warning telling me that the &lt;code&gt;foo&lt;/code&gt; is not defined. This won’t prevent compilation, but the function will not get inlined. The compiler needs access to the function body to replace it with the call site. There’s a simple solution though. Just put the function definition in the header.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;// foo.h
+inline int foo () {
+  return 123;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;One finall note. Using &lt;code&gt;inline&lt;/code&gt; too much can not only make your binary much bigger, but it can also slow it down due to the way things are cached during execution. So only use them on very small functions (1-3 lines) and you should be good.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>C&#43;&#43; Extending Classes via the Stream Operator</title>
+      <link>http://choly.ca/post/c-plus-plus-extending-classes-via-the-stream-operator/</link>
+      <pubDate>Mon, 03 Dec 2012 11:49:42 -0400</pubDate>
+      
+      <guid>http://choly.ca/post/c-plus-plus-extending-classes-via-the-stream-operator/</guid>
+      <description>
+
+&lt;h3 id=&#34;vision:fb806aeb9a1b7d4b267cc27df3a0306f&#34;&gt;Vision&lt;/h3&gt;
+
+&lt;p&gt;Looking for a way to create a class which behaved like one of the &lt;code&gt;std::ostream&lt;/code&gt; classes.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;MyClass obj;
+
+obj &amp;lt;&amp;lt; &amp;quot;foo&amp;quot; &amp;lt;&amp;lt; 123 &amp;lt;&amp;lt; some_string.c_str();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;problem:fb806aeb9a1b7d4b267cc27df3a0306f&#34;&gt;Problem&lt;/h3&gt;
+
+&lt;p&gt;Implementing all those &lt;code&gt;operator&amp;lt;&amp;lt;&lt;/code&gt; overloads would be redundant because something like &lt;code&gt;std::stringstream&lt;/code&gt; already does it. However inheriting from &lt;code&gt;std::stringstream&lt;/code&gt; is more complicated than it should be.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;struct MyClass : public std::stringstream {
+    /* not that simple ... */
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;solution:fb806aeb9a1b7d4b267cc27df3a0306f&#34;&gt;Solution&lt;/h3&gt;
+
+&lt;p&gt;You can use a simple template to achive the desired effect.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;struct MyClass {
+
+    std::stringstream m_ss;
+
+    template &amp;lt;class T&amp;gt;
+    MyClass &amp;amp; operator&amp;lt;&amp;lt; (T const&amp;amp; rhs) {
+        m_ss &amp;lt;&amp;lt; rhs;
+        return *this;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This comes with the benefit being able to ‘hook’ into each invocation.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>C&#43;&#43; Log4cxx vs Glog vs Boost.log vs Wrapper</title>
+      <link>http://choly.ca/post/c-plus-plus-logging-log4cxx-vs-glog-vs-wrapper/</link>
+      <pubDate>Mon, 03 Dec 2012 11:44:06 -0400</pubDate>
+      
+      <guid>http://choly.ca/post/c-plus-plus-logging-log4cxx-vs-glog-vs-wrapper/</guid>
+      <description>
+
+&lt;p&gt;It seems that logging in C++ isn’t a much discused topic when compared to a language like java. In a recent C++ project, I needed to add real logging support. Up till this point, the following was good enough (don’t judge).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;#ifdef DEBUG
+    std::cerr &amp;lt;&amp;lt; &amp;quot;some error&amp;quot; &amp;lt;&amp;lt; std::endl;
+#endif 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I started googling and the following to be the most popular and mature.&lt;/p&gt;
+
+&lt;h3 id=&#34;glog:152cb127836f237c057387be38a77bb6&#34;&gt;glog&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://code.google.com/p/google-glog/&#34;&gt;homepage&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;glog was my first choice because it’s the simplest one to set up and it has hardly any dependencies. The interface is also nice to use.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;LOG(INFO) &amp;lt;&amp;lt; &amp;quot;this is a test&amp;quot; &amp;lt;&amp;lt; 123;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you need simple and robust logging in a standalone application then glog is the way to go. However if you’re using it in a library and want to let your users configure logging options, it starts getting problematic. You can only initialze glog once, so having your library set its own default can get more complicated than it should be.&lt;/p&gt;
+
+&lt;h3 id=&#34;boost-log:152cb127836f237c057387be38a77bb6&#34;&gt;Boost.Log&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://boost-log.sourceforge.net/libs/log/doc/html/index.html&#34;&gt;homepage&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;I didn’t get too far with this library. It’s simply overwhelming! If you want simple logging then it can do that.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;BOOST_LOG_TRIVIAL(info) &amp;lt;&amp;lt; &amp;quot;this is a test&amp;quot; &amp;lt;&amp;lt; 123
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But if you want anything more, get ready to read a LOT of documentation. Boost.Log is more a framework to build your own logging library as opposed to a logging library in an of itself.&lt;/p&gt;
+
+&lt;h3 id=&#34;log4cxx:152cb127836f237c057387be38a77bb6&#34;&gt;log4cxx&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://logging.apache.org/log4cxx/&#34;&gt;homepage&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;I’m not a big fan of java and initially I wasn’t too thrilled about the idea of something that copies log4j. Another thing that turned me off was that it has some pretty heavy &lt;a href=&#34;https://svn.apache.org/repos/asf/logging/site/trunk/docs/log4cxx/dependencies.html&#34;&gt;dependencies&lt;/a&gt;. I eventually decided to give it a try and it wasn’t all that bad.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger(&amp;quot;bar.foo&amp;quot;));
+
+LOG4CXX_INFO(logger, &amp;quot;this is a test&amp;quot; &amp;lt;&amp;lt; 123);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The advantage here is that you can configure the system anywhere. All loggers inherit from the root logger &lt;code&gt;log4cxx::Logger::getRootLogger()&lt;/code&gt;. In my example, &lt;code&gt;bar&lt;/code&gt; is &lt;code&gt;foo&lt;/code&gt;’s parent. So any setting given to bar will be inherited by &lt;code&gt;foo&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;custom-wrapper:152cb127836f237c057387be38a77bb6&#34;&gt;custom wrapper&lt;/h3&gt;
+
+&lt;p&gt;Soon after starting my search I came up with an awesome idea. Why not just build my own, back-end agnostic, wrapper. Then provide an abstract Logger interface which the user can extend with the underlying logging back end. This would be both flexible and let me make my own beautiful api.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;log::error &amp;lt;&amp;lt; &amp;quot;this is a test&amp;quot; &amp;lt;&amp;lt; 123;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;… just don’t do it. Doing it right is harder than it seems.&lt;/p&gt;
+
+&lt;h3 id=&#34;conclusion:152cb127836f237c057387be38a77bb6&#34;&gt;Conclusion&lt;/h3&gt;
+
+&lt;p&gt;I ended up going with log4cxx. In my opinion, it strikes a nice balance between flexibility and simplicity.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Libpq: PQexec Timeout</title>
+      <link>http://choly.ca/post/libpq-pqexec-timeout/</link>
+      <pubDate>Mon, 03 Dec 2012 11:40:51 -0400</pubDate>
+      
+      <guid>http://choly.ca/post/libpq-pqexec-timeout/</guid>
+      <description>
+
+&lt;h3 id=&#34;1-establish-the-connection:0329702290daea1eafdcde62845ff4eb&#34;&gt;1. Establish the connection&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;PGconn *pg_conn = PQconnect(&amp;quot;info&amp;quot;);
+
+// error check
+if (PQstatus(pg_conn) != CONNECTION_OK) throw &amp;quot;invalid connection&amp;quot;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;2-grab-the-socket-file-descriptor:0329702290daea1eafdcde62845ff4eb&#34;&gt;2. Grab the socket file descriptor&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;int socket_fd = PQsocket(pg_conn);
+
+// error check
+if (socket_fd &amp;lt; 0) throw &amp;quot;invalid socket&amp;quot;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;3-set-the-timeout:0329702290daea1eafdcde62845ff4eb&#34;&gt;3. Set the timeout&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;// 5 second timeout
+struct timeval timeout = { 5, 0 };
+
+// recv timeout
+int setopt_result_1 = setsockopt(
+    socket_fd,
+    SOL_SOCKET,
+    SO_RCVTIMEO,
+    (char *)&amp;amp;timeout,
+    sizeof(timeout)
+);
+
+// send timeout
+int setopt_result_2 = setsockopt(
+    socket_fd,
+    SOL_SOCKET,
+    SO_SNDTIMEO,
+    (char *)&amp;amp;timeout,
+    sizeof(timeout)
+);
+
+// error check
+if (setopt_result_1 &amp;lt; 0 || setopt_result_2 &amp;lt; 0) throw &amp;quot;failed to set timeout&amp;quot;;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Qt Creator &#43; Boost on Ubuntu 11.04</title>
+      <link>http://choly.ca/post/qt-creator-boost-on-ubuntu-1104/</link>
+      <pubDate>Mon, 26 Sep 2011 12:23:39 -0400</pubDate>
+      
+      <guid>http://choly.ca/post/qt-creator-boost-on-ubuntu-1104/</guid>
+      <description>
+
+&lt;h3 id=&#34;1-make-a-home-for-boost:21ea5238497d785cfa9a86ccbf905cd1&#34;&gt;1. make a home for boost&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;sudo mkdir -p /code/include
+sudo chown -R YOUR_USER_NAME /code
+cd /code/include
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;2-download-boost:21ea5238497d785cfa9a86ccbf905cd1&#34;&gt;2. download boost&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;sudo apt-get install subversion
+svn co http://svn.boost.org/svn/boost/trunk boost
+cd boost
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;3-compile-boost:21ea5238497d785cfa9a86ccbf905cd1&#34;&gt;3. compile boost&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;sudo ./bootstrap.sh
+sudo ./b2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;note:&lt;/strong&gt; this will take a while, go get some coffee.&lt;/p&gt;
+
+&lt;h3 id=&#34;4-include-in-qt-project:21ea5238497d785cfa9a86ccbf905cd1&#34;&gt;4. Include in qt project&lt;/h3&gt;
+
+&lt;p&gt;Add the following to your &lt;code&gt;.pro&lt;/code&gt; file.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;INCLUDEPATH += /code/include/
+LIBS += -L/code/include/boost/bin.v2/libs/ -lboost_system -lboost_filesystem -lboost_asio
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this example i&amp;rsquo;m linking &lt;code&gt;boost::filesystem&lt;/code&gt; and &lt;code&gt;boost::asio.&lt;/code&gt;
+&lt;code&gt;boost::system&lt;/code&gt; is required by other boost libraries but if you can compile without it, then trash it.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

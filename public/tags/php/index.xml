@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Php on Choly&#39;s Blog</title>
+    <link>http://choly.ca/tags/php/</link>
+    <description>Recent content in Php on Choly&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 15 Jul 2011 12:43:11 -0400</lastBuildDate>
+    <atom:link href="http://choly.ca/tags/php/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>JPProxy - tiny jsonp proxy</title>
+      <link>http://choly.ca/post/jpproxy/</link>
+      <pubDate>Fri, 15 Jul 2011 12:43:11 -0400</pubDate>
+      
+      <guid>http://choly.ca/post/jpproxy/</guid>
+      <description>
+
+&lt;p&gt;JPProxy is a very simple yet powerful JSONP script.
+It allows you to make ajax like requests to any page on a server that has the jpproxy.php script on it.
+I tried really hard to make it as simple and generic as possible so the source is tiny.&lt;/p&gt;
+
+&lt;h3 id=&#34;1-client:59f7effe42b887263ab6495ff80a0e4c&#34;&gt;1. Client&lt;/h3&gt;
+
+&lt;p&gt;A script tag is injected into the DOM and all the values are added to the url as GET parameters.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;callback_id&lt;/code&gt;: this gets sent back in the generated javascript to execute the correct callback&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;page&lt;/code&gt;: the page to retrieve&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;data&lt;/code&gt;: request parameters in json&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;script type=&#39;text/javascript&#39; src=&#39;http://server/jpproxy.php?callback_id=1&amp;amp;page=somepage.php&amp;amp;data={&amp;quot;key&amp;quot;:&amp;quot;value&amp;quot;}&#39;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;2-server:59f7effe42b887263ab6495ff80a0e4c&#34;&gt;2. Server&lt;/h3&gt;
+
+&lt;p&gt;The &lt;code&gt;$_GET[&amp;quot;data&amp;quot;]&lt;/code&gt; key/value pairs are assigned to &lt;code&gt;$_GET&lt;/code&gt; and &lt;code&gt;$_POST&lt;/code&gt; variables.
+Then the requested page is included as a script so it can use the GET and POST paramters the way it normaly would.
+Finally javascript is generated which passes the &lt;code&gt;callback_id&lt;/code&gt; and result data to the callback function&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+  echo &amp;quot;JPProxy.callback(&amp;quot; . $_GET[&amp;quot;callback_id&amp;quot;] .&amp;quot;,$result);&amp;quot;;
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;3-client:59f7effe42b887263ab6495ff80a0e4c&#34;&gt;3. Client&lt;/h3&gt;
+
+&lt;p&gt;The generated javascript get&amp;rsquo;s executed and your callback function is called with the response data.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Senario:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;we have a page on &lt;a href=&#34;http://server1.com&#34;&gt;http://server1.com&lt;/a&gt; and we want the page to grab &lt;a href=&#34;http://server2.com/path/data.php&#34;&gt;http://server2.com/path/data.php&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Drop jpproxy.php in the root directory ( &lt;a href=&#34;http://server2.com/jpproxy.php&#34;&gt;http://server2.com/jpproxy.php&lt;/a&gt; )&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Example Client Code:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//callback to handle the data once it arrives
+function mycallback(data){
+    console.log(data);
+}
+
+//POST and GET parameter passed to data.php
+var parameters = {
+    foo: &amp;quot;bar&amp;quot;,
+    bar: &amp;quot;poop&amp;quot;,
+}
+
+//set the proxy location
+JPProxy.setProxy(&amp;quot;http://server2.com/jpproxy.php&amp;quot;);
+
+//note: the page&#39;s path must be relative to jpproxy.php
+JPProxy.post(&amp;quot;path/data.php&amp;quot;, parameters, mycallback);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;source:59f7effe42b887263ab6495ff80a0e4c&#34;&gt;Source:&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;jpproxy.js&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var JPProxy = {
+    request_id: 0,
+    callbacks: [],
+    scripts: [],
+    proxy: null,
+    setProxy: function(proxy){
+        this.proxy = proxy;
+    },
+    callback: function(id,data){
+        this.callbacks[id](data);
+        document.body.removeChild(this.scripts[id]);
+        delete this.callbacks[id];
+        delete this.scripts[id];
+    },
+    get: function(page,data,callback){
+        this.callbacks[++this.request_id] = callback;
+        var script = document.createElement(&#39;script&#39;);
+        var src = this.proxy + &#39;?page=&#39; + encodeURIComponent(page) + &#39;&amp;amp;callback_id=&#39;;
+        src += this.request_id.toString() + &#39;&amp;amp;data=&#39; + encodeURIComponent(JSON.stringify(data));
+        script.setAttribute(&#39;type&#39;, &#39;text/javascript&#39;);
+        script.setAttribute(&#39;src&#39;,src)
+        this.scripts[this.request_id] = script;
+        document.body.appendChild(script);
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;jpproxy.php&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+ob_start();
+$data = json_decode($_GET[&amp;quot;data&amp;quot;]);
+$obj = &amp;quot;null&amp;quot;;
+if ($data &amp;amp;&amp;amp; is_object($data) &amp;amp;&amp;amp; is_file($_GET[&amp;quot;page&amp;quot;])) {
+    foreach ($data as $key =&amp;gt; $value) { $_GET[$key] =&amp;gt; $_POST[$key] = $value; }
+    require $_GET[&amp;quot;page&amp;quot;];
+    $obj = json_encode(ob_get_clean());
+}
+echo &amp;quot;JPProxy.callback(&amp;quot; . $_GET[&amp;quot;callback_id&amp;quot;] . &amp;quot;, $obj);&amp;quot;;
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

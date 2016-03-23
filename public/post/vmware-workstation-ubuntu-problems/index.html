@@ -1,0 +1,109 @@
+	<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.15" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title> VMware Workstation Ubuntu problems &middot; Choly&#39;s Blog </title>
+
+  
+  <link rel="stylesheet" href="http://choly.ca/css/poole.css">
+  <link rel="stylesheet" href="http://choly.ca/css/syntax.css">
+  <link rel="stylesheet" href="http://choly.ca/css/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link rel="stylesheet" href="http://choly.ca/styles/github.css">
+  <script src="http://choly.ca/scripts/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-36797023-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="Choly&#39;s Blog" />
+</head>
+
+	<body class="">
+		<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="http://choly.ca/"><h1>Choly&#39;s Blog</h1></a>
+      <p class="lead">
+       Documented Procrastination 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><a href="/">Home</a> </li>
+      
+        <li><a href="https://github.com/icholy"> Github </a></li>
+      
+        <li><a href="http://stackoverflow.com/users/215969/ilia-choly"> Stack Overflow </a></li>
+      
+        <li><a href="https://twitter.com/icholy"> Twitter </a></li>
+      
+    </ul>
+
+    <p>&copy; 2016. All rights reserved. </p>
+  </div>
+</div>
+
+
+		<div class="content container">
+			<div class="post">
+			 	<h1>VMware Workstation Ubuntu problems</h1>
+			  <span class="post-date">Sun, Oct 16, 2011</span>
+			      <p>I just tried starting up vmware workstation and was greeted with a message saying it needed to compile some modules and then went on to fail this step no matter what. This is an issue I&rsquo;ve encountered before on Ubuntu 11.04 and now on 11.10.</p>
+
+<p>This is a bug with all v7.x of workstation and can be fixed with a simple patch I found today at <a href="http://weltall.heliohost.org/wordpress/2011/05/14/running-vmware-workstation-player-on-linux-2-6-39-updated/">http://weltall.heliohost.org/wordpress/2011/05/14/running-vmware-workstation-player-on-linux-2-6-39-updated/</a></p>
+
+<p>How to use it:</p>
+
+<pre><code class="language-sh">mkdir ~/Downloads/patchv3
+cd ~/Downloads/patchv3/
+wget http://weltall.heliohost.org/wordpress/wp-content/uploads/2011/05/vmware2.6.39patchv3.tar.bz2
+tar -xvf vmware2.6.39patchv3.tar.bz2
+chmod +x patch-modules_2.6.39.sh
+sudo ./patch-modules_2.6.39.sh
+</code></pre>
+
+			</div>
+
+			
+				<h2>Comments</h2>
+				<div id="disqus_thread"></div>
+<script type="text/javascript">
+     
+    var disqus_shortname = 'choly'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+			
+		</div>
+
+  </body>
+</html>
