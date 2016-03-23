@@ -59,9 +59,9 @@ A better way would be to have something called a `ListenerGroup`. Here's how it 
 ``` js
 function MyController($scope, $rootScope) {
   let listeners = ListenerGroup.for($rootScope);
-  listeners.$on('thisHappened', () => console.log('this happened'));
-  listeners.$on('thatHappened', () => console.log('that happened'));
-  listeners.$on('errorHappened', () => console.log('error happened'));
+  listeners.$on('thisHappened', () => console.log('this'));
+  listeners.$on('thatHappened', () => console.log('that'));
+  listeners.$on('errorHappened', () => console.log('error'));
   $scope.$on('$destroy', () => listeners.unbind());
 }
 ```
@@ -72,9 +72,9 @@ I'm not too sure about this, because it's not apparent what `link` does and it d
 ``` js
 function MyController($scope, $rootScope) {
   let listeners = ListenerGroup.for($rootScope);
-  listeners.$on('thisHappened', () => console.log('this happened'));
-  listeners.$on('thatHappened', () => console.log('that happened'));
-  listeners.$on('errorHappened', () => console.log('error happened'));
+  listeners.$on('thisHappened', () => console.log('this'));
+  listeners.$on('thatHappened', () => console.log('that'));
+  listeners.$on('errorHappened', () => console.log('error'));
   listeners.link($scope);
 }
 ```
@@ -95,11 +95,8 @@ class ListenerGroup {
   }
 
   unbind() {
-    let unbinds = this._unbinds;
-    let length = unbinds.length;
-    this._unbinds = [];
-    for (let i = 0; i < length; i++) {
-      unbinds[i]();
+    for (let unbind of this._unbinds) {
+      unbind();
     }
   }
 
