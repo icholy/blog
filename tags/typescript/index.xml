@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Typescript on Choly&#39;s Blog</title>
+    <link>http://choly.ca/tags/typescript/</link>
+    <description>Recent content in Typescript on Choly&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 31 Mar 2015 10:17:00 -0400</lastBuildDate>
+    <atom:link href="http://choly.ca/tags/typescript/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>TypeScript completion in Vim</title>
+      <link>http://choly.ca/post/typescript-vim-completion/</link>
+      <pubDate>Tue, 31 Mar 2015 10:17:00 -0400</pubDate>
+      
+      <guid>http://choly.ca/post/typescript-vim-completion/</guid>
+      <description>
+
+&lt;p&gt;One of the main advantages of using static types is that you get much better support from your tools.
+I recently got &lt;a href=&#34;http://www.typescriptlang.org/&#34;&gt;TypeScript&lt;/a&gt; auto-completion working in vim and I&amp;rsquo;m documenting how to do it here.&lt;/p&gt;
+
+&lt;h3 id=&#34;demo:64b30b8b2e08341a9b15dc03bd4e80cd&#34;&gt;Demo:&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://choly.ca/images/typescript-vim-completion.gif&#34; alt=&#34;demo&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;1-install-tss:64b30b8b2e08341a9b15dc03bd4e80cd&#34;&gt;1. Install TSS&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;git clone https://github.com/clausreinke/typescript-tools.git
+cd typescript-tools
+git checkout testing_ts1.4
+sudo npm install -g
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;2-install-vim-plugin:64b30b8b2e08341a9b15dc03bd4e80cd&#34;&gt;2. Install Vim Plugin&lt;/h3&gt;
+
+&lt;p&gt;I&amp;rsquo;m using &lt;a href=&#34;https://github.com/gmarik/Vundle.vim&#34;&gt;Vundle&lt;/a&gt; to manage my plugins.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;Bundle &amp;quot;icholy/typescript-tools.git&amp;quot;
+au BufRead,BufNewFile *.ts  setlocal filetype=typescript
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;3-install-tsd:64b30b8b2e08341a9b15dc03bd4e80cd&#34;&gt;3. Install TSD&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;sudo npm install tsd@next -g
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;4-create-project:64b30b8b2e08341a9b15dc03bd4e80cd&#34;&gt;4. Create Project&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;mkdir project
+cd project
+tsd init
+
+tsd install jquery --save
+tsd install angularjs --save
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;5-create-tsconfig-json:64b30b8b2e08341a9b15dc03bd4e80cd&#34;&gt;5. Create &lt;code&gt;tsconfig.json&lt;/code&gt;&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+  &amp;quot;compilerOptions&amp;quot;: {
+    &amp;quot;target&amp;quot;: &amp;quot;es5&amp;quot;,
+    &amp;quot;noImplicitAny&amp;quot;: false,
+  },
+  &amp;quot;files&amp;quot;: [
+    &amp;quot;typings/tsd.d.ts&amp;quot;,
+
+    &amp;quot;all.ts&amp;quot;, &amp;quot;your.ts&amp;quot;,
+    &amp;quot;other.ts&amp;quot;, &amp;quot;files.ts&amp;quot;
+  ]
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;6-start-tss-in-vim:64b30b8b2e08341a9b15dc03bd4e80cd&#34;&gt;6. Start TSS in vim&lt;/h3&gt;
+
+&lt;p&gt;Make sure you&amp;rsquo;re cwd is somewhere in the directory containing &lt;code&gt;tsconfig.json&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;:TSSstart
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You might get some errors, but it should still work.&lt;/p&gt;
+
+&lt;h3 id=&#34;7-optional-making-it-work-with-youcompleteme-https-github-com-valloric-youcompleteme:64b30b8b2e08341a9b15dc03bd4e80cd&#34;&gt;7. (Optional) Making it work with &lt;a href=&#34;https://github.com/Valloric/YouCompleteMe&#34;&gt;YouCompleteMe&lt;/a&gt;&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;if !exists(&amp;quot;g:ycm_semantic_triggers&amp;quot;)
+   let g:ycm_semantic_triggers = {}
+endif
+let g:ycm_semantic_triggers[&#39;typescript&#39;] = [&#39;.&#39;]
+set completeopt-=preview
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,169 @@
+	<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.15" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title> TypeScript completion in Vim &middot; Choly&#39;s Blog </title>
+
+  
+  <link rel="stylesheet" href="http://choly.ca/css/poole.css">
+  <link rel="stylesheet" href="http://choly.ca/css/syntax.css">
+  <link rel="stylesheet" href="http://choly.ca/css/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link rel="stylesheet" href="http://choly.ca/styles/github.css">
+  <script src="http://choly.ca/scripts/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-36797023-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="Choly&#39;s Blog" />
+</head>
+
+	<body class="">
+		<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="http://choly.ca/"><h1>Choly&#39;s Blog</h1></a>
+      <p class="lead">
+       Documented Procrastination 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><a href="/">Home</a> </li>
+      
+        <li><a href="https://github.com/icholy"> Github </a></li>
+      
+        <li><a href="http://stackoverflow.com/users/215969/ilia-choly"> Stack Overflow </a></li>
+      
+        <li><a href="https://twitter.com/icholy"> Twitter </a></li>
+      
+    </ul>
+
+    <p>&copy; 2016. All rights reserved. </p>
+  </div>
+</div>
+
+
+		<div class="content container">
+			<div class="post">
+			 	<h1>TypeScript completion in Vim</h1>
+			  <span class="post-date">Tue, Mar 31, 2015</span>
+			      
+
+<p>One of the main advantages of using static types is that you get much better support from your tools.
+I recently got <a href="http://www.typescriptlang.org/">TypeScript</a> auto-completion working in vim and I&rsquo;m documenting how to do it here.</p>
+
+<h3 id="demo:64b30b8b2e08341a9b15dc03bd4e80cd">Demo:</h3>
+
+<p><img src="/images/typescript-vim-completion.gif" alt="demo" /></p>
+
+<h3 id="1-install-tss:64b30b8b2e08341a9b15dc03bd4e80cd">1. Install TSS</h3>
+
+<pre><code class="language-sh">git clone https://github.com/clausreinke/typescript-tools.git
+cd typescript-tools
+git checkout testing_ts1.4
+sudo npm install -g
+</code></pre>
+
+<h3 id="2-install-vim-plugin:64b30b8b2e08341a9b15dc03bd4e80cd">2. Install Vim Plugin</h3>
+
+<p>I&rsquo;m using <a href="https://github.com/gmarik/Vundle.vim">Vundle</a> to manage my plugins.</p>
+
+<pre><code class="language-vim">Bundle &quot;icholy/typescript-tools.git&quot;
+au BufRead,BufNewFile *.ts  setlocal filetype=typescript
+</code></pre>
+
+<h3 id="3-install-tsd:64b30b8b2e08341a9b15dc03bd4e80cd">3. Install TSD</h3>
+
+<pre><code class="language-sh">sudo npm install tsd@next -g
+</code></pre>
+
+<h3 id="4-create-project:64b30b8b2e08341a9b15dc03bd4e80cd">4. Create Project</h3>
+
+<pre><code class="language-sh">mkdir project
+cd project
+tsd init
+
+tsd install jquery --save
+tsd install angularjs --save
+</code></pre>
+
+<h3 id="5-create-tsconfig-json:64b30b8b2e08341a9b15dc03bd4e80cd">5. Create <code>tsconfig.json</code></h3>
+
+<pre><code class="language-json">{
+  &quot;compilerOptions&quot;: {
+    &quot;target&quot;: &quot;es5&quot;,
+    &quot;noImplicitAny&quot;: false,
+  },
+  &quot;files&quot;: [
+    &quot;typings/tsd.d.ts&quot;,
+
+    &quot;all.ts&quot;, &quot;your.ts&quot;,
+    &quot;other.ts&quot;, &quot;files.ts&quot;
+  ]
+}
+</code></pre>
+
+<h3 id="6-start-tss-in-vim:64b30b8b2e08341a9b15dc03bd4e80cd">6. Start TSS in vim</h3>
+
+<p>Make sure you&rsquo;re cwd is somewhere in the directory containing <code>tsconfig.json</code></p>
+
+<pre><code class="language-vim">:TSSstart
+</code></pre>
+
+<p>You might get some errors, but it should still work.</p>
+
+<h3 id="7-optional-making-it-work-with-youcompleteme-https-github-com-valloric-youcompleteme:64b30b8b2e08341a9b15dc03bd4e80cd">7. (Optional) Making it work with <a href="https://github.com/Valloric/YouCompleteMe">YouCompleteMe</a></h3>
+
+<pre><code class="language-vim">if !exists(&quot;g:ycm_semantic_triggers&quot;)
+   let g:ycm_semantic_triggers = {}
+endif
+let g:ycm_semantic_triggers['typescript'] = ['.']
+set completeopt-=preview
+</code></pre>
+
+			</div>
+
+			
+				<h2>Comments</h2>
+				<div id="disqus_thread"></div>
+<script type="text/javascript">
+     
+    var disqus_shortname = 'choly'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+			
+		</div>
+
+  </body>
+</html>

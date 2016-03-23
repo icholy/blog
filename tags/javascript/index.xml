@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Javascript on Choly&#39;s Blog</title>
+    <link>http://choly.ca/tags/javascript/</link>
+    <description>Recent content in Javascript on Choly&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 23 Mar 2016 10:06:22 -0400</lastBuildDate>
+    <atom:link href="http://choly.ca/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Angular Events</title>
+      <link>http://choly.ca/post/angular-events/</link>
+      <pubDate>Wed, 23 Mar 2016 10:06:22 -0400</pubDate>
+      
+      <guid>http://choly.ca/post/angular-events/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;ve been trying to find an elegant way of dealing with events in AngularJS recently.
+If you&amp;rsquo;re not farmiliar with Angular, that&amp;rsquo;s ok, this is a pretty common pattern.&lt;/p&gt;
+
+&lt;p&gt;Here I have a controller that registers an event listener:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function MyController($rootScope) {
+  $rootScope.$on(&#39;event1&#39;, () =&amp;gt; {
+    console.log(&#39;event 1 occured&#39;);
+  });
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There&amp;rsquo;s an issue with this code. It doesn&amp;rsquo;t unbind the listener when the controller (or its scope) is destroyed.
+Let&amp;rsquo;s take care of this.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function MyController($scope, $rootScope) {
+  let unbindEvent1 = $rootScope.$on(&#39;event1&#39;, () =&amp;gt; {
+    console.log(&#39;event 1 occured&#39;);
+  });
+  $scope.$on(&#39;$destroy&#39;, unbindEvent1);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is ok, but gets unwieldy when you have multiple listeners.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function MyController($scope, $rootScope) {
+  let unbindThisHappened = $rootScope.$on(&#39;thisHappened&#39;, () =&amp;gt; {
+    console.log(&#39;this happened&#39;);
+  });
+  let unbindThatHappened = $rootScope.$on(&#39;thatHappened&#39;, () =&amp;gt; {
+    console.log(&#39;that happened&#39;);
+  });
+  let unbindErrorHappened = $rootScope.$on(&#39;errorHappened&#39;, () =&amp;gt; {
+    console.log(&#39;error happened&#39;);
+  });
+  $scope.$on(&#39;$destroy&#39;, () =&amp;gt; {
+    unbindThisHappened();
+    unbindThatHappened();
+    unbindErrorHappened();
+  });
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;A better way would be to have something called a &lt;code&gt;ListenerGroup&lt;/code&gt;. Here&amp;rsquo;s how it would work.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function MyController($scope, $rootScope) {
+  let listeners = ListenerGroup.for($rootScope);
+  listeners.$on(&#39;thisHappened&#39;, () =&amp;gt; console.log(&#39;this&#39;));
+  listeners.$on(&#39;thatHappened&#39;, () =&amp;gt; console.log(&#39;that&#39;));
+  listeners.$on(&#39;errorHappened&#39;, () =&amp;gt; console.log(&#39;error&#39;));
+  $scope.$on(&#39;$destroy&#39;, () =&amp;gt; listeners.unbind());
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If the &lt;code&gt;ListenerGroup&lt;/code&gt; was made to be angular aware, you could even take it a step further.
+I&amp;rsquo;m not too sure about this, because it&amp;rsquo;s not apparent what &lt;code&gt;link&lt;/code&gt; does and it doesn&amp;rsquo;t really save that much typing.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function MyController($scope, $rootScope) {
+  let listeners = ListenerGroup.for($rootScope);
+  listeners.$on(&#39;thisHappened&#39;, () =&amp;gt; console.log(&#39;this&#39;));
+  listeners.$on(&#39;thatHappened&#39;, () =&amp;gt; console.log(&#39;that&#39;));
+  listeners.$on(&#39;errorHappened&#39;, () =&amp;gt; console.log(&#39;error&#39;));
+  listeners.link($scope);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Implementing &lt;code&gt;ListenerGroup&lt;/code&gt; is pretty simple.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;class ListenerGroup {
+
+  constructor($scope) {
+    this._unbinds = [];
+    this._scope = $scope;
+  }
+
+  $on(event, listener) {
+    let unbind = this._scope.$on(event, listener);
+    this._unbinds.push(unbind);
+  }
+
+  unbind() {
+    for (let unbind of this._unbinds) {
+      unbind();
+    }
+  }
+
+  link($scope) {
+    $scope.$on(&#39;$destroy&#39;, () =&amp;gt; this.unbind());
+  }
+
+  static for($scope) {
+    return new ListenerGroup($scope);
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>SWAPM: Code generation made easy.</title>
+      <link>http://choly.ca/post/swapm-code-generation-made-easy/</link>
+      <pubDate>Thu, 18 Oct 2012 12:02:06 -0400</pubDate>
+      
+      <guid>http://choly.ca/post/swapm-code-generation-made-easy/</guid>
+      <description>&lt;p&gt;I finally got around to reading the Pragmatic Programmer book. One thing that really interested me was the section on Code Generation. So in a recent C++ project I was interfacing with postgres and there was a LOT of code repetition. The sql query, class members, getters/setters, response parsing logic. They all contained the same information. Perfect I thought, here was the ideal chance to give code generation a shot. My first incarnation was a very ugly perl script (aren&amp;rsquo;t they all .. ?)  which used mustache as the templating engine. It worked, But I had to copy and paste the generated code into my source every time it changed which was a pain.&lt;/p&gt;
+
+&lt;p&gt;Here&amp;rsquo;s what I really wanted:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;have the generated code automatically be inserted into my source.&lt;/li&gt;
+&lt;li&gt;have an extemely simple templating language&lt;/li&gt;
+&lt;li&gt;solution for situations where simple templating wasn&amp;rsquo;t enough (computed properties).&lt;/li&gt;
+&lt;li&gt;separate my data from the templates&lt;/li&gt;
+&lt;li&gt;VERY easy to use.&lt;/li&gt;
+&lt;li&gt;VERY easy to integrate into existing projects.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I spent a decent amount of time googling but all I found was&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;cheetah: &lt;a href=&#34;http://www.cheetahtemplate.org/&#34;&gt;http://www.cheetahtemplate.org/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;cog: &lt;a href=&#34;http://nedbatchelder.com/code/cog/&#34;&gt;http://nedbatchelder.com/code/cog/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I didn&amp;rsquo;t like them though. Cheetah is too complicated and cog is too limited.&lt;/p&gt;
+
+&lt;p&gt;So I set off to make my own. &lt;a href=&#34;https://github.com/icholy/swapm&#34;&gt;https://github.com/icholy/swapm&lt;/a&gt; . I am using it in my projects with a very high level of satisfaction. I wrote it in javascript because node makes it portable, npm makes distribution painless, and I wanted support for having computed properties in my data.&lt;/p&gt;
+
+&lt;p&gt;Regarding the name, I&amp;rsquo;m not very creative and originally called it swap but that name was already taken on npm. So I renamed it to swapm pronounced &amp;ldquo;Swap-Em&amp;rdquo;.&lt;/p&gt;
+
+&lt;p&gt;** Note: ** It&amp;rsquo;s still very much a work in progress at the time of writing so use at your own risk of it eating your code. Github issues are always appreciated.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Ember.js with Brunch</title>
+      <link>http://choly.ca/post/emberjs-with-brunch/</link>
+      <pubDate>Thu, 07 Jun 2012 12:04:56 -0400</pubDate>
+      
+      <guid>http://choly.ca/post/emberjs-with-brunch/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;ve recently discovered the brilliant &lt;a href=&#34;http://emberjs.com/&#34;&gt;Ember.js&lt;/a&gt; library and the first major issue I ran into was how to organize/modularize this thing!? At first I just opted into &lt;a href=&#34;http://requirejs.org/&#34;&gt;RequireJs&lt;/a&gt; because that&amp;rsquo;s what I know but I started hitting walls fast. I decided to try out the &lt;a href=&#34;http://brunch.io/&#34;&gt;Brunch&lt;/a&gt; build system since I had heard good things about it before and this was a great opportunity to learn how to use it. Brunch uses skeletons which are essentially project templates to get rid of the boilerplate. Google search &amp;ldquo;ember brunch&amp;rdquo; and I found &lt;a href=&#34;https://github.com/charlesjolley/ember-brunch&#34;&gt;charlesjolley/ember-brunch&lt;/a&gt; perfect!&lt;/p&gt;
+
+&lt;p&gt;Unfortunately it hasn&amp;rsquo;t been kept up to date&amp;hellip; &lt;a href=&#34;https://github.com/charlesjolley/ember-brunch/issues/1&#34;&gt;Relevant Issue&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;If Charles wasn&amp;rsquo;t going to update it even after Paul (Brunch&amp;rsquo;s author) asked him to then it definitely wasn&amp;rsquo;t going to happen. So I was left with only one option, write my own &lt;a href=&#34;https://github.com/icholy/ember-brunch&#34;&gt;icholy/ember-brunch&lt;/a&gt;&lt;br /&gt;
+Paul was kind enough to include it on the brunch.io homepage. Once ember 1.0 is finally released I&amp;rsquo;ll restructure the skeleton to use the new Ember.Router and Ember.States.&lt;/p&gt;
+
+&lt;p&gt;It Includes:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Template compiling&lt;/li&gt;
+&lt;li&gt;CoffeeScript version (coffee branch)&lt;/li&gt;
+&lt;li&gt;Twitter Bootstrap (not a big deal but nice)&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>CoffeeScript</title>
+      <link>http://choly.ca/post/coffeescript/</link>
+      <pubDate>Sun, 07 Aug 2011 12:37:05 -0400</pubDate>
+      
+      <guid>http://choly.ca/post/coffeescript/</guid>
+      <description>&lt;p&gt;I just spent the last 5 hours learning CoffeeScript and I feel like I have pretty much everything down. My brain is kinda dead right now, but at the same time I&amp;rsquo;m pretty excited to actually try it in a real project. In case you don&amp;rsquo;t know CoffeeScript is a python-esque language which &amp;lsquo;compiles&amp;rsquo; into javascript. classes, list comprehension  inheritance, ranges, semantic code etc&amp;hellip;. dream come true. &lt;a href=&#34;http://jashkenas.github.com/coffee-script/&#34;&gt;http://jashkenas.github.com/coffee-script/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;One thing I was worried about was being able to use 3rd party libraries with it. It&amp;rsquo;s actually not different at all&amp;hellip; Once you figure it all out, you realize that it&amp;rsquo;s still the exact same js you&amp;rsquo;re working with and you can do just as much. It&amp;rsquo;s just a lot less shitty. Yes, the learning curve is balls, but it&amp;rsquo;s definitely worth it (i hope).&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;CoffeeScript:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-coffeescript&#34;&gt;cubes = (num * num for num in list)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Output&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var cubes, num;
+cubes = (function() {
+  var _i, _len, _results;
+  _results = [];
+  for (_i = 0, _len = list.length; _i &amp;lt; _len; _i++) {
+    num = list[_i];
+    _results.push(num * num);
+  }
+  return _results;
+})();
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Reloader - multi browser live web preview</title>
+      <link>http://choly.ca/post/reloader/</link>
+      <pubDate>Wed, 20 Jul 2011 12:40:37 -0400</pubDate>
+      
+      <guid>http://choly.ca/post/reloader/</guid>
+      <description>&lt;p&gt;I recently started developing on linux and unfortunately stylizer 5 does not support linux. So I&amp;rsquo;m back to using kate. However, one thing that I really missed right away was the instant preview feature. Having to go and refresh multiple browsers every time you change a line of code blows. I searched around for a bit and found a few tools but none of them were any good. I needed something that would work in multiple browsers at the same time and I couldn&amp;rsquo;t find anything to my liking so I wrote my own.&lt;/p&gt;
+
+&lt;p&gt;Reloader: &lt;a href=&#34;https://github.com/icholy/reloader&#34;&gt;https://github.com/icholy/reloader&lt;/a&gt; ( check wiki for basic tutorial )&lt;/p&gt;
+
+&lt;p&gt;Not the most inspired name, but it was free on google code so why not?&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;How It Works&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Basically it&amp;rsquo;s a small http server written in python. The javascript in the browser polls the server via jsonp and when a file is modified in the target directory, either a &amp;ldquo;refresh-css&amp;rdquo; or &amp;ldquo;refresh-page&amp;rdquo; command is sent.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Multi Browser&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The server uses cookies to distinguish between multiple browsers. This way it doesn&amp;rsquo;t send the same update command to the same browser twice.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Windows Support&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;m using the pyinotify python library to monitor the directory but it&amp;rsquo;s not cross platform. I used twisted-web to create the server so that&amp;rsquo;s completely portable. So i&amp;rsquo;m currently on the lookout for a pyinotify replacement.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>JPProxy - tiny jsonp proxy</title>
+      <link>http://choly.ca/post/jpproxy/</link>
+      <pubDate>Fri, 15 Jul 2011 12:43:11 -0400</pubDate>
+      
+      <guid>http://choly.ca/post/jpproxy/</guid>
+      <description>
+
+&lt;p&gt;JPProxy is a very simple yet powerful JSONP script.
+It allows you to make ajax like requests to any page on a server that has the jpproxy.php script on it.
+I tried really hard to make it as simple and generic as possible so the source is tiny.&lt;/p&gt;
+
+&lt;h3 id=&#34;1-client:59f7effe42b887263ab6495ff80a0e4c&#34;&gt;1. Client&lt;/h3&gt;
+
+&lt;p&gt;A script tag is injected into the DOM and all the values are added to the url as GET parameters.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;callback_id&lt;/code&gt;: this gets sent back in the generated javascript to execute the correct callback&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;page&lt;/code&gt;: the page to retrieve&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;data&lt;/code&gt;: request parameters in json&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;script type=&#39;text/javascript&#39; src=&#39;http://server/jpproxy.php?callback_id=1&amp;amp;page=somepage.php&amp;amp;data={&amp;quot;key&amp;quot;:&amp;quot;value&amp;quot;}&#39;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;2-server:59f7effe42b887263ab6495ff80a0e4c&#34;&gt;2. Server&lt;/h3&gt;
+
+&lt;p&gt;The &lt;code&gt;$_GET[&amp;quot;data&amp;quot;]&lt;/code&gt; key/value pairs are assigned to &lt;code&gt;$_GET&lt;/code&gt; and &lt;code&gt;$_POST&lt;/code&gt; variables.
+Then the requested page is included as a script so it can use the GET and POST paramters the way it normaly would.
+Finally javascript is generated which passes the &lt;code&gt;callback_id&lt;/code&gt; and result data to the callback function&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+  echo &amp;quot;JPProxy.callback(&amp;quot; . $_GET[&amp;quot;callback_id&amp;quot;] .&amp;quot;,$result);&amp;quot;;
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;3-client:59f7effe42b887263ab6495ff80a0e4c&#34;&gt;3. Client&lt;/h3&gt;
+
+&lt;p&gt;The generated javascript get&amp;rsquo;s executed and your callback function is called with the response data.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Senario:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;we have a page on &lt;a href=&#34;http://server1.com&#34;&gt;http://server1.com&lt;/a&gt; and we want the page to grab &lt;a href=&#34;http://server2.com/path/data.php&#34;&gt;http://server2.com/path/data.php&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Drop jpproxy.php in the root directory ( &lt;a href=&#34;http://server2.com/jpproxy.php&#34;&gt;http://server2.com/jpproxy.php&lt;/a&gt; )&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Example Client Code:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//callback to handle the data once it arrives
+function mycallback(data){
+    console.log(data);
+}
+
+//POST and GET parameter passed to data.php
+var parameters = {
+    foo: &amp;quot;bar&amp;quot;,
+    bar: &amp;quot;poop&amp;quot;,
+}
+
+//set the proxy location
+JPProxy.setProxy(&amp;quot;http://server2.com/jpproxy.php&amp;quot;);
+
+//note: the page&#39;s path must be relative to jpproxy.php
+JPProxy.post(&amp;quot;path/data.php&amp;quot;, parameters, mycallback);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;source:59f7effe42b887263ab6495ff80a0e4c&#34;&gt;Source:&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;jpproxy.js&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var JPProxy = {
+    request_id: 0,
+    callbacks: [],
+    scripts: [],
+    proxy: null,
+    setProxy: function(proxy){
+        this.proxy = proxy;
+    },
+    callback: function(id,data){
+        this.callbacks[id](data);
+        document.body.removeChild(this.scripts[id]);
+        delete this.callbacks[id];
+        delete this.scripts[id];
+    },
+    get: function(page,data,callback){
+        this.callbacks[++this.request_id] = callback;
+        var script = document.createElement(&#39;script&#39;);
+        var src = this.proxy + &#39;?page=&#39; + encodeURIComponent(page) + &#39;&amp;amp;callback_id=&#39;;
+        src += this.request_id.toString() + &#39;&amp;amp;data=&#39; + encodeURIComponent(JSON.stringify(data));
+        script.setAttribute(&#39;type&#39;, &#39;text/javascript&#39;);
+        script.setAttribute(&#39;src&#39;,src)
+        this.scripts[this.request_id] = script;
+        document.body.appendChild(script);
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;jpproxy.php&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+ob_start();
+$data = json_decode($_GET[&amp;quot;data&amp;quot;]);
+$obj = &amp;quot;null&amp;quot;;
+if ($data &amp;amp;&amp;amp; is_object($data) &amp;amp;&amp;amp; is_file($_GET[&amp;quot;page&amp;quot;])) {
+    foreach ($data as $key =&amp;gt; $value) { $_GET[$key] =&amp;gt; $_POST[$key] = $value; }
+    require $_GET[&amp;quot;page&amp;quot;];
+    $obj = json_encode(ob_get_clean());
+}
+echo &amp;quot;JPProxy.callback(&amp;quot; . $_GET[&amp;quot;callback_id&amp;quot;] . &amp;quot;, $obj);&amp;quot;;
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Emberjs on Choly&#39;s Blog</title>
+    <link>http://choly.ca/tags/emberjs/</link>
+    <description>Recent content in Emberjs on Choly&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 07 Jun 2012 12:04:56 -0400</lastBuildDate>
+    <atom:link href="http://choly.ca/tags/emberjs/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Ember.js with Brunch</title>
+      <link>http://choly.ca/post/emberjs-with-brunch/</link>
+      <pubDate>Thu, 07 Jun 2012 12:04:56 -0400</pubDate>
+      
+      <guid>http://choly.ca/post/emberjs-with-brunch/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;ve recently discovered the brilliant &lt;a href=&#34;http://emberjs.com/&#34;&gt;Ember.js&lt;/a&gt; library and the first major issue I ran into was how to organize/modularize this thing!? At first I just opted into &lt;a href=&#34;http://requirejs.org/&#34;&gt;RequireJs&lt;/a&gt; because that&amp;rsquo;s what I know but I started hitting walls fast. I decided to try out the &lt;a href=&#34;http://brunch.io/&#34;&gt;Brunch&lt;/a&gt; build system since I had heard good things about it before and this was a great opportunity to learn how to use it. Brunch uses skeletons which are essentially project templates to get rid of the boilerplate. Google search &amp;ldquo;ember brunch&amp;rdquo; and I found &lt;a href=&#34;https://github.com/charlesjolley/ember-brunch&#34;&gt;charlesjolley/ember-brunch&lt;/a&gt; perfect!&lt;/p&gt;
+
+&lt;p&gt;Unfortunately it hasn&amp;rsquo;t been kept up to date&amp;hellip; &lt;a href=&#34;https://github.com/charlesjolley/ember-brunch/issues/1&#34;&gt;Relevant Issue&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;If Charles wasn&amp;rsquo;t going to update it even after Paul (Brunch&amp;rsquo;s author) asked him to then it definitely wasn&amp;rsquo;t going to happen. So I was left with only one option, write my own &lt;a href=&#34;https://github.com/icholy/ember-brunch&#34;&gt;icholy/ember-brunch&lt;/a&gt;&lt;br /&gt;
+Paul was kind enough to include it on the brunch.io homepage. Once ember 1.0 is finally released I&amp;rsquo;ll restructure the skeleton to use the new Ember.Router and Ember.States.&lt;/p&gt;
+
+&lt;p&gt;It Includes:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Template compiling&lt;/li&gt;
+&lt;li&gt;CoffeeScript version (coffee branch)&lt;/li&gt;
+&lt;li&gt;Twitter Bootstrap (not a big deal but nice)&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
