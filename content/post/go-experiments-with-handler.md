@@ -1,9 +1,9 @@
 +++
 Categories = ["Development", "Go"]
 Description = ""
-Tags = ["Development", "go"]
+Tags = ["Development", "go", "http"]
 date = "2018-02-19T12:17:21-04:00"
-title = "Go: Experiments with http.Handler"
+title = "Go: Composable http.Handler"
 
 +++
 
