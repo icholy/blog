@@ -45,7 +45,7 @@ http.Handle("/foo", MyHandlerFunc(func(w http.ResponseWriter, r *http.Request) e
 ```
 
 Better, but what if we want to control the error status code? There could be a
-special `error` type that `MyHandleFunc` checks for.
+special `error` type that `MyHandlerFunc` checks for.
 
 ``` go
 type MyError struct {
