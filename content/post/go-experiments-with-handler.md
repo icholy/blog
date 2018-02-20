@@ -3,7 +3,7 @@ Categories = ["Development", "Go"]
 Description = ""
 Tags = ["Development", "go"]
 date = "2018-02-19T12:17:21-04:00"
-title = "Go: Experiments with the http.Handler"
+title = "Go: Experiments with http.Handler"
 
 +++
 
