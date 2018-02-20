@@ -7,7 +7,9 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 27 Oct 2011 12:10:52 -0400</lastBuildDate>
-    <atom:link href="http://choly.ca/tags/css/index.xml" rel="self" type="application/rss+xml" />
+    
+	<atom:link href="http://choly.ca/tags/css/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>CSS Compass Gradient Generator</title>
@@ -15,36 +17,9 @@
       <pubDate>Thu, 27 Oct 2011 12:10:52 -0400</pubDate>
       
       <guid>http://choly.ca/post/css-compass-gradient-generator/</guid>
-      <description>&lt;p&gt;This is a css gradient generator that i&amp;rsquo;ve been using for a while:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.colorzilla.com/gradient-editor/&#34;&gt;http://www.colorzilla.com/gradient-editor/&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;CSS Output&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;background: #1e5799; /* Old browsers */
-background: -moz-linear-gradient(top, #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(50%,#2989d8), color-stop(51%,#207cca), color-stop(100%,#7db9e8)); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* IE10+ */
-background: linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=&#39;#1e5799&#39;, endColorstr=&#39;#7db9e8&#39;,GradientType=0 ); /* IE6-9 */
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;However I just noticed the &lt;strong&gt;switch to scss&lt;/strong&gt; option!&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;SCSS Ouput&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scss&#34;&gt;@include filter-gradient(#1e5799, #7db9e8, horizontal);
-$experimental-support-for-svg: true;
-@include background-image(
-    linear-gradient(left, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%));
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This makes implementing complex cross-browser css gradients painless.&lt;/p&gt;
-</description>
+      <description>This is a css gradient generator that i&amp;rsquo;ve been using for a while:
+ http://www.colorzilla.com/gradient-editor/  CSS Output
+background: #1e5799; /* Old browsers */ background: -moz-linear-gradient(top, #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%); /* FF3.6+ */ background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(50%,#2989d8), color-stop(51%,#207cca), color-stop(100%,#7db9e8)); /* Chrome,Safari4+ */ background: -webkit-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* Chrome10+,Safari5.1+ */ background: -o-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* Opera 11.10+ */ background: -ms-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* IE10+ */ background: linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* W3C */ filter: progid:DXImageTransform.</description>
     </item>
     
     <item>
@@ -53,40 +28,7 @@ $experimental-support-for-svg: true;
       <pubDate>Tue, 20 Sep 2011 12:27:52 -0400</pubDate>
       
       <guid>http://choly.ca/post/compile-compassapp-on-ubuntu-1104/</guid>
-      <description>
-
-&lt;div class=&#34;embed video-player&#34;&gt;
-&lt;iframe class=&#34;youtube-player&#34; type=&#34;text/html&#34; width=&#34;640&#34; height=&#34;385&#34; src=&#34;http://www.youtube.com/embed/pFCYhy9N6co&#34; allowfullscreen frameborder=&#34;0&#34;&gt;
-&lt;/iframe&gt;
-&lt;/div&gt;
-
-
-&lt;h3 id=&#34;1-install-rvm:96f5e6898325627a5cb8fbeb8fcdf1b4&#34;&gt;1. Install RVM&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;bash &amp;lt; &amp;lt;(curl -s https://rvm.beginrescueend.com/install/rvm);
-echo &#39;if [[ -s &amp;quot;$HOME/.rvm/scripts/rvm&amp;quot; ]]  ; then source &amp;quot;$HOME/.rvm/scripts/rvm&amp;quot; ; fi&#39; &amp;gt; ~/.bashrc
-rvm install 1.9.2
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;2-install-jruby:96f5e6898325627a5cb8fbeb8fcdf1b4&#34;&gt;2. Install jRuby&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;rvm install jruby
-cd ~/.rvm/bin/jruby-1.6.4 -S gem install rawr
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;3-get-and-compile-compassapp:96f5e6898325627a5cb8fbeb8fcdf1b4&#34;&gt;3. Get and Compile CompassApp&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;git clone https://github.com/handlino/CompassApp.git
-cd CompassApp
-bin/build-all.sh
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;4-run-compassapp:96f5e6898325627a5cb8fbeb8fcdf1b4&#34;&gt;4. Run CompassApp&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;cd package/compass.app/
-./run.sh
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description> 1. Install RVM bash &amp;lt; &amp;lt;(curl -s https://rvm.beginrescueend.com/install/rvm); echo &#39;if [[ -s &amp;quot;$HOME/.rvm/scripts/rvm&amp;quot; ]] ; then source &amp;quot;$HOME/.rvm/scripts/rvm&amp;quot; ; fi&#39; &amp;gt; ~/.bashrc rvm install 1.9.2  2. Install jRuby rvm install jruby cd ~/.rvm/bin/jruby-1.6.4 -S gem install rawr  3. Get and Compile CompassApp git clone https://github.com/handlino/CompassApp.git cd CompassApp bin/build-all.sh  4. Run CompassApp cd package/compass.app/ ./run.sh  </description>
     </item>
     
     <item>
@@ -95,46 +37,9 @@ bin/build-all.sh
       <pubDate>Thu, 11 Aug 2011 12:34:59 -0400</pubDate>
       
       <guid>http://choly.ca/post/sass-compass-blueprint/</guid>
-      <description>&lt;p&gt;So I just realized that I hadn&amp;rsquo;t actually written anything about compass. Now I feel a little dumb about the title of the Formalize post but w.e shit happens. Anyway I&amp;rsquo;ll be talking about css in this post. I started using these a while back so I don&amp;rsquo;t really know why I haven&amp;rsquo;t posted anything about it. Better late than never.&lt;/p&gt;
-
-&lt;p&gt;Let&amp;rsquo;s start with SASS. Syntactically Awesome Style Sheet&lt;/p&gt;
-
-&lt;p&gt;well actually I&amp;rsquo;ll be talking about SCSS which is sass syntax which is more like css. Well actually it&amp;rsquo;s exactly like regular css except you can add way more stuff. but regular css is still valid scss. I&amp;rsquo;m not going to try to explain so here&amp;rsquo;s an example.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;SCSS:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scss&#34;&gt;$mycolor: blue;
-
-@mixin blue-bg($color) {
-    background-color: $color;
-}
-
-div#test {
-    width: 100px;
-    height: 100px;
-    @include blue-bg($mycolor);
-    a {
-        color: black;&#39;
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;Compiles into:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;div#test {
-    width: 100px;
-    height: 100px;
-    background-color: blue;
-}
-div#test a {
-    color: black;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;If you didn&amp;rsquo;t understand that then, well I don&amp;rsquo;t really care. The only reason I write these things is to procrastinate anyway. Actually I think I&amp;rsquo;ll cut off right here and continue later.&lt;/p&gt;
-
-&lt;p&gt;I said &amp;ldquo;Actually&amp;rdquo; too many times in this post. I wonder if I always do that &amp;hellip; ? :S&lt;/p&gt;
-</description>
+      <description>So I just realized that I hadn&amp;rsquo;t actually written anything about compass. Now I feel a little dumb about the title of the Formalize post but w.e shit happens. Anyway I&amp;rsquo;ll be talking about css in this post. I started using these a while back so I don&amp;rsquo;t really know why I haven&amp;rsquo;t posted anything about it. Better late than never.
+Let&amp;rsquo;s start with SASS. Syntactically Awesome Style Sheet
+well actually I&amp;rsquo;ll be talking about SCSS which is sass syntax which is more like css.</description>
     </item>
     
     <item>
@@ -143,8 +48,7 @@ div#test a {
       <pubDate>Fri, 05 Aug 2011 12:39:12 -0400</pubDate>
       
       <guid>http://choly.ca/post/formalize-compass/</guid>
-      <description>&lt;p&gt;I think forms and all things related ( inputs, buttons, etc&amp;hellip; ) are probably one of the more annoying things when building a website. They&amp;rsquo;re just not consistent and it takes a lot of effort to make them look decent. I spent some time looking for a tool to help me with this and I ended up with formalize which comes as a compass plugin and integrates with any web framework you&amp;rsquo;re using. &lt;a href=&#34;http://formalize.me/&#34;&gt;http://formalize.me/&lt;/a&gt; It actually didn&amp;rsquo;t jump out at me the first time around when I checked out the site. It didn&amp;rsquo;t &amp;lsquo;dazzel&amp;rsquo; me so I kept looking, but what I realized was that it shouldn&amp;rsquo;t stand out. It&amp;rsquo;s a form&amp;hellip; You don&amp;rsquo;t want it to be shiny with crazy animations. So I went back and used it for the project I&amp;rsquo;m currently working on. It was perfect&amp;hellip; enough said.&lt;/p&gt;
-</description>
+      <description>I think forms and all things related ( inputs, buttons, etc&amp;hellip; ) are probably one of the more annoying things when building a website. They&amp;rsquo;re just not consistent and it takes a lot of effort to make them look decent. I spent some time looking for a tool to help me with this and I ended up with formalize which comes as a compass plugin and integrates with any web framework you&amp;rsquo;re using.</description>
     </item>
     
     <item>
@@ -153,24 +57,7 @@ div#test a {
       <pubDate>Thu, 14 Jul 2011 12:55:01 -0400</pubDate>
       
       <guid>http://choly.ca/post/skybound-stylizer-5-css-editor/</guid>
-      <description>&lt;p&gt;Lets start with a little preface. Prior to finding Stylizer, I was completely happy using a regular text editor (gedit, notepad++) with firebug to do my css coding. I don&amp;rsquo;t really know how I found stylizer, or what motivated me to download it, but I am glad I did. Stylizer is, by far, the best css editor. I went on to try 10+ different editors in hopes of finding a free alternative and nothing even comes close. This is the first piece of software I bought a legitimate licence for and $80 is a lot for a broke ass student.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.skybound.ca/&#34;&gt;http://www.skybound.ca/&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The feature that really stands out is the live preview in 8 browsers. The cool thing is that it has a built in file watch system. So if you modify a loaded file in an external editor, it will instantly get reloaded in stylizer. This keeps me from having to hit refresh after every edit and that&amp;rsquo;s awesome. There&amp;rsquo;s no point in me rambling on about this thing, just go and download the trial and watch the demo vidoes. &lt;a href=&#34;http://www.skybound.ca/stylizer/videos/&#34;&gt;http://www.skybound.ca/stylizer/videos/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;There are three things that I have against stylizer.&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;The licence uses hwid to lock a key to a computer&lt;/li&gt;
-&lt;li&gt;There is no linux version or wine support&lt;/li&gt;
-&lt;li&gt;Bad things start happening when javascript gets involved.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;nevertheless, it&amp;rsquo;s still sweet and you need to go try it right now.&lt;/p&gt;
-</description>
+      <description>Lets start with a little preface. Prior to finding Stylizer, I was completely happy using a regular text editor (gedit, notepad++) with firebug to do my css coding. I don&amp;rsquo;t really know how I found stylizer, or what motivated me to download it, but I am glad I did. Stylizer is, by far, the best css editor. I went on to try 10+ different editors in hopes of finding a free alternative and nothing even comes close.</description>
     </item>
     
     <item>
@@ -179,40 +66,10 @@ div#test a {
       <pubDate>Thu, 14 Jul 2011 12:48:23 -0400</pubDate>
       
       <guid>http://choly.ca/post/absolutefudge-ie6-absolute-positioning/</guid>
-      <description>&lt;p&gt;I don&amp;rsquo;t know about you, but here is a snippet of css that I love.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;div#selector {
-   position: absolute;
-   left: 10px;
-   right: 10px;
-   top: 10px;
-   bottom: 10px;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;assuming that the parent element has either relative or absolute positioning, the child div will fit inside with a 10px margin. This is a very powerful technique for creating liquid css layouts.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Problem&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;The problem is, that ie doesn&amp;rsquo;t support giving values to all sides (top,bottom,left,right) so you were forced to have a separate stylesheet for ie with a static layout.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Say hello to absoluteFudge &lt;a href=&#34;http://www.nixsoft.co.uk/resources/absolutefudge.js&#34;&gt;http://www.nixsoft.co.uk/resources/absolutefudge.js&lt;/a&gt;
-backup: &lt;a href=&#34;http://pastebin.com/X4568XMR&#34;&gt;http://pastebin.com/X4568XMR&lt;/a&gt;
-It&amp;rsquo;s sweet, just run it in ie6 and all absolute positioning problems are fixed.&lt;/p&gt;
-
-&lt;p&gt;I use jquery to detect the browser&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;$(document).ready(function(){
-    if($.browser.msie &amp;amp;&amp;amp; $.browser.version==&amp;quot;6.0&amp;quot;){
-        AbsoluteFudge.apply($(&#39;body&#39;)[0], true, true);
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;that&amp;rsquo;s it, problem solved.&lt;/p&gt;
-</description>
+      <description>I don&amp;rsquo;t know about you, but here is a snippet of css that I love.
+div#selector { position: absolute; left: 10px; right: 10px; top: 10px; bottom: 10px; }  assuming that the parent element has either relative or absolute positioning, the child div will fit inside with a 10px margin. This is a very powerful technique for creating liquid css layouts.
+Problem
+The problem is, that ie doesn&amp;rsquo;t support giving values to all sides (top,bottom,left,right) so you were forced to have a separate stylesheet for ie with a static layout.</description>
     </item>
     
   </channel>

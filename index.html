@@ -3,7 +3,7 @@
 <head>
   <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.15" />
+  <meta name="generator" content="Hugo 0.36" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
@@ -35,9 +35,6 @@
     ga('send', 'pageview');
 
   </script>
-
-  
-  <link href="http://choly.ca/index.xml" rel="alternate" type="application/rss+xml" title="Choly&#39;s Blog" />
 </head>
 
 <body class=" ">
@@ -62,7 +59,7 @@
       
     </ul>
 
-    <p>&copy; 2016. All rights reserved. </p>
+    <p>&copy; 2018. All rights reserved. </p>
   </div>
 </div>
 
@@ -71,6 +68,161 @@
 <div class="posts">
 
       
+  <div class="post">
+    <h1 class="post-title">
+      <a href="http://choly.ca/post/go-experiments-with-handler/">
+        Go: Experiments with the http.Handler
+      </a>
+    </h1>
+
+    <span class="post-date">Mon, Feb 19, 2018</span>
+
+    <p>When using <code>net/http</code>, handling errors is kinda annoying.</p>
+
+<pre><code class="language-go">http.HandleFunc(&quot;/foo&quot;, func(w http.ResponseWriter, r *http.Request) {
+    thing, err := storage.Get(&quot;thing&quot;)
+    if err != nil {
+        http.Error(w, err.Error(), 500)
+        return
+    }
+    _ = json.NewEncoder(w).Encode(thing)
+})
+</code></pre>
+
+<p>Ideally, I could just return an error from the handler. Let&rsquo;s create a type to let that happen.</p>
+
+<pre><code class="language-go">type MyHandlerFunc func(w http.ResponseWriter, r *http.Request) error
+
+func (f MyHandlerFunc) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+    if err := f(w, r); err != nil {
+        http.Error(w, err.Error(), 500)
+    }
+}
+</code></pre>
+
+<p>Here&rsquo;s the previous code refactored to use the new handler.</p>
+
+<pre><code class="language-go">http.Handle(&quot;/foo&quot;, MyHandlerFunc(func(w http.ResponseWriter, r *http.Request) error {
+    thing, err := storage.Get(&quot;thing&quot;)
+    if err != nil {
+        return err
+    }
+    return json.NewEncoder(w).Encode(thing)
+}))
+</code></pre>
+
+<p>Better, but what if we want to control the error status code? There could be a
+special <code>error</code> type that <code>MyHandleFunc</code> checks for.</p>
+
+<pre><code class="language-go">type MyError struct {
+    Code int
+    Text string
+}
+
+func (e MyError) Error() string {
+    return fmt.Sprintf(&quot;%d: %s&quot;, e.Code, e.Text)
+}
+
+type MyHandlerFunc func(w http.ResponseWriter, r *http.Request) error
+
+func (f MyHandlerFunc) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+    if err := f(w, r); err != nil {
+        if e, ok := err.(MyError); ok {
+            http.Error(w, e.Text, e.Code)
+        } else {
+            http.Error(w, err.Error(), 500)
+        }
+    }
+}
+</code></pre>
+
+<p>Usage:</p>
+
+<pre><code class="language-go">http.Handle(&quot;/foo&quot;, MyHandlerFunc(func(w http.ResponseWriter, r *http.Request) error {
+    thing, err := storage.Get(&quot;thing&quot;)
+    if err != nil {
+        return MyError{Code: 400, Text: &quot;SomeError&quot;}
+    }
+    return json.NewEncoder(w).Encode(thing)
+}))
+</code></pre>
+
+<p>This is alright, but we can do better. Let&rsquo;s change the handler function signature so
+that it returns another http.Handler. This will give the returned object complete control
+over how it&rsquo;s handled.</p>
+
+<pre><code class="language-go">type MyHandlerFunc func(w http.ResponseWriter, r *http.Request) http.Handler
+
+func (f MyHandlerFunc) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+    if handler := f(w, r); handler != nil {
+        handler.ServeHTTP(w, r)
+    }
+}
+</code></pre>
+
+<p>With this in place, we can implement all kinds of interesting helpers.</p>
+
+<pre><code class="language-go">func WithStatus(code int, h http.Handler) http.Handler {
+    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+        w.WriteHeader(code)
+        h.ServeHTTP(w, r)
+    })
+}
+
+func Error(err error, code int) http.Handler {
+    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+        http.Error(w, err.Error(), code)
+    })
+}
+
+func JSON(v interface{}) http.Handler {
+    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+        _ = json.NewEncoder(w).Encode(v)
+    })
+}
+
+func Text(v interface{}) http.Handler {
+    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+        fmt.Fprint(w, v)
+    })
+}
+</code></pre>
+
+<p>Usage example:</p>
+
+<pre><code class="language-go">func GetThing(w http.ResponseWriter, r *http.Request) http.Handler {
+    thing, err := storage.Get(&quot;thing&quot;)
+    if err != nil {
+        return Error(err, 500)
+    }
+    return JSON(thing)
+}
+
+func DeleteThing(w http.ResponseWriter, r *http.Request) http.Handler {
+    if err := storage.Delete(&quot;thing&quot;); err != nil {
+        return Error(err, 400)
+    }
+    return Text(&quot;deleted thing&quot;)
+}
+
+func HandleThing(w http.ResponseWriter, r *http.Request) http.Handler {
+    switch r.Method {
+    case http.MethodGet:
+        return GetThing(w, r)
+    case http.MethodDelete:
+        return DeleteThing(w, r)
+    default:
+        return WithStatus(404, Text(&quot;not found&quot;))
+    }
+}
+
+http.Handle(&quot;/thing&quot;, MyHandlerFunc(HandleThing))
+</code></pre>
+
+<p>I think that&rsquo;s pretty clean looking.</p>
+
+  </div>
+  
   <div class="post">
     <h1 class="post-title">
       <a href="http://choly.ca/post/angular-events/">
@@ -489,21 +641,21 @@ interface UserJSON {
 <pre><code class="language-go">package main
 
 import (
-	&quot;encoding/json&quot;
-	&quot;os&quot;
-	&quot;time&quot;
+    &quot;encoding/json&quot;
+    &quot;os&quot;
+    &quot;time&quot;
 )
 
 type MyUser struct {
-	ID       int64     `json:&quot;id&quot;`
-	Name     string    `json:&quot;name&quot;`
-	LastSeen time.Time `json:&quot;lastSeen&quot;`
+    ID       int64     `json:&quot;id&quot;`
+    Name     string    `json:&quot;name&quot;`
+    LastSeen time.Time `json:&quot;lastSeen&quot;`
 }
 
 func main() {
-	_ = json.NewEncoder(os.Stdout).Encode(
-		&amp;MyUser{1, &quot;Ken&quot;, time.Now()},
-	)
+    _ = json.NewEncoder(os.Stdout).Encode(
+        &amp;MyUser{1, &quot;Ken&quot;, time.Now()},
+    )
 }
 </code></pre>
 
@@ -517,15 +669,15 @@ func main() {
 <p>The simple solution is to introduce another auxiliary <code>struct</code> and populate it with the correctly formatted values in the <code>MarshalJSON</code> method.</p>
 
 <pre><code class="language-go">func (u *MyUser) MarshalJSON() ([]byte, error) {
-	return json.Marshal(&amp;struct {
-		ID       int64  `json:&quot;id&quot;`
-		Name     string `json:&quot;name&quot;`
-		LastSeen int64  `json:&quot;lastSeen&quot;`
-	}{
-		ID:       u.ID,
-		Name:     u.Name,
-		LastSeen: u.LastSeen.Unix(),
-	})
+    return json.Marshal(&amp;struct {
+        ID       int64  `json:&quot;id&quot;`
+        Name     string `json:&quot;name&quot;`
+        LastSeen int64  `json:&quot;lastSeen&quot;`
+    }{
+        ID:       u.ID,
+        Name:     u.Name,
+        LastSeen: u.LastSeen.Unix(),
+    })
 }
 </code></pre>
 
@@ -533,45 +685,45 @@ func main() {
 It would be nice if we could embed the original <code>struct</code> into the auxiliary <code>struct</code> and have it inherit all the fields that do not need to be changed.</p>
 
 <pre><code class="language-go">func (u *MyUser) MarshalJSON() ([]byte, error) {
-	return json.Marshal(&amp;struct {
-		LastSeen int64 `json:&quot;lastSeen&quot;`
-		*MyUser
-	}{
-		LastSeen: u.LastSeen.Unix(),
-		MyUser:   u,
-	})
+    return json.Marshal(&amp;struct {
+        LastSeen int64 `json:&quot;lastSeen&quot;`
+        *MyUser
+    }{
+        LastSeen: u.LastSeen.Unix(),
+        MyUser:   u,
+    })
 }
 </code></pre>
 
 <p>The problem here is that the auxiliary <code>struct</code> will also inherit the original&rsquo;s <code>MarshalJSON</code> method, causing it to go into an infinite loop. The solution is to alias the original type. This alias will have all the same fields, but none of the methods.</p>
 
 <pre><code class="language-go">func (u *MyUser) MarshalJSON() ([]byte, error) {
-	type Alias MyUser
-	return json.Marshal(&amp;struct {
-		LastSeen int64 `json:&quot;lastSeen&quot;`
-		*Alias
-	}{
-		LastSeen: u.LastSeen.Unix(),
-		Alias:    (*Alias)(u),
-	})
+    type Alias MyUser
+    return json.Marshal(&amp;struct {
+        LastSeen int64 `json:&quot;lastSeen&quot;`
+        *Alias
+    }{
+        LastSeen: u.LastSeen.Unix(),
+        Alias:    (*Alias)(u),
+    })
 }
 </code></pre>
 
 <p>The same technique can be used for implementing an <code>UnmarshalJSON</code> method.</p>
 
 <pre><code class="language-go">func (u *MyUser) UnmarshalJSON(data []byte) error {
-	type Alias MyUser
-	aux := &amp;struct {
-		LastSeen int64 `json:&quot;lastSeen&quot;`
-		*Alias
-	}{
-		Alias: (*Alias)(u),
-	}
-	if err := json.Unmarshal(data, &amp;aux); err != nil {
-		return err
-	}
-	u.LastSeen = time.Unix(aux.LastSeen, 0)
-	return nil
+    type Alias MyUser
+    aux := &amp;struct {
+        LastSeen int64 `json:&quot;lastSeen&quot;`
+        *Alias
+    }{
+        Alias: (*Alias)(u),
+    }
+    if err := json.Unmarshal(data, &amp;aux); err != nil {
+        return err
+    }
+    u.LastSeen = time.Unix(aux.LastSeen, 0)
+    return nil
 }
 </code></pre>
 
@@ -591,11 +743,11 @@ It would be nice if we could embed the original <code>struct</code> into the aux
 <p>One of the main advantages of using static types is that you get much better support from your tools.
 I recently got <a href="http://www.typescriptlang.org/">TypeScript</a> auto-completion working in vim and I&rsquo;m documenting how to do it here.</p>
 
-<h3 id="demo:64b30b8b2e08341a9b15dc03bd4e80cd">Demo:</h3>
+<h3 id="demo">Demo:</h3>
 
 <p><img src="/images/typescript-vim-completion.gif" alt="demo" /></p>
 
-<h3 id="1-install-tss:64b30b8b2e08341a9b15dc03bd4e80cd">1. Install TSS</h3>
+<h3 id="1-install-tss">1. Install TSS</h3>
 
 <pre><code class="language-sh">git clone https://github.com/clausreinke/typescript-tools.git
 cd typescript-tools
@@ -603,7 +755,7 @@ git checkout testing_ts1.4
 sudo npm install -g
 </code></pre>
 
-<h3 id="2-install-vim-plugin:64b30b8b2e08341a9b15dc03bd4e80cd">2. Install Vim Plugin</h3>
+<h3 id="2-install-vim-plugin">2. Install Vim Plugin</h3>
 
 <p>I&rsquo;m using <a href="https://github.com/gmarik/Vundle.vim">Vundle</a> to manage my plugins.</p>
 
@@ -611,12 +763,12 @@ sudo npm install -g
 au BufRead,BufNewFile *.ts  setlocal filetype=typescript
 </code></pre>
 
-<h3 id="3-install-tsd:64b30b8b2e08341a9b15dc03bd4e80cd">3. Install TSD</h3>
+<h3 id="3-install-tsd">3. Install TSD</h3>
 
 <pre><code class="language-sh">sudo npm install tsd@next -g
 </code></pre>
 
-<h3 id="4-create-project:64b30b8b2e08341a9b15dc03bd4e80cd">4. Create Project</h3>
+<h3 id="4-create-project">4. Create Project</h3>
 
 <pre><code class="language-sh">mkdir project
 cd project
@@ -626,7 +778,7 @@ tsd install jquery --save
 tsd install angularjs --save
 </code></pre>
 
-<h3 id="5-create-tsconfig-json:64b30b8b2e08341a9b15dc03bd4e80cd">5. Create <code>tsconfig.json</code></h3>
+<h3 id="5-create-tsconfig-json">5. Create <code>tsconfig.json</code></h3>
 
 <pre><code class="language-json">{
   &quot;compilerOptions&quot;: {
@@ -642,7 +794,7 @@ tsd install angularjs --save
 }
 </code></pre>
 
-<h3 id="6-start-tss-in-vim:64b30b8b2e08341a9b15dc03bd4e80cd">6. Start TSS in vim</h3>
+<h3 id="6-start-tss-in-vim">6. Start TSS in vim</h3>
 
 <p>Make sure you&rsquo;re cwd is somewhere in the directory containing <code>tsconfig.json</code></p>
 
@@ -651,7 +803,7 @@ tsd install angularjs --save
 
 <p>You might get some errors, but it should still work.</p>
 
-<h3 id="7-optional-making-it-work-with-youcompleteme-https-github-com-valloric-youcompleteme:64b30b8b2e08341a9b15dc03bd4e80cd">7. (Optional) Making it work with <a href="https://github.com/Valloric/YouCompleteMe">YouCompleteMe</a></h3>
+<h3 id="7-optional-making-it-work-with-youcompleteme-https-github-com-valloric-youcompleteme">7. (Optional) Making it work with <a href="https://github.com/Valloric/YouCompleteMe">YouCompleteMe</a></h3>
 
 <pre><code class="language-vim">if !exists(&quot;g:ycm_semantic_triggers&quot;)
    let g:ycm_semantic_triggers = {}
@@ -675,9 +827,9 @@ set completeopt-=preview
 
 <pre><code class="language-man">&amp;pattern
 
-	Display only lines which match the pattern; lines which do not match the pattern are not displayed. If pattern is empty (if you type &amp; immediately followed by ENTER), any filtering is turned off, and all lines are displayed. While filtering is in effect, an ampersand is displayed at the beginning of the prompt, as a reminder that some lines in the file may be hidden.
+    Display only lines which match the pattern; lines which do not match the pattern are not displayed. If pattern is empty (if you type &amp; immediately followed by ENTER), any filtering is turned off, and all lines are displayed. While filtering is in effect, an ampersand is displayed at the beginning of the prompt, as a reminder that some lines in the file may be hidden.
 
-	Certain characters are special as in the / command:
+    Certain characters are special as in the / command:
 </code></pre>
 
 <p><strong>Activate:</strong> <code>&amp;pattern</code> hit enter<br />
@@ -830,12 +982,12 @@ inline int foo () {
 
 <p>Marks are a feature that I’ve never really used enough. Hopefully writing about them will change that for the better.</p>
 
-<h3 id="make-a-basic-file-local-mark-called-a:b62c94e34ca0c697068fe9e4a84a03e7">Make a basic, file local, mark called <code>a</code></h3>
+<h3 id="make-a-basic-file-local-mark-called-a">Make a basic, file local, mark called <code>a</code></h3>
 
 <pre><code class="language-vim">ma
 </code></pre>
 
-<h3 id="jump-back-to-that-mark:b62c94e34ca0c697068fe9e4a84a03e7">Jump back to that mark</h3>
+<h3 id="jump-back-to-that-mark">Jump back to that mark</h3>
 
 <pre><code class="language-vim">'a
 </code></pre>
@@ -905,7 +1057,7 @@ test
 
     
 
-<h3 id="vision:fb806aeb9a1b7d4b267cc27df3a0306f">Vision</h3>
+<h3 id="vision">Vision</h3>
 
 <p>Looking for a way to create a class which behaved like one of the <code>std::ostream</code> classes.</p>
 
@@ -914,7 +1066,7 @@ test
 obj &lt;&lt; &quot;foo&quot; &lt;&lt; 123 &lt;&lt; some_string.c_str();
 </code></pre>
 
-<h3 id="problem:fb806aeb9a1b7d4b267cc27df3a0306f">Problem</h3>
+<h3 id="problem">Problem</h3>
 
 <p>Implementing all those <code>operator&lt;&lt;</code> overloads would be redundant because something like <code>std::stringstream</code> already does it. However inheriting from <code>std::stringstream</code> is more complicated than it should be.</p>
 
@@ -923,7 +1075,7 @@ obj &lt;&lt; &quot;foo&quot; &lt;&lt; 123 &lt;&lt; some_string.c_str();
 };
 </code></pre>
 
-<h3 id="solution:fb806aeb9a1b7d4b267cc27df3a0306f">Solution</h3>
+<h3 id="solution">Solution</h3>
 
 <p>You can use a simple template to achive the desired effect.</p>
 
@@ -963,7 +1115,7 @@ obj &lt;&lt; &quot;foo&quot; &lt;&lt; 123 &lt;&lt; some_string.c_str();
 
 <p>I started googling and the following to be the most popular and mature.</p>
 
-<h3 id="glog:152cb127836f237c057387be38a77bb6">glog</h3>
+<h3 id="glog">glog</h3>
 
 <p><a href="http://code.google.com/p/google-glog/">homepage</a></p>
 
@@ -974,7 +1126,7 @@ obj &lt;&lt; &quot;foo&quot; &lt;&lt; 123 &lt;&lt; some_string.c_str();
 
 <p>If you need simple and robust logging in a standalone application then glog is the way to go. However if you’re using it in a library and want to let your users configure logging options, it starts getting problematic. You can only initialze glog once, so having your library set its own default can get more complicated than it should be.</p>
 
-<h3 id="boost-log:152cb127836f237c057387be38a77bb6">Boost.Log</h3>
+<h3 id="boost-log">Boost.Log</h3>
 
 <p><a href="http://boost-log.sourceforge.net/libs/log/doc/html/index.html">homepage</a></p>
 
@@ -985,7 +1137,7 @@ obj &lt;&lt; &quot;foo&quot; &lt;&lt; 123 &lt;&lt; some_string.c_str();
 
 <p>But if you want anything more, get ready to read a LOT of documentation. Boost.Log is more a framework to build your own logging library as opposed to a logging library in an of itself.</p>
 
-<h3 id="log4cxx:152cb127836f237c057387be38a77bb6">log4cxx</h3>
+<h3 id="log4cxx">log4cxx</h3>
 
 <p><a href="http://logging.apache.org/log4cxx/">homepage</a></p>
 
@@ -998,7 +1150,7 @@ LOG4CXX_INFO(logger, &quot;this is a test&quot; &lt;&lt; 123);
 
 <p>The advantage here is that you can configure the system anywhere. All loggers inherit from the root logger <code>log4cxx::Logger::getRootLogger()</code>. In my example, <code>bar</code> is <code>foo</code>’s parent. So any setting given to bar will be inherited by <code>foo</code>.</p>
 
-<h3 id="custom-wrapper:152cb127836f237c057387be38a77bb6">custom wrapper</h3>
+<h3 id="custom-wrapper">custom wrapper</h3>
 
 <p>Soon after starting my search I came up with an awesome idea. Why not just build my own, back-end agnostic, wrapper. Then provide an abstract Logger interface which the user can extend with the underlying logging back end. This would be both flexible and let me make my own beautiful api.</p>
 
@@ -1007,7 +1159,7 @@ LOG4CXX_INFO(logger, &quot;this is a test&quot; &lt;&lt; 123);
 
 <p>… just don’t do it. Doing it right is harder than it seems.</p>
 
-<h3 id="conclusion:152cb127836f237c057387be38a77bb6">Conclusion</h3>
+<h3 id="conclusion">Conclusion</h3>
 
 <p>I ended up going with log4cxx. In my opinion, it strikes a nice balance between flexibility and simplicity.</p>
 
@@ -1024,7 +1176,7 @@ LOG4CXX_INFO(logger, &quot;this is a test&quot; &lt;&lt; 123);
 
     
 
-<h3 id="1-establish-the-connection:0329702290daea1eafdcde62845ff4eb">1. Establish the connection</h3>
+<h3 id="1-establish-the-connection">1. Establish the connection</h3>
 
 <pre><code class="language-c">PGconn *pg_conn = PQconnect(&quot;info&quot;);
 
@@ -1032,7 +1184,7 @@ LOG4CXX_INFO(logger, &quot;this is a test&quot; &lt;&lt; 123);
 if (PQstatus(pg_conn) != CONNECTION_OK) throw &quot;invalid connection&quot;;
 </code></pre>
 
-<h3 id="2-grab-the-socket-file-descriptor:0329702290daea1eafdcde62845ff4eb">2. Grab the socket file descriptor</h3>
+<h3 id="2-grab-the-socket-file-descriptor">2. Grab the socket file descriptor</h3>
 
 <pre><code class="language-c">int socket_fd = PQsocket(pg_conn);
 
@@ -1040,7 +1192,7 @@ if (PQstatus(pg_conn) != CONNECTION_OK) throw &quot;invalid connection&quot;;
 if (socket_fd &lt; 0) throw &quot;invalid socket&quot;;
 </code></pre>
 
-<h3 id="3-set-the-timeout:0329702290daea1eafdcde62845ff4eb">3. Set the timeout</h3>
+<h3 id="3-set-the-timeout">3. Set the timeout</h3>
 
 <pre><code class="language-c">// 5 second timeout
 struct timeval timeout = { 5, 0 };
@@ -1258,11 +1410,11 @@ sudo ./patch-modules_2.6.39.sh
 </div>
 
 
-<h3 id="why:514a754768eee371246ec84e8584d938">Why?</h3>
+<h3 id="why">Why?</h3>
 
 <p>I have used Swing, WinForms, and GTK in the past and never really liked anything to do with GUI work. QML is the first time I&rsquo;m actually enjoying designing user interfaces and this results in a better end result. It feels a lot more like web development except without browser specific issues.</p>
 
-<h3 id="webkit:514a754768eee371246ec84e8584d938">WebKit</h3>
+<h3 id="webkit">WebKit</h3>
 
 <p>Speaking of browsers, WebView is a QML element which embeds QWebKit in your application and can be accessed within the markup itself with javascript! This is how you would embed a WebView</p>
 
@@ -1271,7 +1423,7 @@ sudo ./patch-modules_2.6.39.sh
 
 <p>that&rsquo;s it &hellip; you can access it in javascript through it&rsquo;s id property.</p>
 
-<h3 id="prediction:514a754768eee371246ec84e8584d938">Prediction</h3>
+<h3 id="prediction">Prediction</h3>
 
 <p>Assuming everything doesn&rsquo;t move to the web in the next few years, I think that QML is the future for GUI development.  It&rsquo;s simple, powerful and fun!</p>
 
@@ -1288,21 +1440,21 @@ sudo ./patch-modules_2.6.39.sh
 
     
 
-<h3 id="1-make-a-home-for-boost:21ea5238497d785cfa9a86ccbf905cd1">1. make a home for boost</h3>
+<h3 id="1-make-a-home-for-boost">1. make a home for boost</h3>
 
 <pre><code class="language-sh">sudo mkdir -p /code/include
 sudo chown -R YOUR_USER_NAME /code
 cd /code/include
 </code></pre>
 
-<h3 id="2-download-boost:21ea5238497d785cfa9a86ccbf905cd1">2. download boost</h3>
+<h3 id="2-download-boost">2. download boost</h3>
 
 <pre><code class="language-sh">sudo apt-get install subversion
 svn co http://svn.boost.org/svn/boost/trunk boost
 cd boost
 </code></pre>
 
-<h3 id="3-compile-boost:21ea5238497d785cfa9a86ccbf905cd1">3. compile boost</h3>
+<h3 id="3-compile-boost">3. compile boost</h3>
 
 <pre><code class="language-sh">sudo ./bootstrap.sh
 sudo ./b2
@@ -1310,7 +1462,7 @@ sudo ./b2
 
 <p><strong>note:</strong> this will take a while, go get some coffee.</p>
 
-<h3 id="4-include-in-qt-project:21ea5238497d785cfa9a86ccbf905cd1">4. Include in qt project</h3>
+<h3 id="4-include-in-qt-project">4. Include in qt project</h3>
 
 <p>Add the following to your <code>.pro</code> file.</p>
 
@@ -1340,27 +1492,27 @@ LIBS += -L/code/include/boost/bin.v2/libs/ -lboost_system -lboost_filesystem -lb
 </div>
 
 
-<h3 id="1-install-rvm:96f5e6898325627a5cb8fbeb8fcdf1b4">1. Install RVM</h3>
+<h3 id="1-install-rvm">1. Install RVM</h3>
 
 <pre><code class="language-sh">bash &lt; &lt;(curl -s https://rvm.beginrescueend.com/install/rvm);
 echo 'if [[ -s &quot;$HOME/.rvm/scripts/rvm&quot; ]]  ; then source &quot;$HOME/.rvm/scripts/rvm&quot; ; fi' &gt; ~/.bashrc
 rvm install 1.9.2
 </code></pre>
 
-<h3 id="2-install-jruby:96f5e6898325627a5cb8fbeb8fcdf1b4">2. Install jRuby</h3>
+<h3 id="2-install-jruby">2. Install jRuby</h3>
 
 <pre><code class="language-sh">rvm install jruby
 cd ~/.rvm/bin/jruby-1.6.4 -S gem install rawr
 </code></pre>
 
-<h3 id="3-get-and-compile-compassapp:96f5e6898325627a5cb8fbeb8fcdf1b4">3. Get and Compile CompassApp</h3>
+<h3 id="3-get-and-compile-compassapp">3. Get and Compile CompassApp</h3>
 
 <pre><code class="language-sh">git clone https://github.com/handlino/CompassApp.git
 cd CompassApp
 bin/build-all.sh
 </code></pre>
 
-<h3 id="4-run-compassapp:96f5e6898325627a5cb8fbeb8fcdf1b4">4. Run CompassApp</h3>
+<h3 id="4-run-compassapp">4. Run CompassApp</h3>
 
 <pre><code class="language-sh">cd package/compass.app/
 ./run.sh
@@ -1556,7 +1708,7 @@ cubes = (function() {
 It allows you to make ajax like requests to any page on a server that has the jpproxy.php script on it.
 I tried really hard to make it as simple and generic as possible so the source is tiny.</p>
 
-<h3 id="1-client:59f7effe42b887263ab6495ff80a0e4c">1. Client</h3>
+<h3 id="1-client">1. Client</h3>
 
 <p>A script tag is injected into the DOM and all the values are added to the url as GET parameters.</p>
 
@@ -1569,7 +1721,7 @@ I tried really hard to make it as simple and generic as possible so the source i
 <pre><code class="language-html">&lt;script type='text/javascript' src='http://server/jpproxy.php?callback_id=1&amp;page=somepage.php&amp;data={&quot;key&quot;:&quot;value&quot;}'&gt;
 </code></pre>
 
-<h3 id="2-server:59f7effe42b887263ab6495ff80a0e4c">2. Server</h3>
+<h3 id="2-server">2. Server</h3>
 
 <p>The <code>$_GET[&quot;data&quot;]</code> key/value pairs are assigned to <code>$_GET</code> and <code>$_POST</code> variables.
 Then the requested page is included as a script so it can use the GET and POST paramters the way it normaly would.
@@ -1580,7 +1732,7 @@ Finally javascript is generated which passes the <code>callback_id</code> and re
 ?&gt;
 </code></pre>
 
-<h3 id="3-client:59f7effe42b887263ab6495ff80a0e4c">3. Client</h3>
+<h3 id="3-client">3. Client</h3>
 
 <p>The generated javascript get&rsquo;s executed and your callback function is called with the response data.</p>
 
@@ -1610,7 +1762,7 @@ JPProxy.setProxy(&quot;http://server2.com/jpproxy.php&quot;);
 JPProxy.post(&quot;path/data.php&quot;, parameters, mycallback);
 </code></pre>
 
-<h3 id="source:59f7effe42b887263ab6495ff80a0e4c">Source:</h3>
+<h3 id="source">Source:</h3>
 
 <p><strong>jpproxy.js</strong></p>
 
@@ -1698,7 +1850,7 @@ echo &quot;JPProxy.callback(&quot; . $_GET[&quot;callback_id&quot;] . &quot;, $o
 
     
 
-<h3 id="senario:1ddfce0f2b7b0c03084018c4f79702a9">Senario:</h3>
+<h3 id="senario">Senario:</h3>
 
 <p>You&rsquo;re designing some type of user interface. Clients never know what they want (even when they think they do) so it&rsquo;s usually a good idea to come prepared with a basic design to go off. You quickly whip together something in photoshop and think you&rsquo;re good to go.</p>
 
@@ -1714,7 +1866,7 @@ echo &quot;JPProxy.callback(&quot; . $_GET[&quot;callback_id&quot;] . &quot;, $o
 
 <p><strong>Me:</strong> -_-</p>
 
-<h3 id="balsamiq:1ddfce0f2b7b0c03084018c4f79702a9">Balsamiq:</h3>
+<h3 id="balsamiq">Balsamiq:</h3>
 
 <p>So basically I need something that will prevent people from getting distracted by stupid details which always seems to happen. At the same time though, it still has to look appealing. Meet Balsamiq Mockups  <a href="http://balsamiq.com/products/mockups">http://balsamiq.com/products/mockups</a>. It&rsquo;s an air application and they have a live demo on the site. <a href="http://builds.balsamiq.com/b/mockups-web-demo/">http://builds.balsamiq.com/b/mockups-web-demo/</a>.</p>
 

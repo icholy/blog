@@ -7,7 +7,9 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 20 Sep 2011 12:27:52 -0400</lastBuildDate>
-    <atom:link href="http://choly.ca/tags/scss/index.xml" rel="self" type="application/rss+xml" />
+    
+	<atom:link href="http://choly.ca/tags/scss/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Compile CompassApp on Ubuntu 11.04</title>
@@ -15,40 +17,7 @@
       <pubDate>Tue, 20 Sep 2011 12:27:52 -0400</pubDate>
       
       <guid>http://choly.ca/post/compile-compassapp-on-ubuntu-1104/</guid>
-      <description>
-
-&lt;div class=&#34;embed video-player&#34;&gt;
-&lt;iframe class=&#34;youtube-player&#34; type=&#34;text/html&#34; width=&#34;640&#34; height=&#34;385&#34; src=&#34;http://www.youtube.com/embed/pFCYhy9N6co&#34; allowfullscreen frameborder=&#34;0&#34;&gt;
-&lt;/iframe&gt;
-&lt;/div&gt;
-
-
-&lt;h3 id=&#34;1-install-rvm:96f5e6898325627a5cb8fbeb8fcdf1b4&#34;&gt;1. Install RVM&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;bash &amp;lt; &amp;lt;(curl -s https://rvm.beginrescueend.com/install/rvm);
-echo &#39;if [[ -s &amp;quot;$HOME/.rvm/scripts/rvm&amp;quot; ]]  ; then source &amp;quot;$HOME/.rvm/scripts/rvm&amp;quot; ; fi&#39; &amp;gt; ~/.bashrc
-rvm install 1.9.2
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;2-install-jruby:96f5e6898325627a5cb8fbeb8fcdf1b4&#34;&gt;2. Install jRuby&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;rvm install jruby
-cd ~/.rvm/bin/jruby-1.6.4 -S gem install rawr
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;3-get-and-compile-compassapp:96f5e6898325627a5cb8fbeb8fcdf1b4&#34;&gt;3. Get and Compile CompassApp&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;git clone https://github.com/handlino/CompassApp.git
-cd CompassApp
-bin/build-all.sh
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;4-run-compassapp:96f5e6898325627a5cb8fbeb8fcdf1b4&#34;&gt;4. Run CompassApp&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;cd package/compass.app/
-./run.sh
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description> 1. Install RVM bash &amp;lt; &amp;lt;(curl -s https://rvm.beginrescueend.com/install/rvm); echo &#39;if [[ -s &amp;quot;$HOME/.rvm/scripts/rvm&amp;quot; ]] ; then source &amp;quot;$HOME/.rvm/scripts/rvm&amp;quot; ; fi&#39; &amp;gt; ~/.bashrc rvm install 1.9.2  2. Install jRuby rvm install jruby cd ~/.rvm/bin/jruby-1.6.4 -S gem install rawr  3. Get and Compile CompassApp git clone https://github.com/handlino/CompassApp.git cd CompassApp bin/build-all.sh  4. Run CompassApp cd package/compass.app/ ./run.sh  </description>
     </item>
     
     <item>
@@ -57,8 +26,7 @@ bin/build-all.sh
       <pubDate>Fri, 05 Aug 2011 12:39:12 -0400</pubDate>
       
       <guid>http://choly.ca/post/formalize-compass/</guid>
-      <description>&lt;p&gt;I think forms and all things related ( inputs, buttons, etc&amp;hellip; ) are probably one of the more annoying things when building a website. They&amp;rsquo;re just not consistent and it takes a lot of effort to make them look decent. I spent some time looking for a tool to help me with this and I ended up with formalize which comes as a compass plugin and integrates with any web framework you&amp;rsquo;re using. &lt;a href=&#34;http://formalize.me/&#34;&gt;http://formalize.me/&lt;/a&gt; It actually didn&amp;rsquo;t jump out at me the first time around when I checked out the site. It didn&amp;rsquo;t &amp;lsquo;dazzel&amp;rsquo; me so I kept looking, but what I realized was that it shouldn&amp;rsquo;t stand out. It&amp;rsquo;s a form&amp;hellip; You don&amp;rsquo;t want it to be shiny with crazy animations. So I went back and used it for the project I&amp;rsquo;m currently working on. It was perfect&amp;hellip; enough said.&lt;/p&gt;
-</description>
+      <description>I think forms and all things related ( inputs, buttons, etc&amp;hellip; ) are probably one of the more annoying things when building a website. They&amp;rsquo;re just not consistent and it takes a lot of effort to make them look decent. I spent some time looking for a tool to help me with this and I ended up with formalize which comes as a compass plugin and integrates with any web framework you&amp;rsquo;re using.</description>
     </item>
     
   </channel>

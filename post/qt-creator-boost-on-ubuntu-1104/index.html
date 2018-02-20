@@ -3,7 +3,7 @@
 <head>
   <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.15" />
+  <meta name="generator" content="Hugo 0.36" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
@@ -35,9 +35,6 @@
     ga('send', 'pageview');
 
   </script>
-
-  
-  <link href="" rel="alternate" type="application/rss+xml" title="Choly&#39;s Blog" />
 </head>
 
 	<body class="">
@@ -61,7 +58,7 @@
       
     </ul>
 
-    <p>&copy; 2016. All rights reserved. </p>
+    <p>&copy; 2018. All rights reserved. </p>
   </div>
 </div>
 
@@ -72,21 +69,21 @@
 			  <span class="post-date">Mon, Sep 26, 2011</span>
 			      
 
-<h3 id="1-make-a-home-for-boost:21ea5238497d785cfa9a86ccbf905cd1">1. make a home for boost</h3>
+<h3 id="1-make-a-home-for-boost">1. make a home for boost</h3>
 
 <pre><code class="language-sh">sudo mkdir -p /code/include
 sudo chown -R YOUR_USER_NAME /code
 cd /code/include
 </code></pre>
 
-<h3 id="2-download-boost:21ea5238497d785cfa9a86ccbf905cd1">2. download boost</h3>
+<h3 id="2-download-boost">2. download boost</h3>
 
 <pre><code class="language-sh">sudo apt-get install subversion
 svn co http://svn.boost.org/svn/boost/trunk boost
 cd boost
 </code></pre>
 
-<h3 id="3-compile-boost:21ea5238497d785cfa9a86ccbf905cd1">3. compile boost</h3>
+<h3 id="3-compile-boost">3. compile boost</h3>
 
 <pre><code class="language-sh">sudo ./bootstrap.sh
 sudo ./b2
@@ -94,7 +91,7 @@ sudo ./b2
 
 <p><strong>note:</strong> this will take a while, go get some coffee.</p>
 
-<h3 id="4-include-in-qt-project:21ea5238497d785cfa9a86ccbf905cd1">4. Include in qt project</h3>
+<h3 id="4-include-in-qt-project">4. Include in qt project</h3>
 
 <p>Add the following to your <code>.pro</code> file.</p>
 
@@ -107,22 +104,6 @@ LIBS += -L/code/include/boost/bin.v2/libs/ -lboost_system -lboost_filesystem -lb
 
 			</div>
 
-			
-				<h2>Comments</h2>
-				<div id="disqus_thread"></div>
-<script type="text/javascript">
-     
-    var disqus_shortname = 'choly'; 
-
-     
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
 			
 		</div>
 

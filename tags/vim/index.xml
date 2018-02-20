@@ -7,7 +7,9 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 07 Dec 2012 11:29:54 -0400</lastBuildDate>
-    <atom:link href="http://choly.ca/tags/vim/index.xml" rel="self" type="application/rss+xml" />
+    
+	<atom:link href="http://choly.ca/tags/vim/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Vim Marks</title>
@@ -15,72 +17,8 @@
       <pubDate>Fri, 07 Dec 2012 11:29:54 -0400</pubDate>
       
       <guid>http://choly.ca/post/vim-marks/</guid>
-      <description>
-
-&lt;p&gt;Marks are a feature that I’ve never really used enough. Hopefully writing about them will change that for the better.&lt;/p&gt;
-
-&lt;h3 id=&#34;make-a-basic-file-local-mark-called-a:b62c94e34ca0c697068fe9e4a84a03e7&#34;&gt;Make a basic, file local, mark called &lt;code&gt;a&lt;/code&gt;&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;ma
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;jump-back-to-that-mark:b62c94e34ca0c697068fe9e4a84a03e7&#34;&gt;Jump back to that mark&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;&#39;a
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now I try to be pragmatic. So use cases are what motivate me to learn new thing. I think that marks are a good replacement for a lot of the things I use visual line &lt;code&gt;V&lt;/code&gt; mode for now.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Editing&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Lets say a have some text&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;this
-is
-a
-test
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;I want to remove lines 2-3.&lt;/p&gt;
-
-&lt;p&gt;Currently I’ll jump into visual line mode, select the lines and then &lt;code&gt;d&lt;/code&gt; to delete them.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;Vjd
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;If I was going to do same thing with marks I’d set a mark on line 2 &lt;code&gt;ma&lt;/code&gt;, go down a line &lt;code&gt;j&lt;/code&gt;, go to the end of that line &lt;code&gt;$&lt;/code&gt;, and then delete &lt;code&gt;,&lt;/code&gt; go to the end of that line &lt;code&gt;$&lt;/code&gt;, and then delete everything back to the mark &lt;code&gt;d&#39;a&lt;/code&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;maj$d&#39;a
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;… not so great.&lt;/p&gt;
-
-&lt;p&gt;the best way would be &lt;code&gt;2dd&lt;/code&gt; to delete the 2 lines. I guess there’s no point trying to use marks for manipulating entire lines. They’re more usefull when you want to do more complicated motions where you’re not trying to grab the entire line. Or maybe when the content you are targetting is very large and visual mode would obscure the view. I’m lazy and don’t feel like coming up with examples for those situations. So next to another use case.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Jumping&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;I think marks are more important in the case of navigation than in editing. Before I say anything else, you need to know that there are 2 different types of marks: Local &lt;code&gt;abcde....&lt;/code&gt; and Global &lt;code&gt;ABCD....&lt;/code&gt; Local marks are local to the file they are defined in. If a mark &lt;code&gt;b&lt;/code&gt; exists in &lt;code&gt;file1&lt;/code&gt; and then you define mark &lt;code&gt;b&lt;/code&gt; in &lt;code&gt;file2&lt;/code&gt;, they can both exist oblivious to eachother. Global marks are shared across files.&lt;/p&gt;
-
-&lt;p&gt;A good usage would be when your trying to debug some C function and you’re always jumping between the usage, declaration, and definitions. You could just set global marks for those points.&lt;/p&gt;
-
-&lt;p&gt;Undo is a very awesome thing. But most of the time it’s only used for reverting changes made. What about movement? You know those times when you accidentally hit some key and your cursor jumps to a completely different part of the page? &lt;code&gt;&#39;&#39;&lt;/code&gt; is your friend. It’s a special mark that denotes the last place you jumped from. It will keep jumping back and forth between the last 2 locations you were.&lt;/p&gt;
-
-&lt;p&gt;But say you did something really retarded and need to go back 3 jumps? In that case you need to bust out &lt;code&gt;CTRL-O&lt;/code&gt; and his buddy &lt;code&gt;CTRL-I&lt;/code&gt;. These will navigate forward and backward through the jump history.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;CTRL-O&lt;/code&gt; and &lt;code&gt;CTRL-I&lt;/code&gt; are the undo and redo when it comes to movement.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Listing&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;listing doesn’t really make sense as a heading when the other two are taken into account, but w.e. The way you list all the marks (global and local) is with the &lt;code&gt;:marks&lt;/code&gt; command.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Last Mod&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;One last thing that you want to do is jump back to the last place you edited something. That’s what the &lt;code&gt;.&lt;/code&gt; mark is for. &lt;code&gt;.&#39;&lt;/code&gt; will take you back to your last edit location.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Line or Char?&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Ok so I left out a small tidbit of information, but it’s not that complicated. When you access a mark using &lt;code&gt;&#39;&lt;/code&gt; then you will jump to the beginning of the line where the mark was defined. If you want to jump to the exact character where the mark was created, then you need to use &lt;code&gt;`&lt;/code&gt;.&lt;/p&gt;
-</description>
+      <description>Marks are a feature that I’ve never really used enough. Hopefully writing about them will change that for the better.
+Make a basic, file local, mark called a ma  Jump back to that mark &#39;a  Now I try to be pragmatic. So use cases are what motivate me to learn new thing. I think that marks are a good replacement for a lot of the things I use visual line V mode for now.</description>
     </item>
     
     <item>
@@ -89,28 +27,8 @@ test
       <pubDate>Tue, 16 Oct 2012 12:17:21 -0400</pubDate>
       
       <guid>http://choly.ca/post/week-with-vim/</guid>
-      <description>&lt;p&gt;During the past week I&amp;rsquo;ve been learning to use Vim (gVim). Day 1 and 2 weren&amp;rsquo;t fun to say the least. But now I&amp;rsquo;m completely hooked. I&amp;rsquo;m the type of person who will sit there for hours customizing my development environment until I think it&amp;rsquo;s perfect. I&amp;rsquo;ve been playing with almost every cool plugin i can find (and wasting a lot of time in the process).&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://choly.ca/images/vim-cheatsheet.png&#34; alt=&#34;vim cheatsheet&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;So Vim is, without a doubt, the best text editor I&amp;rsquo;ve ever used. However, that&amp;rsquo;s all it is. It&amp;rsquo;s just a text editor and I know a lot people don&amp;rsquo;t agree with me on this one, but IDE&amp;rsquo;s do help. They just make everything better. Therefore the ultimate combination would be an ide with vim as the text editor.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Netbeans jVi&lt;/strong&gt; is the first thing I tried and it was far too limiting when you&amp;rsquo;re already used to Vim. I think this plugin would be good to someone who wished to add some Vim-like functionality to netbeans as opposed to making the netbeans text editor perfectly emulate vim7.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Vim (NerdTree, Sessions, OmniComplete w/ctags, etc..)&lt;/strong&gt; is what I tried next. I wanted to see if I could turn vim into a sort of IDE like setup with plugins. Although I can&amp;rsquo;t give any specific reasons why, I didn&amp;rsquo;t like it&amp;hellip;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;EClim (Vim + Eclipse):&lt;/strong&gt; I&amp;rsquo;m not a huge fan of eclipse because it&amp;rsquo;s just too slow. But after finding out about eclim I had to try it out. Basically you can either embed vim into eclipse, or have eclipse running as a daemon and vim connects to it. The results were very nice aside from one thing: it was slow which kind of defeats the purpose of vim.&lt;/p&gt;
-
-&lt;p&gt;So atm i&amp;rsquo;m still looking for the idea setup. One thing that I&amp;rsquo;ve really wanted to try was&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Visual Studio 2010&lt;/li&gt;
-&lt;li&gt;Visual Assist X&lt;/li&gt;
-&lt;li&gt;ViEmu&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Although ViEmu is just another emulator, the idea of using vim with visual assist x sounds incredible. However, this setup would have a serious implication &amp;hellip;. switching to windows. I don&amp;rsquo;t feel comfortable developing on a virtual machine so a dual boot might be in order.&lt;/p&gt;
-</description>
+      <description>During the past week I&amp;rsquo;ve been learning to use Vim (gVim). Day 1 and 2 weren&amp;rsquo;t fun to say the least. But now I&amp;rsquo;m completely hooked. I&amp;rsquo;m the type of person who will sit there for hours customizing my development environment until I think it&amp;rsquo;s perfect. I&amp;rsquo;ve been playing with almost every cool plugin i can find (and wasting a lot of time in the process).
+So Vim is, without a doubt, the best text editor I&amp;rsquo;ve ever used.</description>
     </item>
     
   </channel>
