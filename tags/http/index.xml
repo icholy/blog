@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Go on Choly&#39;s Blog</title>
-    <link>http://choly.ca/tags/go/</link>
-    <description>Recent content in Go on Choly&#39;s Blog</description>
+    <title>Http on Choly&#39;s Blog</title>
+    <link>http://choly.ca/tags/http/</link>
+    <description>Recent content in Http on Choly&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 19 Feb 2018 12:17:21 -0400</lastBuildDate>
     
-	<atom:link href="http://choly.ca/tags/go/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://choly.ca/tags/http/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
