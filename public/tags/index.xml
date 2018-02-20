@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Choly&#39;s Blog</title>
+    <link>http://choly.ca/tags/</link>
+    <description>Recent content in Tags on Choly&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 23 Mar 2016 10:06:22 -0400</lastBuildDate>
+    
+	<atom:link href="http://choly.ca/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Angularjs</title>
+      <link>http://choly.ca/tags/angularjs/</link>
+      <pubDate>Wed, 23 Mar 2016 10:06:22 -0400</pubDate>
+      
+      <guid>http://choly.ca/tags/angularjs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>C</title>
+      <link>http://choly.ca/tags/c/</link>
+      <pubDate>Mon, 03 Dec 2012 11:40:51 -0400</pubDate>
+      
+      <guid>http://choly.ca/tags/c/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Codegen</title>
+      <link>http://choly.ca/tags/codegen/</link>
+      <pubDate>Thu, 18 Oct 2012 12:02:06 -0400</pubDate>
+      
+      <guid>http://choly.ca/tags/codegen/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Coffeescript</title>
+      <link>http://choly.ca/tags/coffeescript/</link>
+      <pubDate>Sun, 07 Aug 2011 12:37:05 -0400</pubDate>
+      
+      <guid>http://choly.ca/tags/coffeescript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cpp</title>
+      <link>http://choly.ca/tags/cpp/</link>
+      <pubDate>Mon, 31 Dec 2012 11:26:44 -0400</pubDate>
+      
+      <guid>http://choly.ca/tags/cpp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Css</title>
+      <link>http://choly.ca/tags/css/</link>
+      <pubDate>Thu, 27 Oct 2011 12:10:52 -0400</pubDate>
+      
+      <guid>http://choly.ca/tags/css/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Development</title>
+      <link>http://choly.ca/tags/development/</link>
+      <pubDate>Mon, 19 Feb 2018 12:17:21 -0400</pubDate>
+      
+      <guid>http://choly.ca/tags/development/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Emberjs</title>
+      <link>http://choly.ca/tags/emberjs/</link>
+      <pubDate>Thu, 07 Jun 2012 12:04:56 -0400</pubDate>
+      
+      <guid>http://choly.ca/tags/emberjs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Go</title>
+      <link>http://choly.ca/tags/go/</link>
+      <pubDate>Mon, 19 Feb 2018 12:17:21 -0400</pubDate>
+      
+      <guid>http://choly.ca/tags/go/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Golang</title>
+      <link>http://choly.ca/tags/golang/</link>
+      <pubDate>Sat, 19 Mar 2016 15:41:44 -0400</pubDate>
+      
+      <guid>http://choly.ca/tags/golang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Javascript</title>
+      <link>http://choly.ca/tags/javascript/</link>
+      <pubDate>Wed, 23 Mar 2016 10:06:22 -0400</pubDate>
+      
+      <guid>http://choly.ca/tags/javascript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux</title>
+      <link>http://choly.ca/tags/linux/</link>
+      <pubDate>Mon, 31 Mar 2014 12:56:53 -0400</pubDate>
+      
+      <guid>http://choly.ca/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Php</title>
+      <link>http://choly.ca/tags/php/</link>
+      <pubDate>Fri, 15 Jul 2011 12:43:11 -0400</pubDate>
+      
+      <guid>http://choly.ca/tags/php/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Qml</title>
+      <link>http://choly.ca/tags/qml/</link>
+      <pubDate>Fri, 30 Sep 2011 12:20:44 -0400</pubDate>
+      
+      <guid>http://choly.ca/tags/qml/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Scss</title>
+      <link>http://choly.ca/tags/scss/</link>
+      <pubDate>Tue, 20 Sep 2011 12:27:52 -0400</pubDate>
+      
+      <guid>http://choly.ca/tags/scss/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Typescript</title>
+      <link>http://choly.ca/tags/typescript/</link>
+      <pubDate>Tue, 31 Mar 2015 10:17:00 -0400</pubDate>
+      
+      <guid>http://choly.ca/tags/typescript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Vim</title>
+      <link>http://choly.ca/tags/vim/</link>
+      <pubDate>Fri, 07 Dec 2012 11:29:54 -0400</pubDate>
+      
+      <guid>http://choly.ca/tags/vim/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Vmware</title>
+      <link>http://choly.ca/tags/vmware/</link>
+      <pubDate>Sun, 16 Oct 2011 12:14:52 -0400</pubDate>
+      
+      <guid>http://choly.ca/tags/vmware/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

@@ -7,7 +7,9 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 30 Sep 2011 12:20:44 -0400</lastBuildDate>
-    <atom:link href="http://choly.ca/tags/qml/index.xml" rel="self" type="application/rss+xml" />
+    
+	<atom:link href="http://choly.ca/tags/qml/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>QML is Awesome</title>
@@ -15,39 +17,10 @@
       <pubDate>Fri, 30 Sep 2011 12:20:44 -0400</pubDate>
       
       <guid>http://choly.ca/post/qml-is-awesome/</guid>
-      <description>
-
-&lt;p&gt;QML is Nokia&amp;rsquo;s recent addition to its well known Qt framework and comes part of the Qt Quick Suite&lt;/p&gt;
-
-&lt;p&gt;The way I describe it to people is:&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;it&amp;rsquo;s like html and css combined with the power of Qt in a extremely simple syntax.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;div class=&#34;embed video-player&#34;&gt;
-&lt;iframe class=&#34;youtube-player&#34; type=&#34;text/html&#34; width=&#34;640&#34; height=&#34;385&#34; src=&#34;http://www.youtube.com/embed/TN4RrBIft6A&#34; allowfullscreen frameborder=&#34;0&#34;&gt;
-&lt;/iframe&gt;
-&lt;/div&gt;
-
-
-&lt;h3 id=&#34;why:514a754768eee371246ec84e8584d938&#34;&gt;Why?&lt;/h3&gt;
-
-&lt;p&gt;I have used Swing, WinForms, and GTK in the past and never really liked anything to do with GUI work. QML is the first time I&amp;rsquo;m actually enjoying designing user interfaces and this results in a better end result. It feels a lot more like web development except without browser specific issues.&lt;/p&gt;
-
-&lt;h3 id=&#34;webkit:514a754768eee371246ec84e8584d938&#34;&gt;WebKit&lt;/h3&gt;
-
-&lt;p&gt;Speaking of browsers, WebView is a QML element which embeds QWebKit in your application and can be accessed within the markup itself with javascript! This is how you would embed a WebView&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-qml&#34;&gt;WebView { id: browser; url: &amp;quot;http://www.google.ca&amp;quot;; }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;that&amp;rsquo;s it &amp;hellip; you can access it in javascript through it&amp;rsquo;s id property.&lt;/p&gt;
-
-&lt;h3 id=&#34;prediction:514a754768eee371246ec84e8584d938&#34;&gt;Prediction&lt;/h3&gt;
-
-&lt;p&gt;Assuming everything doesn&amp;rsquo;t move to the web in the next few years, I think that QML is the future for GUI development.  It&amp;rsquo;s simple, powerful and fun!&lt;/p&gt;
-</description>
+      <description>QML is Nokia&amp;rsquo;s recent addition to its well known Qt framework and comes part of the Qt Quick Suite
+The way I describe it to people is:
+ it&amp;rsquo;s like html and css combined with the power of Qt in a extremely simple syntax.
+ Why? I have used Swing, WinForms, and GTK in the past and never really liked anything to do with GUI work. QML is the first time I&amp;rsquo;m actually enjoying designing user interfaces and this results in a better end result.</description>
     </item>
     
   </channel>

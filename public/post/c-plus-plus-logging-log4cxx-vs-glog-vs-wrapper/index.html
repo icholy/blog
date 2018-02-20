@@ -3,7 +3,7 @@
 <head>
   <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.15" />
+  <meta name="generator" content="Hugo 0.36" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
@@ -35,9 +35,6 @@
     ga('send', 'pageview');
 
   </script>
-
-  
-  <link href="" rel="alternate" type="application/rss+xml" title="Choly&#39;s Blog" />
 </head>
 
 	<body class="">
@@ -61,7 +58,7 @@
       
     </ul>
 
-    <p>&copy; 2016. All rights reserved. </p>
+    <p>&copy; 2018. All rights reserved. </p>
   </div>
 </div>
 
@@ -81,7 +78,7 @@
 
 <p>I started googling and the following to be the most popular and mature.</p>
 
-<h3 id="glog:152cb127836f237c057387be38a77bb6">glog</h3>
+<h3 id="glog">glog</h3>
 
 <p><a href="http://code.google.com/p/google-glog/">homepage</a></p>
 
@@ -92,7 +89,7 @@
 
 <p>If you need simple and robust logging in a standalone application then glog is the way to go. However if you’re using it in a library and want to let your users configure logging options, it starts getting problematic. You can only initialze glog once, so having your library set its own default can get more complicated than it should be.</p>
 
-<h3 id="boost-log:152cb127836f237c057387be38a77bb6">Boost.Log</h3>
+<h3 id="boost-log">Boost.Log</h3>
 
 <p><a href="http://boost-log.sourceforge.net/libs/log/doc/html/index.html">homepage</a></p>
 
@@ -103,7 +100,7 @@
 
 <p>But if you want anything more, get ready to read a LOT of documentation. Boost.Log is more a framework to build your own logging library as opposed to a logging library in an of itself.</p>
 
-<h3 id="log4cxx:152cb127836f237c057387be38a77bb6">log4cxx</h3>
+<h3 id="log4cxx">log4cxx</h3>
 
 <p><a href="http://logging.apache.org/log4cxx/">homepage</a></p>
 
@@ -116,7 +113,7 @@ LOG4CXX_INFO(logger, &quot;this is a test&quot; &lt;&lt; 123);
 
 <p>The advantage here is that you can configure the system anywhere. All loggers inherit from the root logger <code>log4cxx::Logger::getRootLogger()</code>. In my example, <code>bar</code> is <code>foo</code>’s parent. So any setting given to bar will be inherited by <code>foo</code>.</p>
 
-<h3 id="custom-wrapper:152cb127836f237c057387be38a77bb6">custom wrapper</h3>
+<h3 id="custom-wrapper">custom wrapper</h3>
 
 <p>Soon after starting my search I came up with an awesome idea. Why not just build my own, back-end agnostic, wrapper. Then provide an abstract Logger interface which the user can extend with the underlying logging back end. This would be both flexible and let me make my own beautiful api.</p>
 
@@ -125,28 +122,12 @@ LOG4CXX_INFO(logger, &quot;this is a test&quot; &lt;&lt; 123);
 
 <p>… just don’t do it. Doing it right is harder than it seems.</p>
 
-<h3 id="conclusion:152cb127836f237c057387be38a77bb6">Conclusion</h3>
+<h3 id="conclusion">Conclusion</h3>
 
 <p>I ended up going with log4cxx. In my opinion, it strikes a nice balance between flexibility and simplicity.</p>
 
 			</div>
 
-			
-				<h2>Comments</h2>
-				<div id="disqus_thread"></div>
-<script type="text/javascript">
-     
-    var disqus_shortname = 'choly'; 
-
-     
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
 			
 		</div>
 

@@ -6,8 +6,21 @@
     <description>Recent content in Posts on Choly&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 23 Mar 2016 10:06:22 -0400</lastBuildDate>
-    <atom:link href="http://choly.ca/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 19 Feb 2018 12:17:21 -0400</lastBuildDate>
+    
+	<atom:link href="http://choly.ca/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Go: Experiments with the http.Handler</title>
+      <link>http://choly.ca/post/go-experiments-with-handler/</link>
+      <pubDate>Mon, 19 Feb 2018 12:17:21 -0400</pubDate>
+      
+      <guid>http://choly.ca/post/go-experiments-with-handler/</guid>
+      <description>When using net/http, handling errors is kinda annoying.
+http.HandleFunc(&amp;quot;/foo&amp;quot;, func(w http.ResponseWriter, r *http.Request) { thing, err := storage.Get(&amp;quot;thing&amp;quot;) if err != nil { http.Error(w, err.Error(), 500) return } _ = json.NewEncoder(w).Encode(thing) })  Ideally, I could just return an error from the handler. Let&amp;rsquo;s create a type to let that happen.
+type MyHandlerFunc func(w http.ResponseWriter, r *http.Request) error func (f MyHandlerFunc) ServeHTTP(w http.ResponseWriter, r *http.Request) { if err := f(w, r); err !</description>
+    </item>
     
     <item>
       <title>Angular Events</title>
@@ -15,102 +28,9 @@
       <pubDate>Wed, 23 Mar 2016 10:06:22 -0400</pubDate>
       
       <guid>http://choly.ca/post/angular-events/</guid>
-      <description>&lt;p&gt;I&amp;rsquo;ve been trying to find an elegant way of dealing with events in AngularJS recently.
-If you&amp;rsquo;re not farmiliar with Angular, that&amp;rsquo;s ok, this is a pretty common pattern.&lt;/p&gt;
-
-&lt;p&gt;Here I have a controller that registers an event listener:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function MyController($rootScope) {
-  $rootScope.$on(&#39;event1&#39;, () =&amp;gt; {
-    console.log(&#39;event 1 occured&#39;);
-  });
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;There&amp;rsquo;s an issue with this code. It doesn&amp;rsquo;t unbind the listener when the controller (or its scope) is destroyed.
-Let&amp;rsquo;s take care of this.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function MyController($scope, $rootScope) {
-  let unbindEvent1 = $rootScope.$on(&#39;event1&#39;, () =&amp;gt; {
-    console.log(&#39;event 1 occured&#39;);
-  });
-  $scope.$on(&#39;$destroy&#39;, unbindEvent1);
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This is ok, but gets unwieldy when you have multiple listeners.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function MyController($scope, $rootScope) {
-  let unbindThisHappened = $rootScope.$on(&#39;thisHappened&#39;, () =&amp;gt; {
-    console.log(&#39;this happened&#39;);
-  });
-  let unbindThatHappened = $rootScope.$on(&#39;thatHappened&#39;, () =&amp;gt; {
-    console.log(&#39;that happened&#39;);
-  });
-  let unbindErrorHappened = $rootScope.$on(&#39;errorHappened&#39;, () =&amp;gt; {
-    console.log(&#39;error happened&#39;);
-  });
-  $scope.$on(&#39;$destroy&#39;, () =&amp;gt; {
-    unbindThisHappened();
-    unbindThatHappened();
-    unbindErrorHappened();
-  });
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;A better way would be to have something called a &lt;code&gt;ListenerGroup&lt;/code&gt;. Here&amp;rsquo;s how it would work.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function MyController($scope, $rootScope) {
-  let listeners = ListenerGroup.for($rootScope);
-  listeners.$on(&#39;thisHappened&#39;, () =&amp;gt; console.log(&#39;this&#39;));
-  listeners.$on(&#39;thatHappened&#39;, () =&amp;gt; console.log(&#39;that&#39;));
-  listeners.$on(&#39;errorHappened&#39;, () =&amp;gt; console.log(&#39;error&#39;));
-  $scope.$on(&#39;$destroy&#39;, () =&amp;gt; listeners.unbind());
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;If the &lt;code&gt;ListenerGroup&lt;/code&gt; was made to be angular aware, you could even take it a step further.
-I&amp;rsquo;m not too sure about this, because it&amp;rsquo;s not apparent what &lt;code&gt;link&lt;/code&gt; does and it doesn&amp;rsquo;t really save that much typing.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function MyController($scope, $rootScope) {
-  let listeners = ListenerGroup.for($rootScope);
-  listeners.$on(&#39;thisHappened&#39;, () =&amp;gt; console.log(&#39;this&#39;));
-  listeners.$on(&#39;thatHappened&#39;, () =&amp;gt; console.log(&#39;that&#39;));
-  listeners.$on(&#39;errorHappened&#39;, () =&amp;gt; console.log(&#39;error&#39;));
-  listeners.link($scope);
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Implementing &lt;code&gt;ListenerGroup&lt;/code&gt; is pretty simple.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;class ListenerGroup {
-
-  constructor($scope) {
-    this._unbinds = [];
-    this._scope = $scope;
-  }
-
-  $on(event, listener) {
-    let unbind = this._scope.$on(event, listener);
-    this._unbinds.push(unbind);
-  }
-
-  unbind() {
-    for (let unbind of this._unbinds) {
-      unbind();
-    }
-  }
-
-  link($scope) {
-    $scope.$on(&#39;$destroy&#39;, () =&amp;gt; this.unbind());
-  }
-
-  static for($scope) {
-    return new ListenerGroup($scope);
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description>I&amp;rsquo;ve been trying to find an elegant way of dealing with events in AngularJS recently. If you&amp;rsquo;re not farmiliar with Angular, that&amp;rsquo;s ok, this is a pretty common pattern.
+Here I have a controller that registers an event listener:
+function MyController($rootScope) { $rootScope.$on(&#39;event1&#39;, () =&amp;gt; { console.log(&#39;event 1 occured&#39;); }); }  There&amp;rsquo;s an issue with this code. It doesn&amp;rsquo;t unbind the listener when the controller (or its scope) is destroyed.</description>
     </item>
     
     <item>
@@ -119,292 +39,9 @@ I&amp;rsquo;m not too sure about this, because it&amp;rsquo;s not apparent what 
       <pubDate>Sat, 19 Mar 2016 15:41:44 -0400</pubDate>
       
       <guid>http://choly.ca/post/typescript-json/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;EDITS:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Calling &lt;code&gt;toString&lt;/code&gt; on &lt;code&gt;Date&lt;/code&gt; is for illustrative purposes.&lt;/li&gt;
-&lt;li&gt;There&amp;rsquo;s a full commented example at the end.&lt;/li&gt;
-&lt;li&gt;Use &lt;code&gt;toJSON&lt;/code&gt; method as suggested by &lt;a href=&#34;http://choly.ca/post/typescript-json/#comment-2579762437&#34;&gt;Schipperz&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;Add &lt;code&gt;reviver&lt;/code&gt; method as suggested by &lt;a href=&#34;http://choly.ca/post/typescript-json/#comment-2579491209&#34;&gt;Anders Ringqvist&lt;/a&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;So you have a &lt;code&gt;User&lt;/code&gt; type in your code.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-ts&#34;&gt;interface User {
-  name:    string;
-  age:     number;
-  created: Date;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;At some point you&amp;rsquo;re going to want to encode this as JSON.
-This works as you&amp;rsquo;d expect.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt; &amp;gt; JSON.stringify({ name: &amp;quot;bob&amp;quot;, age: 34, created: new Date() });
-&#39;{&amp;quot;name&amp;quot;:&amp;quot;bob&amp;quot;,&amp;quot;age&amp;quot;:34,&amp;quot;created&amp;quot;:&amp;quot;2016-03-19T18:15:12.710Z&amp;quot;}&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The problem is that the &lt;code&gt;created&lt;/code&gt; field is no longer a &lt;code&gt;Date&lt;/code&gt; when you parse it back.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;gt; JSON.parse(&#39;{&amp;quot;name&amp;quot;:&amp;quot;bob&amp;quot;,&amp;quot;age&amp;quot;:34,&amp;quot;created&amp;quot;:&amp;quot;2016-03-19T18:15:12.710Z&amp;quot;}&#39;)
-{ name: &#39;bob&#39;, age: 34, created: &#39;2016-03-19T18:15:12.710Z&#39; }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The way I went about fixing this is by introducing a &lt;code&gt;UserJSON&lt;/code&gt; interface.&lt;br /&gt;
-Since it only contains primitives, it can be converter to and from JSON without altering it.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-ts&#34;&gt;interface UserJSON {
-  name:    string;
-  age:     number;
-  created: string;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Then I convert from &lt;code&gt;User&lt;/code&gt; -&amp;gt; &lt;code&gt;UserJSON&lt;/code&gt; before &amp;lsquo;stringifying&amp;rsquo; to JSON
-and convert from &lt;code&gt;UserJSON&lt;/code&gt; -&amp;gt; &lt;code&gt;User&lt;/code&gt; after parsing from JSON.
-Here&amp;rsquo;s an example of some client code doing this.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-ts&#34;&gt;function getUsers(): Promise&amp;lt;User[]&amp;gt; {
-  return ajax.get&amp;lt;UserJSON[]&amp;gt;(&#39;/users&#39;).then(data =&amp;gt; {
-    return data.data.map(decodeUser);
-  });
-}
-
-function updateUser(id: number|string, user: User): Promise&amp;lt;{}&amp;gt; {
-  return ajax.put&amp;lt;{}&amp;gt;(`/users/${id}`, encodeUser(user));
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Here are the conversion functions.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-ts&#34;&gt;function encodeUser(user: User): UserJSON {
-  return {
-    name:    user.name,
-    age:     user.age,
-    created: user.created.toString()
-  };
-}
-
-function decodeUser(json: UserJSON): User {
-  return {
-    name:    json.name,
-    age:     json.age,
-    created: new Date(json.created)
-  };
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This works, but it&amp;rsquo;s a contrived example.
-In real cases, there will be a lot more properties and this quickly turns into a huge pain in the ass.
-Let&amp;rsquo;s use &lt;code&gt;Object.assign&lt;/code&gt; to clean it up a bit.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-ts&#34;&gt;function encodeUser(user: User): UserJSON {
-  return Object.assign({}, user, {
-    created: user.created.toString()
-  });
-}
-
-function decodeUser(json: UserJSON): User {
-  return Object.assign({}, json, {
-    created: new Date(json.created)
-  });
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;So far so good, but what happens when &lt;code&gt;User&lt;/code&gt; is a class?&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-ts&#34;&gt;class User {
-
-  private created: Date;
-
-  constructor(
-    private name: string,
-    private age:  string
-  ) {
-    this.created = new Date();
-  }
-
-  getName(): string {
-    return this.name;
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;For this to work, I use &lt;code&gt;Object.create&lt;/code&gt; to make a new instance of &lt;code&gt;User&lt;/code&gt; without using the constructor.
- Then assign the properties to that. The encoding function doesn&amp;rsquo;t change.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-ts&#34;&gt;function decodeUser(json: UserJSON): User {
-  let user = Object.create(User.prototype);
-  return Object.assign(user, json, {
-    created: new Date(json.created)
-  });
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Finally, the &lt;code&gt;encode&lt;/code&gt; and &lt;code&gt;decode&lt;/code&gt; functions can just be methods on the &lt;code&gt;User&lt;/code&gt; class.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-ts&#34;&gt;class User {
-
-  private created: Date;
-
-  constructor(
-    private name: string,
-    private age:  string
-  ) {
-    this.created = new Date();
-  }
-
-  getName(): string {
-    return this.name;
-  }
-
-  encode(): UserJSON {
-    return Object.assign({}, this, {
-      created: this.created.toString()
-    });
-  }
-
-  static decode(json: UserJSON): User {
-    let user = Object.create(User.prototype);
-    return Object.assign(user, json, {
-      created: new Date(json.created)
-    });
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;When &lt;code&gt;JSON.stringify&lt;/code&gt; is invoked on an object, it checks for a method called &lt;code&gt;toJSON&lt;/code&gt;
-to convert the data before &amp;lsquo;stringifying&amp;rsquo; it. In light of this, let&amp;rsquo;s rename &lt;code&gt;encode&lt;/code&gt; and
-&lt;code&gt;decode&lt;/code&gt; to &lt;code&gt;toJSON&lt;/code&gt; and &lt;code&gt;fromJSON&lt;/code&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-ts&#34;&gt;class User {
-
-  /* ... */
-
-  toJSON(): UserJSON {
-    return Object.assign({}, this, {
-      created: this.created.toString()
-    });
-  }
-
-  static fromJSON(json: UserJSON): User {
-    let user = Object.create(User.prototype);
-    return Object.assign(user, json, {
-      created: new Date(json.created)
-    });
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;We don&amp;rsquo;t need to call &lt;code&gt;user.encode()&lt;/code&gt; explicitly anymore!&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-ts&#34;&gt;let data = JSON.stringify(new User(&amp;quot;Steve&amp;quot;, 39));
-let user = User.fromJSON(JSON.parse(data));
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This is good, but we can do better. &lt;code&gt;JSON.parse&lt;/code&gt; accepts a second parameter called
-&lt;code&gt;reviver&lt;/code&gt; which is a function that gets called with every key/value pair in the object
-as it&amp;rsquo;s being parsed. The root object is passed to &lt;code&gt;reviver&lt;/code&gt; with an empty string as the key.
-Let&amp;rsquo;s add a &lt;code&gt;reviver&lt;/code&gt; function to our &lt;code&gt;User&lt;/code&gt; class.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-ts&#34;&gt;class User {
-
-  /* ... */
-
-  static reviver(key: string, value: any): any {
-    return key === &amp;quot;&amp;quot; ? User.fromJSON(value) : value;
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now we can write:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-ts&#34;&gt;let user = JSON.parse(data, User.reviver);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Not too shabby&amp;hellip;&lt;/p&gt;
-
-&lt;p&gt;The nice thing about using this pattern is that it composes very well.&lt;br /&gt;
-Say the user had an &lt;code&gt;account&lt;/code&gt; property which contained an instance of &lt;code&gt;Account&lt;/code&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-ts&#34;&gt;class User {
-
-  private account: Account;
-
-  /* ... */
-  
-  static fromJSON(json: UserJSON): User {
-    let user = Object.create(User.prototype);
-    return Object.assign(user, json, {
-      created: new Date(json.created),
-      account: Account.fromJSON(json.account)
-    });
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;And here&amp;rsquo;s the full commented &lt;code&gt;User&lt;/code&gt; class.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-ts&#34;&gt;class User {
-
-  private created: Date;
-
-  constructor(
-    private name: string,
-    private age:  string
-  ) {
-    this.created = new Date();
-  }
-
-  getName(): string {
-    return this.name;
-  }
-
-  // toJSON is automatically used by JSON.stringify
-  toJSON(): UserJSON {
-    // copy all fields from `this` to an empty object and return in
-    return Object.assign({}, this, {
-      // convert fields that need converting
-      created: this.created.toString()
-    });
-  }
-
-  // fromJSON is used to convert an serialized version
-  // of the User to an instance of the class
-  static fromJSON(json: UserJSON|string): User {
-    if (typeof json === &#39;string&#39;) {
-      // if it&#39;s a string, parse it first
-      return JSON.parse(json, User.reviver);
-    } else {
-      // create an instance of the User class
-      let user = Object.create(User.prototype);
-      // copy all the fields from the json object
-      return Object.assign(user, json, {
-        // convert fields that need converting
-        created: new Date(json.created),
-      });
-    }
-  }
-
-  // reviver can be passed as the second parameter to JSON.parse
-  // to automatically call User.fromJSON on the resulting value.
-  static reviver(key: string, value: any): any {
-    return key === &amp;quot;&amp;quot; ? User.fromJSON(value) : value;
-  }
-}
-
-// A representation of User&#39;s data that can be converted to
-// and from JSON without being altered.
-interface UserJSON {
-  name:    string;
-  age:     number;
-  created: string;
-}
-
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description>EDITS:
+ Calling toString on Date is for illustrative purposes. There&amp;rsquo;s a full commented example at the end. Use toJSON method as suggested by Schipperz. Add reviver method as suggested by Anders Ringqvist.  So you have a User type in your code.
+interface User { name: string; age: number; created: Date; }  At some point you&amp;rsquo;re going to want to encode this as JSON. This works as you&amp;rsquo;d expect.</description>
     </item>
     
     <item>
@@ -413,97 +50,9 @@ interface UserJSON {
       <pubDate>Fri, 10 Apr 2015 12:54:44 -0400</pubDate>
       
       <guid>http://choly.ca/post/go-json-marshalling/</guid>
-      <description>&lt;p&gt;Go&amp;rsquo;s &lt;code&gt;encoding/json&lt;/code&gt; package makes it really easy to marshal &lt;code&gt;struct&lt;/code&gt;s to JSON data.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-go&#34;&gt;package main
-
-import (
-	&amp;quot;encoding/json&amp;quot;
-	&amp;quot;os&amp;quot;
-	&amp;quot;time&amp;quot;
-)
-
-type MyUser struct {
-	ID       int64     `json:&amp;quot;id&amp;quot;`
-	Name     string    `json:&amp;quot;name&amp;quot;`
-	LastSeen time.Time `json:&amp;quot;lastSeen&amp;quot;`
-}
-
-func main() {
-	_ = json.NewEncoder(os.Stdout).Encode(
-		&amp;amp;MyUser{1, &amp;quot;Ken&amp;quot;, time.Now()},
-	)
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Output:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{&amp;quot;id&amp;quot;:1,&amp;quot;name&amp;quot;:&amp;quot;Ken&amp;quot;,&amp;quot;lastSeen&amp;quot;:&amp;quot;2009-11-10T23:00:00Z&amp;quot;}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;But what if we want to change how one of the field values are displayed? For example, say I wanted &lt;code&gt;LastSeen&lt;/code&gt; to be a unix timestamp.&lt;/p&gt;
-
-&lt;p&gt;The simple solution is to introduce another auxiliary &lt;code&gt;struct&lt;/code&gt; and populate it with the correctly formatted values in the &lt;code&gt;MarshalJSON&lt;/code&gt; method.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-go&#34;&gt;func (u *MyUser) MarshalJSON() ([]byte, error) {
-	return json.Marshal(&amp;amp;struct {
-		ID       int64  `json:&amp;quot;id&amp;quot;`
-		Name     string `json:&amp;quot;name&amp;quot;`
-		LastSeen int64  `json:&amp;quot;lastSeen&amp;quot;`
-	}{
-		ID:       u.ID,
-		Name:     u.Name,
-		LastSeen: u.LastSeen.Unix(),
-	})
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This works, but it can get cumbersome when there are lots of fields.
-It would be nice if we could embed the original &lt;code&gt;struct&lt;/code&gt; into the auxiliary &lt;code&gt;struct&lt;/code&gt; and have it inherit all the fields that do not need to be changed.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-go&#34;&gt;func (u *MyUser) MarshalJSON() ([]byte, error) {
-	return json.Marshal(&amp;amp;struct {
-		LastSeen int64 `json:&amp;quot;lastSeen&amp;quot;`
-		*MyUser
-	}{
-		LastSeen: u.LastSeen.Unix(),
-		MyUser:   u,
-	})
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The problem here is that the auxiliary &lt;code&gt;struct&lt;/code&gt; will also inherit the original&amp;rsquo;s &lt;code&gt;MarshalJSON&lt;/code&gt; method, causing it to go into an infinite loop. The solution is to alias the original type. This alias will have all the same fields, but none of the methods.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-go&#34;&gt;func (u *MyUser) MarshalJSON() ([]byte, error) {
-	type Alias MyUser
-	return json.Marshal(&amp;amp;struct {
-		LastSeen int64 `json:&amp;quot;lastSeen&amp;quot;`
-		*Alias
-	}{
-		LastSeen: u.LastSeen.Unix(),
-		Alias:    (*Alias)(u),
-	})
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The same technique can be used for implementing an &lt;code&gt;UnmarshalJSON&lt;/code&gt; method.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-go&#34;&gt;func (u *MyUser) UnmarshalJSON(data []byte) error {
-	type Alias MyUser
-	aux := &amp;amp;struct {
-		LastSeen int64 `json:&amp;quot;lastSeen&amp;quot;`
-		*Alias
-	}{
-		Alias: (*Alias)(u),
-	}
-	if err := json.Unmarshal(data, &amp;amp;aux); err != nil {
-		return err
-	}
-	u.LastSeen = time.Unix(aux.LastSeen, 0)
-	return nil
-}
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description>Go&amp;rsquo;s encoding/json package makes it really easy to marshal structs to JSON data.
+package main import ( &amp;quot;encoding/json&amp;quot; &amp;quot;os&amp;quot; &amp;quot;time&amp;quot; ) type MyUser struct { ID int64 `json:&amp;quot;id&amp;quot;` Name string `json:&amp;quot;name&amp;quot;` LastSeen time.Time `json:&amp;quot;lastSeen&amp;quot;` } func main() { _ = json.NewEncoder(os.Stdout).Encode( &amp;amp;MyUser{1, &amp;quot;Ken&amp;quot;, time.Now()}, ) }  Output:
+{&amp;quot;id&amp;quot;:1,&amp;quot;name&amp;quot;:&amp;quot;Ken&amp;quot;,&amp;quot;lastSeen&amp;quot;:&amp;quot;2009-11-10T23:00:00Z&amp;quot;}  But what if we want to change how one of the field values are displayed? For example, say I wanted LastSeen to be a unix timestamp.</description>
     </item>
     
     <item>
@@ -512,80 +61,9 @@ It would be nice if we could embed the original &lt;code&gt;struct&lt;/code&gt; 
       <pubDate>Tue, 31 Mar 2015 10:17:00 -0400</pubDate>
       
       <guid>http://choly.ca/post/typescript-vim-completion/</guid>
-      <description>
-
-&lt;p&gt;One of the main advantages of using static types is that you get much better support from your tools.
-I recently got &lt;a href=&#34;http://www.typescriptlang.org/&#34;&gt;TypeScript&lt;/a&gt; auto-completion working in vim and I&amp;rsquo;m documenting how to do it here.&lt;/p&gt;
-
-&lt;h3 id=&#34;demo:64b30b8b2e08341a9b15dc03bd4e80cd&#34;&gt;Demo:&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://choly.ca/images/typescript-vim-completion.gif&#34; alt=&#34;demo&#34; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;1-install-tss:64b30b8b2e08341a9b15dc03bd4e80cd&#34;&gt;1. Install TSS&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;git clone https://github.com/clausreinke/typescript-tools.git
-cd typescript-tools
-git checkout testing_ts1.4
-sudo npm install -g
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;2-install-vim-plugin:64b30b8b2e08341a9b15dc03bd4e80cd&#34;&gt;2. Install Vim Plugin&lt;/h3&gt;
-
-&lt;p&gt;I&amp;rsquo;m using &lt;a href=&#34;https://github.com/gmarik/Vundle.vim&#34;&gt;Vundle&lt;/a&gt; to manage my plugins.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;Bundle &amp;quot;icholy/typescript-tools.git&amp;quot;
-au BufRead,BufNewFile *.ts  setlocal filetype=typescript
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;3-install-tsd:64b30b8b2e08341a9b15dc03bd4e80cd&#34;&gt;3. Install TSD&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;sudo npm install tsd@next -g
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;4-create-project:64b30b8b2e08341a9b15dc03bd4e80cd&#34;&gt;4. Create Project&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;mkdir project
-cd project
-tsd init
-
-tsd install jquery --save
-tsd install angularjs --save
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;5-create-tsconfig-json:64b30b8b2e08341a9b15dc03bd4e80cd&#34;&gt;5. Create &lt;code&gt;tsconfig.json&lt;/code&gt;&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
-  &amp;quot;compilerOptions&amp;quot;: {
-    &amp;quot;target&amp;quot;: &amp;quot;es5&amp;quot;,
-    &amp;quot;noImplicitAny&amp;quot;: false,
-  },
-  &amp;quot;files&amp;quot;: [
-    &amp;quot;typings/tsd.d.ts&amp;quot;,
-
-    &amp;quot;all.ts&amp;quot;, &amp;quot;your.ts&amp;quot;,
-    &amp;quot;other.ts&amp;quot;, &amp;quot;files.ts&amp;quot;
-  ]
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;6-start-tss-in-vim:64b30b8b2e08341a9b15dc03bd4e80cd&#34;&gt;6. Start TSS in vim&lt;/h3&gt;
-
-&lt;p&gt;Make sure you&amp;rsquo;re cwd is somewhere in the directory containing &lt;code&gt;tsconfig.json&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;:TSSstart
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You might get some errors, but it should still work.&lt;/p&gt;
-
-&lt;h3 id=&#34;7-optional-making-it-work-with-youcompleteme-https-github-com-valloric-youcompleteme:64b30b8b2e08341a9b15dc03bd4e80cd&#34;&gt;7. (Optional) Making it work with &lt;a href=&#34;https://github.com/Valloric/YouCompleteMe&#34;&gt;YouCompleteMe&lt;/a&gt;&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;if !exists(&amp;quot;g:ycm_semantic_triggers&amp;quot;)
-   let g:ycm_semantic_triggers = {}
-endif
-let g:ycm_semantic_triggers[&#39;typescript&#39;] = [&#39;.&#39;]
-set completeopt-=preview
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description>One of the main advantages of using static types is that you get much better support from your tools. I recently got TypeScript auto-completion working in vim and I&amp;rsquo;m documenting how to do it here.
+Demo: 1. Install TSS git clone https://github.com/clausreinke/typescript-tools.git cd typescript-tools git checkout testing_ts1.4 sudo npm install -g  2. Install Vim Plugin I&amp;rsquo;m using Vundle to manage my plugins.
+Bundle &amp;quot;icholy/typescript-tools.git&amp;quot; au BufRead,BufNewFile *.ts setlocal filetype=typescript  3.</description>
     </item>
     
     <item>
@@ -594,22 +72,8 @@ set completeopt-=preview
       <pubDate>Mon, 31 Mar 2014 12:56:53 -0400</pubDate>
       
       <guid>http://choly.ca/post/interactive-filtering-with-less/</guid>
-      <description>&lt;p&gt;I discovered a cool little feature in &lt;a href=&#34;http://linux.die.net/man/1/less&#34;&gt;less&lt;/a&gt; (not less.css) today. You can interactively filter the data.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-man&#34;&gt;&amp;amp;pattern
-
-	Display only lines which match the pattern; lines which do not match the pattern are not displayed. If pattern is empty (if you type &amp;amp; immediately followed by ENTER), any filtering is turned off, and all lines are displayed. While filtering is in effect, an ampersand is displayed at the beginning of the prompt, as a reminder that some lines in the file may be hidden.
-
-	Certain characters are special as in the / command:
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;Activate:&lt;/strong&gt; &lt;code&gt;&amp;amp;pattern&lt;/code&gt; hit enter&lt;br /&gt;
-&lt;strong&gt;Disable:&lt;/strong&gt; &lt;code&gt;&amp;amp;&lt;/code&gt; hit enter&lt;/p&gt;
-
-&lt;p&gt;Demo:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://choly.ca/images/less-filtering.gif&#34; alt=&#34;demo&#34; /&gt;&lt;/p&gt;
-</description>
+      <description>I discovered a cool little feature in less (not less.css) today. You can interactively filter the data.
+&amp;amp;pattern Display only lines which match the pattern; lines which do not match the pattern are not displayed. If pattern is empty (if you type &amp;amp; immediately followed by ENTER), any filtering is turned off, and all lines are displayed. While filtering is in effect, an ampersand is displayed at the beginning of the prompt, as a reminder that some lines in the file may be hidden.</description>
     </item>
     
     <item>
@@ -618,63 +82,8 @@ set completeopt-=preview
       <pubDate>Mon, 31 Dec 2012 11:26:44 -0400</pubDate>
       
       <guid>http://choly.ca/post/c-plus-plus-make-repl/</guid>
-      <description>&lt;p&gt;One of the things I really like about dynamic languages like javascript &amp;amp; python is the repl. After you’ve gotten used to that type of exploratory programming, it’s hard to go back to the edit/compile/run cycle.&lt;/p&gt;
-
-&lt;p&gt;Luckily that has finally changed with &lt;a href=&#34;http://root.cern.ch/drupal/content/cling&#34;&gt;cling&lt;/a&gt;. It’s an interactive C++ environment that behaves pretty much like a repl. In my recent projects I’ve been adding a new make rule: repl which lets me interactively play with the code I’m working on and it has drastically improved my productivity.&lt;/p&gt;
-
-&lt;p&gt;Here’s how I set it up. Compiling cling is the first step. Below are how I did it on OSX.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;brew install gcc
-brew install make
-
-
-# Check out the sources:
-
-mkdir src
-cd src
-svn co http://llvm.org/svn/llvm-project/llvm/trunk llvm
-cd llvm/tools
-svn co http://llvm.org/svn/llvm-project/cfe/trunk clang
-svn co http://root.cern.ch/svn/root/trunk/cint/cling cling
-cd ..
-
-# Apply some patches
-
-cat tools/cling/patches/* | patch -p0
-
-# Configure, build and install them
-
-cd ..
-mkdir build
-cd build
-../llvm/configure --enable-targets=host
-make
-make install
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Next there’s an &lt;code&gt;init_repl.cpp&lt;/code&gt; file I keep in the root of my project. It’s responsible for pulling in all the required headers and doing some initial setup. For the setup, I use C++’s version of a static block.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;#include &amp;lt;my_project.h&amp;gt;
-#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;string&amp;gt;
-
-struct ReplInit {
-  ReplInit () {
-    std::cout &amp;lt;&amp;lt; &amp;quot;initializing some stuff&amp;quot; &amp;lt;&amp;lt; std::endl;
-  }
-};
-
-static ReplInit repl_init;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Next the make rule.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-make&#34;&gt;repl:
-  cling -std=c++11 -linit_repl.cpp -llibmy_project.so -I./include -I./src -I./lib
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;After that you should just be able to run &lt;code&gt;make repl&lt;/code&gt; and you’ll be dropped into a shell where you can dynamically explore you project. I’ve only been using it for a little while and I’m hooked. I look forward to the day where every project supports &lt;code&gt;make &amp;amp;&amp;amp; make repl&lt;/code&gt;.&lt;/p&gt;
-</description>
+      <description>One of the things I really like about dynamic languages like javascript &amp;amp; python is the repl. After you’ve gotten used to that type of exploratory programming, it’s hard to go back to the edit/compile/run cycle.
+Luckily that has finally changed with cling. It’s an interactive C++ environment that behaves pretty much like a repl. In my recent projects I’ve been adding a new make rule: repl which lets me interactively play with the code I’m working on and it has drastically improved my productivity.</description>
     </item>
     
     <item>
@@ -683,55 +92,8 @@ static ReplInit repl_init;
       <pubDate>Mon, 31 Dec 2012 11:21:15 -0400</pubDate>
       
       <guid>http://choly.ca/post/c-plus-plus-inline-functions/</guid>
-      <description>&lt;p&gt;Even though overuse of getter and setter functions can be frowned upon, they can help a lot if you’re looking to provide a intuitive api. However the overhead the additional function call introduces is undesirable. Thankfully, there’s the &lt;code&gt;inline&lt;/code&gt; keyword. It tells the compiler to replace each invocation of the function with the body of the function.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;struct Foo {
-  int m_number = 123;
-
-  inline int number () {
-    return m_number;
-  }
-};
-
-int main () {
-  Foo foo;
-
-  // used like a regular function
-  std::cout &amp;lt;&amp;lt; foo.number() &amp;lt;&amp;lt; std::endl;
-
-  // compiled to almost identical assembly as this
-  std::cout &amp;lt;&amp;lt; foo.m_number &amp;lt;&amp;lt; std::endl;
-
-  return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;However the &lt;code&gt;inline&lt;/code&gt; keyword isn’t a guarantee that the compiler will do this. It’s more of a hint to the compiler. So keep in mind that the compiler is free to ignore the fact that a function is declared &lt;code&gt;inline&lt;/code&gt; and it can inline functions that haven’t been delcared as such. But in examples similar to the one above, you can assume it will behave as expected.&lt;/p&gt;
-
-&lt;p&gt;Another important piece of information is that the function definition needs to be available in every translation unit.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;// foo.h
-inline int foo ();
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;// foo.cpp
-#include &amp;quot;foo.h&amp;quot;
-
-int foo () {
-  return 123;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;If I try to use the &lt;code&gt;foo&lt;/code&gt; function by including &lt;code&gt;foo.h&lt;/code&gt; I’d get a warning telling me that the &lt;code&gt;foo&lt;/code&gt; is not defined. This won’t prevent compilation, but the function will not get inlined. The compiler needs access to the function body to replace it with the call site. There’s a simple solution though. Just put the function definition in the header.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;// foo.h
-inline int foo () {
-  return 123;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;One finall note. Using &lt;code&gt;inline&lt;/code&gt; too much can not only make your binary much bigger, but it can also slow it down due to the way things are cached during execution. So only use them on very small functions (1-3 lines) and you should be good.&lt;/p&gt;
-</description>
+      <description>Even though overuse of getter and setter functions can be frowned upon, they can help a lot if you’re looking to provide a intuitive api. However the overhead the additional function call introduces is undesirable. Thankfully, there’s the inline keyword. It tells the compiler to replace each invocation of the function with the body of the function.
+struct Foo { int m_number = 123; inline int number () { return m_number; } }; int main () { Foo foo; // used like a regular function std::cout &amp;lt;&amp;lt; foo.</description>
     </item>
     
     <item>
@@ -740,72 +102,8 @@ inline int foo () {
       <pubDate>Fri, 07 Dec 2012 11:29:54 -0400</pubDate>
       
       <guid>http://choly.ca/post/vim-marks/</guid>
-      <description>
-
-&lt;p&gt;Marks are a feature that I’ve never really used enough. Hopefully writing about them will change that for the better.&lt;/p&gt;
-
-&lt;h3 id=&#34;make-a-basic-file-local-mark-called-a:b62c94e34ca0c697068fe9e4a84a03e7&#34;&gt;Make a basic, file local, mark called &lt;code&gt;a&lt;/code&gt;&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;ma
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;jump-back-to-that-mark:b62c94e34ca0c697068fe9e4a84a03e7&#34;&gt;Jump back to that mark&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;&#39;a
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now I try to be pragmatic. So use cases are what motivate me to learn new thing. I think that marks are a good replacement for a lot of the things I use visual line &lt;code&gt;V&lt;/code&gt; mode for now.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Editing&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Lets say a have some text&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;this
-is
-a
-test
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;I want to remove lines 2-3.&lt;/p&gt;
-
-&lt;p&gt;Currently I’ll jump into visual line mode, select the lines and then &lt;code&gt;d&lt;/code&gt; to delete them.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;Vjd
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;If I was going to do same thing with marks I’d set a mark on line 2 &lt;code&gt;ma&lt;/code&gt;, go down a line &lt;code&gt;j&lt;/code&gt;, go to the end of that line &lt;code&gt;$&lt;/code&gt;, and then delete &lt;code&gt;,&lt;/code&gt; go to the end of that line &lt;code&gt;$&lt;/code&gt;, and then delete everything back to the mark &lt;code&gt;d&#39;a&lt;/code&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;maj$d&#39;a
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;… not so great.&lt;/p&gt;
-
-&lt;p&gt;the best way would be &lt;code&gt;2dd&lt;/code&gt; to delete the 2 lines. I guess there’s no point trying to use marks for manipulating entire lines. They’re more usefull when you want to do more complicated motions where you’re not trying to grab the entire line. Or maybe when the content you are targetting is very large and visual mode would obscure the view. I’m lazy and don’t feel like coming up with examples for those situations. So next to another use case.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Jumping&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;I think marks are more important in the case of navigation than in editing. Before I say anything else, you need to know that there are 2 different types of marks: Local &lt;code&gt;abcde....&lt;/code&gt; and Global &lt;code&gt;ABCD....&lt;/code&gt; Local marks are local to the file they are defined in. If a mark &lt;code&gt;b&lt;/code&gt; exists in &lt;code&gt;file1&lt;/code&gt; and then you define mark &lt;code&gt;b&lt;/code&gt; in &lt;code&gt;file2&lt;/code&gt;, they can both exist oblivious to eachother. Global marks are shared across files.&lt;/p&gt;
-
-&lt;p&gt;A good usage would be when your trying to debug some C function and you’re always jumping between the usage, declaration, and definitions. You could just set global marks for those points.&lt;/p&gt;
-
-&lt;p&gt;Undo is a very awesome thing. But most of the time it’s only used for reverting changes made. What about movement? You know those times when you accidentally hit some key and your cursor jumps to a completely different part of the page? &lt;code&gt;&#39;&#39;&lt;/code&gt; is your friend. It’s a special mark that denotes the last place you jumped from. It will keep jumping back and forth between the last 2 locations you were.&lt;/p&gt;
-
-&lt;p&gt;But say you did something really retarded and need to go back 3 jumps? In that case you need to bust out &lt;code&gt;CTRL-O&lt;/code&gt; and his buddy &lt;code&gt;CTRL-I&lt;/code&gt;. These will navigate forward and backward through the jump history.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;CTRL-O&lt;/code&gt; and &lt;code&gt;CTRL-I&lt;/code&gt; are the undo and redo when it comes to movement.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Listing&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;listing doesn’t really make sense as a heading when the other two are taken into account, but w.e. The way you list all the marks (global and local) is with the &lt;code&gt;:marks&lt;/code&gt; command.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Last Mod&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;One last thing that you want to do is jump back to the last place you edited something. That’s what the &lt;code&gt;.&lt;/code&gt; mark is for. &lt;code&gt;.&#39;&lt;/code&gt; will take you back to your last edit location.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Line or Char?&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Ok so I left out a small tidbit of information, but it’s not that complicated. When you access a mark using &lt;code&gt;&#39;&lt;/code&gt; then you will jump to the beginning of the line where the mark was defined. If you want to jump to the exact character where the mark was created, then you need to use &lt;code&gt;`&lt;/code&gt;.&lt;/p&gt;
-</description>
+      <description>Marks are a feature that I’ve never really used enough. Hopefully writing about them will change that for the better.
+Make a basic, file local, mark called a ma  Jump back to that mark &#39;a  Now I try to be pragmatic. So use cases are what motivate me to learn new thing. I think that marks are a good replacement for a lot of the things I use visual line V mode for now.</description>
     </item>
     
     <item>
@@ -814,44 +112,9 @@ test
       <pubDate>Mon, 03 Dec 2012 11:49:42 -0400</pubDate>
       
       <guid>http://choly.ca/post/c-plus-plus-extending-classes-via-the-stream-operator/</guid>
-      <description>
-
-&lt;h3 id=&#34;vision:fb806aeb9a1b7d4b267cc27df3a0306f&#34;&gt;Vision&lt;/h3&gt;
-
-&lt;p&gt;Looking for a way to create a class which behaved like one of the &lt;code&gt;std::ostream&lt;/code&gt; classes.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;MyClass obj;
-
-obj &amp;lt;&amp;lt; &amp;quot;foo&amp;quot; &amp;lt;&amp;lt; 123 &amp;lt;&amp;lt; some_string.c_str();
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;problem:fb806aeb9a1b7d4b267cc27df3a0306f&#34;&gt;Problem&lt;/h3&gt;
-
-&lt;p&gt;Implementing all those &lt;code&gt;operator&amp;lt;&amp;lt;&lt;/code&gt; overloads would be redundant because something like &lt;code&gt;std::stringstream&lt;/code&gt; already does it. However inheriting from &lt;code&gt;std::stringstream&lt;/code&gt; is more complicated than it should be.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;struct MyClass : public std::stringstream {
-    /* not that simple ... */
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;solution:fb806aeb9a1b7d4b267cc27df3a0306f&#34;&gt;Solution&lt;/h3&gt;
-
-&lt;p&gt;You can use a simple template to achive the desired effect.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;struct MyClass {
-
-    std::stringstream m_ss;
-
-    template &amp;lt;class T&amp;gt;
-    MyClass &amp;amp; operator&amp;lt;&amp;lt; (T const&amp;amp; rhs) {
-        m_ss &amp;lt;&amp;lt; rhs;
-        return *this;
-    }
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This comes with the benefit being able to ‘hook’ into each invocation.&lt;/p&gt;
-</description>
+      <description>Vision Looking for a way to create a class which behaved like one of the std::ostream classes.
+MyClass obj; obj &amp;lt;&amp;lt; &amp;quot;foo&amp;quot; &amp;lt;&amp;lt; 123 &amp;lt;&amp;lt; some_string.c_str();  Problem Implementing all those operator&amp;lt;&amp;lt; overloads would be redundant because something like std::stringstream already does it. However inheriting from std::stringstream is more complicated than it should be.
+struct MyClass : public std::stringstream { /* not that simple ... */ };  Solution You can use a simple template to achive the desired effect.</description>
     </item>
     
     <item>
@@ -860,65 +123,10 @@ obj &amp;lt;&amp;lt; &amp;quot;foo&amp;quot; &amp;lt;&amp;lt; 123 &amp;lt;&amp;l
       <pubDate>Mon, 03 Dec 2012 11:44:06 -0400</pubDate>
       
       <guid>http://choly.ca/post/c-plus-plus-logging-log4cxx-vs-glog-vs-wrapper/</guid>
-      <description>
-
-&lt;p&gt;It seems that logging in C++ isn’t a much discused topic when compared to a language like java. In a recent C++ project, I needed to add real logging support. Up till this point, the following was good enough (don’t judge).&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;#ifdef DEBUG
-    std::cerr &amp;lt;&amp;lt; &amp;quot;some error&amp;quot; &amp;lt;&amp;lt; std::endl;
-#endif 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;I started googling and the following to be the most popular and mature.&lt;/p&gt;
-
-&lt;h3 id=&#34;glog:152cb127836f237c057387be38a77bb6&#34;&gt;glog&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://code.google.com/p/google-glog/&#34;&gt;homepage&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;glog was my first choice because it’s the simplest one to set up and it has hardly any dependencies. The interface is also nice to use.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;LOG(INFO) &amp;lt;&amp;lt; &amp;quot;this is a test&amp;quot; &amp;lt;&amp;lt; 123;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;If you need simple and robust logging in a standalone application then glog is the way to go. However if you’re using it in a library and want to let your users configure logging options, it starts getting problematic. You can only initialze glog once, so having your library set its own default can get more complicated than it should be.&lt;/p&gt;
-
-&lt;h3 id=&#34;boost-log:152cb127836f237c057387be38a77bb6&#34;&gt;Boost.Log&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://boost-log.sourceforge.net/libs/log/doc/html/index.html&#34;&gt;homepage&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;I didn’t get too far with this library. It’s simply overwhelming! If you want simple logging then it can do that.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;BOOST_LOG_TRIVIAL(info) &amp;lt;&amp;lt; &amp;quot;this is a test&amp;quot; &amp;lt;&amp;lt; 123
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;But if you want anything more, get ready to read a LOT of documentation. Boost.Log is more a framework to build your own logging library as opposed to a logging library in an of itself.&lt;/p&gt;
-
-&lt;h3 id=&#34;log4cxx:152cb127836f237c057387be38a77bb6&#34;&gt;log4cxx&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://logging.apache.org/log4cxx/&#34;&gt;homepage&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;I’m not a big fan of java and initially I wasn’t too thrilled about the idea of something that copies log4j. Another thing that turned me off was that it has some pretty heavy &lt;a href=&#34;https://svn.apache.org/repos/asf/logging/site/trunk/docs/log4cxx/dependencies.html&#34;&gt;dependencies&lt;/a&gt;. I eventually decided to give it a try and it wasn’t all that bad.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger(&amp;quot;bar.foo&amp;quot;));
-
-LOG4CXX_INFO(logger, &amp;quot;this is a test&amp;quot; &amp;lt;&amp;lt; 123);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The advantage here is that you can configure the system anywhere. All loggers inherit from the root logger &lt;code&gt;log4cxx::Logger::getRootLogger()&lt;/code&gt;. In my example, &lt;code&gt;bar&lt;/code&gt; is &lt;code&gt;foo&lt;/code&gt;’s parent. So any setting given to bar will be inherited by &lt;code&gt;foo&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h3 id=&#34;custom-wrapper:152cb127836f237c057387be38a77bb6&#34;&gt;custom wrapper&lt;/h3&gt;
-
-&lt;p&gt;Soon after starting my search I came up with an awesome idea. Why not just build my own, back-end agnostic, wrapper. Then provide an abstract Logger interface which the user can extend with the underlying logging back end. This would be both flexible and let me make my own beautiful api.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;log::error &amp;lt;&amp;lt; &amp;quot;this is a test&amp;quot; &amp;lt;&amp;lt; 123;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;… just don’t do it. Doing it right is harder than it seems.&lt;/p&gt;
-
-&lt;h3 id=&#34;conclusion:152cb127836f237c057387be38a77bb6&#34;&gt;Conclusion&lt;/h3&gt;
-
-&lt;p&gt;I ended up going with log4cxx. In my opinion, it strikes a nice balance between flexibility and simplicity.&lt;/p&gt;
-</description>
+      <description>It seems that logging in C++ isn’t a much discused topic when compared to a language like java. In a recent C++ project, I needed to add real logging support. Up till this point, the following was good enough (don’t judge).
+#ifdef DEBUG std::cerr &amp;lt;&amp;lt; &amp;quot;some error&amp;quot; &amp;lt;&amp;lt; std::endl; #endif  I started googling and the following to be the most popular and mature.
+glog homepage
+glog was my first choice because it’s the simplest one to set up and it has hardly any dependencies.</description>
     </item>
     
     <item>
@@ -927,51 +135,7 @@ LOG4CXX_INFO(logger, &amp;quot;this is a test&amp;quot; &amp;lt;&amp;lt; 123);
       <pubDate>Mon, 03 Dec 2012 11:40:51 -0400</pubDate>
       
       <guid>http://choly.ca/post/libpq-pqexec-timeout/</guid>
-      <description>
-
-&lt;h3 id=&#34;1-establish-the-connection:0329702290daea1eafdcde62845ff4eb&#34;&gt;1. Establish the connection&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;PGconn *pg_conn = PQconnect(&amp;quot;info&amp;quot;);
-
-// error check
-if (PQstatus(pg_conn) != CONNECTION_OK) throw &amp;quot;invalid connection&amp;quot;;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;2-grab-the-socket-file-descriptor:0329702290daea1eafdcde62845ff4eb&#34;&gt;2. Grab the socket file descriptor&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;int socket_fd = PQsocket(pg_conn);
-
-// error check
-if (socket_fd &amp;lt; 0) throw &amp;quot;invalid socket&amp;quot;;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;3-set-the-timeout:0329702290daea1eafdcde62845ff4eb&#34;&gt;3. Set the timeout&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;// 5 second timeout
-struct timeval timeout = { 5, 0 };
-
-// recv timeout
-int setopt_result_1 = setsockopt(
-    socket_fd,
-    SOL_SOCKET,
-    SO_RCVTIMEO,
-    (char *)&amp;amp;timeout,
-    sizeof(timeout)
-);
-
-// send timeout
-int setopt_result_2 = setsockopt(
-    socket_fd,
-    SOL_SOCKET,
-    SO_SNDTIMEO,
-    (char *)&amp;amp;timeout,
-    sizeof(timeout)
-);
-
-// error check
-if (setopt_result_1 &amp;lt; 0 || setopt_result_2 &amp;lt; 0) throw &amp;quot;failed to set timeout&amp;quot;;
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description> 1. Establish the connection PGconn *pg_conn = PQconnect(&amp;quot;info&amp;quot;); // error check if (PQstatus(pg_conn) != CONNECTION_OK) throw &amp;quot;invalid connection&amp;quot;;  2. Grab the socket file descriptor int socket_fd = PQsocket(pg_conn); // error check if (socket_fd &amp;lt; 0) throw &amp;quot;invalid socket&amp;quot;;  3. Set the timeout // 5 second timeout struct timeval timeout = { 5, 0 }; // recv timeout int setopt_result_1 = setsockopt( socket_fd, SOL_SOCKET, SO_RCVTIMEO, (char *)&amp;amp;timeout, sizeof(timeout) ); // send timeout int setopt_result_2 = setsockopt( socket_fd, SOL_SOCKET, SO_SNDTIMEO, (char *)&amp;amp;timeout, sizeof(timeout) ); // error check if (setopt_result_1 &amp;lt; 0 || setopt_result_2 &amp;lt; 0) throw &amp;quot;failed to set timeout&amp;quot;;  </description>
     </item>
     
     <item>
@@ -980,34 +144,7 @@ if (setopt_result_1 &amp;lt; 0 || setopt_result_2 &amp;lt; 0) throw &amp;quot;fa
       <pubDate>Thu, 18 Oct 2012 12:02:06 -0400</pubDate>
       
       <guid>http://choly.ca/post/swapm-code-generation-made-easy/</guid>
-      <description>&lt;p&gt;I finally got around to reading the Pragmatic Programmer book. One thing that really interested me was the section on Code Generation. So in a recent C++ project I was interfacing with postgres and there was a LOT of code repetition. The sql query, class members, getters/setters, response parsing logic. They all contained the same information. Perfect I thought, here was the ideal chance to give code generation a shot. My first incarnation was a very ugly perl script (aren&amp;rsquo;t they all .. ?)  which used mustache as the templating engine. It worked, But I had to copy and paste the generated code into my source every time it changed which was a pain.&lt;/p&gt;
-
-&lt;p&gt;Here&amp;rsquo;s what I really wanted:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;have the generated code automatically be inserted into my source.&lt;/li&gt;
-&lt;li&gt;have an extemely simple templating language&lt;/li&gt;
-&lt;li&gt;solution for situations where simple templating wasn&amp;rsquo;t enough (computed properties).&lt;/li&gt;
-&lt;li&gt;separate my data from the templates&lt;/li&gt;
-&lt;li&gt;VERY easy to use.&lt;/li&gt;
-&lt;li&gt;VERY easy to integrate into existing projects.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;I spent a decent amount of time googling but all I found was&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;cheetah: &lt;a href=&#34;http://www.cheetahtemplate.org/&#34;&gt;http://www.cheetahtemplate.org/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;cog: &lt;a href=&#34;http://nedbatchelder.com/code/cog/&#34;&gt;http://nedbatchelder.com/code/cog/&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;I didn&amp;rsquo;t like them though. Cheetah is too complicated and cog is too limited.&lt;/p&gt;
-
-&lt;p&gt;So I set off to make my own. &lt;a href=&#34;https://github.com/icholy/swapm&#34;&gt;https://github.com/icholy/swapm&lt;/a&gt; . I am using it in my projects with a very high level of satisfaction. I wrote it in javascript because node makes it portable, npm makes distribution painless, and I wanted support for having computed properties in my data.&lt;/p&gt;
-
-&lt;p&gt;Regarding the name, I&amp;rsquo;m not very creative and originally called it swap but that name was already taken on npm. So I renamed it to swapm pronounced &amp;ldquo;Swap-Em&amp;rdquo;.&lt;/p&gt;
-
-&lt;p&gt;** Note: ** It&amp;rsquo;s still very much a work in progress at the time of writing so use at your own risk of it eating your code. Github issues are always appreciated.&lt;/p&gt;
-</description>
+      <description>I finally got around to reading the Pragmatic Programmer book. One thing that really interested me was the section on Code Generation. So in a recent C++ project I was interfacing with postgres and there was a LOT of code repetition. The sql query, class members, getters/setters, response parsing logic. They all contained the same information. Perfect I thought, here was the ideal chance to give code generation a shot. My first incarnation was a very ugly perl script (aren&amp;rsquo;t they all .</description>
     </item>
     
     <item>
@@ -1016,28 +153,8 @@ if (setopt_result_1 &amp;lt; 0 || setopt_result_2 &amp;lt; 0) throw &amp;quot;fa
       <pubDate>Tue, 16 Oct 2012 12:17:21 -0400</pubDate>
       
       <guid>http://choly.ca/post/week-with-vim/</guid>
-      <description>&lt;p&gt;During the past week I&amp;rsquo;ve been learning to use Vim (gVim). Day 1 and 2 weren&amp;rsquo;t fun to say the least. But now I&amp;rsquo;m completely hooked. I&amp;rsquo;m the type of person who will sit there for hours customizing my development environment until I think it&amp;rsquo;s perfect. I&amp;rsquo;ve been playing with almost every cool plugin i can find (and wasting a lot of time in the process).&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://choly.ca/images/vim-cheatsheet.png&#34; alt=&#34;vim cheatsheet&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;So Vim is, without a doubt, the best text editor I&amp;rsquo;ve ever used. However, that&amp;rsquo;s all it is. It&amp;rsquo;s just a text editor and I know a lot people don&amp;rsquo;t agree with me on this one, but IDE&amp;rsquo;s do help. They just make everything better. Therefore the ultimate combination would be an ide with vim as the text editor.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Netbeans jVi&lt;/strong&gt; is the first thing I tried and it was far too limiting when you&amp;rsquo;re already used to Vim. I think this plugin would be good to someone who wished to add some Vim-like functionality to netbeans as opposed to making the netbeans text editor perfectly emulate vim7.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Vim (NerdTree, Sessions, OmniComplete w/ctags, etc..)&lt;/strong&gt; is what I tried next. I wanted to see if I could turn vim into a sort of IDE like setup with plugins. Although I can&amp;rsquo;t give any specific reasons why, I didn&amp;rsquo;t like it&amp;hellip;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;EClim (Vim + Eclipse):&lt;/strong&gt; I&amp;rsquo;m not a huge fan of eclipse because it&amp;rsquo;s just too slow. But after finding out about eclim I had to try it out. Basically you can either embed vim into eclipse, or have eclipse running as a daemon and vim connects to it. The results were very nice aside from one thing: it was slow which kind of defeats the purpose of vim.&lt;/p&gt;
-
-&lt;p&gt;So atm i&amp;rsquo;m still looking for the idea setup. One thing that I&amp;rsquo;ve really wanted to try was&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Visual Studio 2010&lt;/li&gt;
-&lt;li&gt;Visual Assist X&lt;/li&gt;
-&lt;li&gt;ViEmu&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Although ViEmu is just another emulator, the idea of using vim with visual assist x sounds incredible. However, this setup would have a serious implication &amp;hellip;. switching to windows. I don&amp;rsquo;t feel comfortable developing on a virtual machine so a dual boot might be in order.&lt;/p&gt;
-</description>
+      <description>During the past week I&amp;rsquo;ve been learning to use Vim (gVim). Day 1 and 2 weren&amp;rsquo;t fun to say the least. But now I&amp;rsquo;m completely hooked. I&amp;rsquo;m the type of person who will sit there for hours customizing my development environment until I think it&amp;rsquo;s perfect. I&amp;rsquo;ve been playing with almost every cool plugin i can find (and wasting a lot of time in the process).
+So Vim is, without a doubt, the best text editor I&amp;rsquo;ve ever used.</description>
     </item>
     
     <item>
@@ -1046,21 +163,7 @@ if (setopt_result_1 &amp;lt; 0 || setopt_result_2 &amp;lt; 0) throw &amp;quot;fa
       <pubDate>Thu, 07 Jun 2012 12:04:56 -0400</pubDate>
       
       <guid>http://choly.ca/post/emberjs-with-brunch/</guid>
-      <description>&lt;p&gt;I&amp;rsquo;ve recently discovered the brilliant &lt;a href=&#34;http://emberjs.com/&#34;&gt;Ember.js&lt;/a&gt; library and the first major issue I ran into was how to organize/modularize this thing!? At first I just opted into &lt;a href=&#34;http://requirejs.org/&#34;&gt;RequireJs&lt;/a&gt; because that&amp;rsquo;s what I know but I started hitting walls fast. I decided to try out the &lt;a href=&#34;http://brunch.io/&#34;&gt;Brunch&lt;/a&gt; build system since I had heard good things about it before and this was a great opportunity to learn how to use it. Brunch uses skeletons which are essentially project templates to get rid of the boilerplate. Google search &amp;ldquo;ember brunch&amp;rdquo; and I found &lt;a href=&#34;https://github.com/charlesjolley/ember-brunch&#34;&gt;charlesjolley/ember-brunch&lt;/a&gt; perfect!&lt;/p&gt;
-
-&lt;p&gt;Unfortunately it hasn&amp;rsquo;t been kept up to date&amp;hellip; &lt;a href=&#34;https://github.com/charlesjolley/ember-brunch/issues/1&#34;&gt;Relevant Issue&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;If Charles wasn&amp;rsquo;t going to update it even after Paul (Brunch&amp;rsquo;s author) asked him to then it definitely wasn&amp;rsquo;t going to happen. So I was left with only one option, write my own &lt;a href=&#34;https://github.com/icholy/ember-brunch&#34;&gt;icholy/ember-brunch&lt;/a&gt;&lt;br /&gt;
-Paul was kind enough to include it on the brunch.io homepage. Once ember 1.0 is finally released I&amp;rsquo;ll restructure the skeleton to use the new Ember.Router and Ember.States.&lt;/p&gt;
-
-&lt;p&gt;It Includes:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Template compiling&lt;/li&gt;
-&lt;li&gt;CoffeeScript version (coffee branch)&lt;/li&gt;
-&lt;li&gt;Twitter Bootstrap (not a big deal but nice)&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      <description>I&amp;rsquo;ve recently discovered the brilliant Ember.js library and the first major issue I ran into was how to organize/modularize this thing!? At first I just opted into RequireJs because that&amp;rsquo;s what I know but I started hitting walls fast. I decided to try out the Brunch build system since I had heard good things about it before and this was a great opportunity to learn how to use it. Brunch uses skeletons which are essentially project templates to get rid of the boilerplate.</description>
     </item>
     
     <item>
@@ -1069,36 +172,144 @@ Paul was kind enough to include it on the brunch.io homepage. Once ember 1.0 is 
       <pubDate>Thu, 27 Oct 2011 12:10:52 -0400</pubDate>
       
       <guid>http://choly.ca/post/css-compass-gradient-generator/</guid>
-      <description>&lt;p&gt;This is a css gradient generator that i&amp;rsquo;ve been using for a while:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.colorzilla.com/gradient-editor/&#34;&gt;http://www.colorzilla.com/gradient-editor/&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;CSS Output&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;background: #1e5799; /* Old browsers */
-background: -moz-linear-gradient(top, #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(50%,#2989d8), color-stop(51%,#207cca), color-stop(100%,#7db9e8)); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* IE10+ */
-background: linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=&#39;#1e5799&#39;, endColorstr=&#39;#7db9e8&#39;,GradientType=0 ); /* IE6-9 */
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;However I just noticed the &lt;strong&gt;switch to scss&lt;/strong&gt; option!&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;SCSS Ouput&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scss&#34;&gt;@include filter-gradient(#1e5799, #7db9e8, horizontal);
-$experimental-support-for-svg: true;
-@include background-image(
-    linear-gradient(left, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%));
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This makes implementing complex cross-browser css gradients painless.&lt;/p&gt;
-</description>
+      <description>This is a css gradient generator that i&amp;rsquo;ve been using for a while:
+ http://www.colorzilla.com/gradient-editor/  CSS Output
+background: #1e5799; /* Old browsers */ background: -moz-linear-gradient(top, #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%); /* FF3.6+ */ background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(50%,#2989d8), color-stop(51%,#207cca), color-stop(100%,#7db9e8)); /* Chrome,Safari4+ */ background: -webkit-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* Chrome10+,Safari5.1+ */ background: -o-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* Opera 11.10+ */ background: -ms-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* IE10+ */ background: linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* W3C */ filter: progid:DXImageTransform.</description>
+    </item>
+    
+    <item>
+      <title>VMware Workstation Ubuntu problems</title>
+      <link>http://choly.ca/post/vmware-workstation-ubuntu-problems/</link>
+      <pubDate>Sun, 16 Oct 2011 12:14:52 -0400</pubDate>
+      
+      <guid>http://choly.ca/post/vmware-workstation-ubuntu-problems/</guid>
+      <description>I just tried starting up vmware workstation and was greeted with a message saying it needed to compile some modules and then went on to fail this step no matter what. This is an issue I&amp;rsquo;ve encountered before on Ubuntu 11.04 and now on 11.10.
+This is a bug with all v7.x of workstation and can be fixed with a simple patch I found today at http://weltall.heliohost.org/wordpress/2011/05/14/running-vmware-workstation-player-on-linux-2-6-39-updated/
+How to use it:</description>
+    </item>
+    
+    <item>
+      <title>QML is Awesome</title>
+      <link>http://choly.ca/post/qml-is-awesome/</link>
+      <pubDate>Fri, 30 Sep 2011 12:20:44 -0400</pubDate>
+      
+      <guid>http://choly.ca/post/qml-is-awesome/</guid>
+      <description>QML is Nokia&amp;rsquo;s recent addition to its well known Qt framework and comes part of the Qt Quick Suite
+The way I describe it to people is:
+ it&amp;rsquo;s like html and css combined with the power of Qt in a extremely simple syntax.
+ Why? I have used Swing, WinForms, and GTK in the past and never really liked anything to do with GUI work. QML is the first time I&amp;rsquo;m actually enjoying designing user interfaces and this results in a better end result.</description>
+    </item>
+    
+    <item>
+      <title>Qt Creator &#43; Boost on Ubuntu 11.04</title>
+      <link>http://choly.ca/post/qt-creator-boost-on-ubuntu-1104/</link>
+      <pubDate>Mon, 26 Sep 2011 12:23:39 -0400</pubDate>
+      
+      <guid>http://choly.ca/post/qt-creator-boost-on-ubuntu-1104/</guid>
+      <description>1. make a home for boost sudo mkdir -p /code/include sudo chown -R YOUR_USER_NAME /code cd /code/include  2. download boost sudo apt-get install subversion svn co http://svn.boost.org/svn/boost/trunk boost cd boost  3. compile boost sudo ./bootstrap.sh sudo ./b2  note: this will take a while, go get some coffee.
+4. Include in qt project Add the following to your .pro file.
+INCLUDEPATH += /code/include/ LIBS += -L/code/include/boost/bin.v2/libs/ -lboost_system -lboost_filesystem -lboost_asio  In this example i&amp;rsquo;m linking boost::filesystem and boost::asio.</description>
+    </item>
+    
+    <item>
+      <title>Compile CompassApp on Ubuntu 11.04</title>
+      <link>http://choly.ca/post/compile-compassapp-on-ubuntu-1104/</link>
+      <pubDate>Tue, 20 Sep 2011 12:27:52 -0400</pubDate>
+      
+      <guid>http://choly.ca/post/compile-compassapp-on-ubuntu-1104/</guid>
+      <description> 1. Install RVM bash &amp;lt; &amp;lt;(curl -s https://rvm.beginrescueend.com/install/rvm); echo &#39;if [[ -s &amp;quot;$HOME/.rvm/scripts/rvm&amp;quot; ]] ; then source &amp;quot;$HOME/.rvm/scripts/rvm&amp;quot; ; fi&#39; &amp;gt; ~/.bashrc rvm install 1.9.2  2. Install jRuby rvm install jruby cd ~/.rvm/bin/jruby-1.6.4 -S gem install rawr  3. Get and Compile CompassApp git clone https://github.com/handlino/CompassApp.git cd CompassApp bin/build-all.sh  4. Run CompassApp cd package/compass.app/ ./run.sh  </description>
+    </item>
+    
+    <item>
+      <title>Cloud9 IDE</title>
+      <link>http://choly.ca/post/cloud9-ide/</link>
+      <pubDate>Wed, 31 Aug 2011 12:31:21 -0400</pubDate>
+      
+      <guid>http://choly.ca/post/cloud9-ide/</guid>
+      <description>I&amp;rsquo;ve always wanted to like web based IDE&amp;rsquo;s. However, there was one thing that always prevented it: they&amp;rsquo;ve always been terrible.
+Until now that is. http://cloud9ide.com/ Cloud9 is epic. It&amp;rsquo;s built on node.js and has support for coffeescript and sass syntax highlighting and real time error checking. I can&amp;rsquo;t even find an desktop ide to do that right!
+It gets better though. It&amp;rsquo;s 100% open source so you can install it on locally.</description>
+    </item>
+    
+    <item>
+      <title>Sass Compass Blueprint</title>
+      <link>http://choly.ca/post/sass-compass-blueprint/</link>
+      <pubDate>Thu, 11 Aug 2011 12:34:59 -0400</pubDate>
+      
+      <guid>http://choly.ca/post/sass-compass-blueprint/</guid>
+      <description>So I just realized that I hadn&amp;rsquo;t actually written anything about compass. Now I feel a little dumb about the title of the Formalize post but w.e shit happens. Anyway I&amp;rsquo;ll be talking about css in this post. I started using these a while back so I don&amp;rsquo;t really know why I haven&amp;rsquo;t posted anything about it. Better late than never.
+Let&amp;rsquo;s start with SASS. Syntactically Awesome Style Sheet
+well actually I&amp;rsquo;ll be talking about SCSS which is sass syntax which is more like css.</description>
+    </item>
+    
+    <item>
+      <title>CoffeeScript</title>
+      <link>http://choly.ca/post/coffeescript/</link>
+      <pubDate>Sun, 07 Aug 2011 12:37:05 -0400</pubDate>
+      
+      <guid>http://choly.ca/post/coffeescript/</guid>
+      <description>I just spent the last 5 hours learning CoffeeScript and I feel like I have pretty much everything down. My brain is kinda dead right now, but at the same time I&amp;rsquo;m pretty excited to actually try it in a real project. In case you don&amp;rsquo;t know CoffeeScript is a python-esque language which &amp;lsquo;compiles&amp;rsquo; into javascript. classes, list comprehension inheritance, ranges, semantic code etc&amp;hellip;. dream come true. http://jashkenas.github.com/coffee-script/
+One thing I was worried about was being able to use 3rd party libraries with it.</description>
+    </item>
+    
+    <item>
+      <title>Formalize [More Compass]</title>
+      <link>http://choly.ca/post/formalize-compass/</link>
+      <pubDate>Fri, 05 Aug 2011 12:39:12 -0400</pubDate>
+      
+      <guid>http://choly.ca/post/formalize-compass/</guid>
+      <description>I think forms and all things related ( inputs, buttons, etc&amp;hellip; ) are probably one of the more annoying things when building a website. They&amp;rsquo;re just not consistent and it takes a lot of effort to make them look decent. I spent some time looking for a tool to help me with this and I ended up with formalize which comes as a compass plugin and integrates with any web framework you&amp;rsquo;re using.</description>
+    </item>
+    
+    <item>
+      <title>Reloader - multi browser live web preview</title>
+      <link>http://choly.ca/post/reloader/</link>
+      <pubDate>Wed, 20 Jul 2011 12:40:37 -0400</pubDate>
+      
+      <guid>http://choly.ca/post/reloader/</guid>
+      <description>I recently started developing on linux and unfortunately stylizer 5 does not support linux. So I&amp;rsquo;m back to using kate. However, one thing that I really missed right away was the instant preview feature. Having to go and refresh multiple browsers every time you change a line of code blows. I searched around for a bit and found a few tools but none of them were any good. I needed something that would work in multiple browsers at the same time and I couldn&amp;rsquo;t find anything to my liking so I wrote my own.</description>
+    </item>
+    
+    <item>
+      <title>JPProxy - tiny jsonp proxy</title>
+      <link>http://choly.ca/post/jpproxy/</link>
+      <pubDate>Fri, 15 Jul 2011 12:43:11 -0400</pubDate>
+      
+      <guid>http://choly.ca/post/jpproxy/</guid>
+      <description>JPProxy is a very simple yet powerful JSONP script. It allows you to make ajax like requests to any page on a server that has the jpproxy.php script on it. I tried really hard to make it as simple and generic as possible so the source is tiny.
+1. Client A script tag is injected into the DOM and all the values are added to the url as GET parameters.</description>
+    </item>
+    
+    <item>
+      <title>Skybound Stylizer 5 - CSS Editor</title>
+      <link>http://choly.ca/post/skybound-stylizer-5-css-editor/</link>
+      <pubDate>Thu, 14 Jul 2011 12:55:01 -0400</pubDate>
+      
+      <guid>http://choly.ca/post/skybound-stylizer-5-css-editor/</guid>
+      <description>Lets start with a little preface. Prior to finding Stylizer, I was completely happy using a regular text editor (gedit, notepad++) with firebug to do my css coding. I don&amp;rsquo;t really know how I found stylizer, or what motivated me to download it, but I am glad I did. Stylizer is, by far, the best css editor. I went on to try 10+ different editors in hopes of finding a free alternative and nothing even comes close.</description>
+    </item>
+    
+    <item>
+      <title>Balsamiq Mockups - wireframing done right</title>
+      <link>http://choly.ca/post/balsamiq-mockups-wireframing-done-right/</link>
+      <pubDate>Thu, 14 Jul 2011 12:51:14 -0400</pubDate>
+      
+      <guid>http://choly.ca/post/balsamiq-mockups-wireframing-done-right/</guid>
+      <description>Senario: You&amp;rsquo;re designing some type of user interface. Clients never know what they want (even when they think they do) so it&amp;rsquo;s usually a good idea to come prepared with a basic design to go off. You quickly whip together something in photoshop and think you&amp;rsquo;re good to go.
+This is how the conversation goes:
+Me: I threw together this mockup of a potential design. It&amp;rsquo;s very rough so just look at the basic layout and ignore details.</description>
+    </item>
+    
+    <item>
+      <title>absoluteFudge - ie6 absolute positioning</title>
+      <link>http://choly.ca/post/absolutefudge-ie6-absolute-positioning/</link>
+      <pubDate>Thu, 14 Jul 2011 12:48:23 -0400</pubDate>
+      
+      <guid>http://choly.ca/post/absolutefudge-ie6-absolute-positioning/</guid>
+      <description>I don&amp;rsquo;t know about you, but here is a snippet of css that I love.
+div#selector { position: absolute; left: 10px; right: 10px; top: 10px; bottom: 10px; }  assuming that the parent element has either relative or absolute positioning, the child div will fit inside with a 10px margin. This is a very powerful technique for creating liquid css layouts.
+Problem
+The problem is, that ie doesn&amp;rsquo;t support giving values to all sides (top,bottom,left,right) so you were forced to have a separate stylesheet for ie with a static layout.</description>
     </item>
     
   </channel>

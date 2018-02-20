@@ -7,7 +7,9 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 18 Oct 2012 12:02:06 -0400</lastBuildDate>
-    <atom:link href="http://choly.ca/tags/codegen/index.xml" rel="self" type="application/rss+xml" />
+    
+	<atom:link href="http://choly.ca/tags/codegen/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>SWAPM: Code generation made easy.</title>
@@ -15,34 +17,7 @@
       <pubDate>Thu, 18 Oct 2012 12:02:06 -0400</pubDate>
       
       <guid>http://choly.ca/post/swapm-code-generation-made-easy/</guid>
-      <description>&lt;p&gt;I finally got around to reading the Pragmatic Programmer book. One thing that really interested me was the section on Code Generation. So in a recent C++ project I was interfacing with postgres and there was a LOT of code repetition. The sql query, class members, getters/setters, response parsing logic. They all contained the same information. Perfect I thought, here was the ideal chance to give code generation a shot. My first incarnation was a very ugly perl script (aren&amp;rsquo;t they all .. ?)  which used mustache as the templating engine. It worked, But I had to copy and paste the generated code into my source every time it changed which was a pain.&lt;/p&gt;
-
-&lt;p&gt;Here&amp;rsquo;s what I really wanted:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;have the generated code automatically be inserted into my source.&lt;/li&gt;
-&lt;li&gt;have an extemely simple templating language&lt;/li&gt;
-&lt;li&gt;solution for situations where simple templating wasn&amp;rsquo;t enough (computed properties).&lt;/li&gt;
-&lt;li&gt;separate my data from the templates&lt;/li&gt;
-&lt;li&gt;VERY easy to use.&lt;/li&gt;
-&lt;li&gt;VERY easy to integrate into existing projects.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;I spent a decent amount of time googling but all I found was&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;cheetah: &lt;a href=&#34;http://www.cheetahtemplate.org/&#34;&gt;http://www.cheetahtemplate.org/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;cog: &lt;a href=&#34;http://nedbatchelder.com/code/cog/&#34;&gt;http://nedbatchelder.com/code/cog/&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;I didn&amp;rsquo;t like them though. Cheetah is too complicated and cog is too limited.&lt;/p&gt;
-
-&lt;p&gt;So I set off to make my own. &lt;a href=&#34;https://github.com/icholy/swapm&#34;&gt;https://github.com/icholy/swapm&lt;/a&gt; . I am using it in my projects with a very high level of satisfaction. I wrote it in javascript because node makes it portable, npm makes distribution painless, and I wanted support for having computed properties in my data.&lt;/p&gt;
-
-&lt;p&gt;Regarding the name, I&amp;rsquo;m not very creative and originally called it swap but that name was already taken on npm. So I renamed it to swapm pronounced &amp;ldquo;Swap-Em&amp;rdquo;.&lt;/p&gt;
-
-&lt;p&gt;** Note: ** It&amp;rsquo;s still very much a work in progress at the time of writing so use at your own risk of it eating your code. Github issues are always appreciated.&lt;/p&gt;
-</description>
+      <description>I finally got around to reading the Pragmatic Programmer book. One thing that really interested me was the section on Code Generation. So in a recent C++ project I was interfacing with postgres and there was a LOT of code repetition. The sql query, class members, getters/setters, response parsing logic. They all contained the same information. Perfect I thought, here was the ideal chance to give code generation a shot. My first incarnation was a very ugly perl script (aren&amp;rsquo;t they all .</description>
     </item>
     
   </channel>
