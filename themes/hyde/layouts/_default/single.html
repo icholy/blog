@@ -9,10 +9,8 @@
 			      {{ .Content }}
 			</div>
 
-			{{ if and (isset .Site.Params "disqusShortname") (ne .Site.Params.disqusShortname "") }}
-				<h2>Comments</h2>
-				{{ partial "disqus" . }}
-			{{ end }}
+			<h2>Comments</h2>
+			{{ partial "disqus" . }}
 		</div>
 
   </body>
