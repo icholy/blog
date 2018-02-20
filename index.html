@@ -112,7 +112,7 @@ func (f MyHandlerFunc) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 </code></pre>
 
 <p>Better, but what if we want to control the error status code? There could be a
-special <code>error</code> type that <code>MyHandleFunc</code> checks for.</p>
+special <code>error</code> type that <code>MyHandlerFunc</code> checks for.</p>
 
 <pre><code class="language-go">type MyError struct {
     Code int
