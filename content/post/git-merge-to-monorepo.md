@@ -54,7 +54,7 @@ git merge thing/master
 5. Clean up
 
 ```
-git origin rm thing
+git remote rm thing
 rm -rf /tmp/thing
 ```
 
