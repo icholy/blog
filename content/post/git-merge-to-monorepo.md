@@ -15,7 +15,8 @@ title = "Merging Multiple Git Repositories Into A MonoRepo"
 mkdir monorepo && cd monorepo
 git init .
 echo "# MonoRepo" > README.md
-git commit -am "first commit"
+git add .
+git commit -m "first commit"
 ```
 
 2. Clone one of the existing repositories to a temporary location.
