@@ -24,6 +24,7 @@ git commit -m "first commit"
 Example Remote: "ssh://git@code.company.com/thing.git"
 
 ``` sh
+mkdir /tmp/thing
 git clone ssh://git@code.company.com/thing.git /tmp/thing
 cd /tmp/thing
 ```
