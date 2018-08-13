@@ -2,8 +2,9 @@
 Description = ""
 Tags = ["Development", "golang"]
 Categories = ["Development", "GoLang"]
+date = "2018-08-13T12:04:56-04:00"
 title = "Merging Multiple Git Repositories Into A MonoRepo"
-menu = "main"
+
 +++
 
 **Note:** Replace `thing` with your own repo name in the examples.
