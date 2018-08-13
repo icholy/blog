@@ -48,7 +48,7 @@ git filter-branch -f --prune-empty --tree-filter '
 cd monorepo
 git remote add thing /tmp/thing
 git fetch thing
-git merge thing master
+git merge thing/master
 ```
 
 5. Clean up
