@@ -17,7 +17,7 @@
       <pubDate>Tue, 20 Sep 2011 12:27:52 -0400</pubDate>
       
       <guid>http://choly.ca/post/compile-compassapp-on-ubuntu-1104/</guid>
-      <description> 1. Install RVM bash &amp;lt; &amp;lt;(curl -s https://rvm.beginrescueend.com/install/rvm); echo &#39;if [[ -s &amp;quot;$HOME/.rvm/scripts/rvm&amp;quot; ]] ; then source &amp;quot;$HOME/.rvm/scripts/rvm&amp;quot; ; fi&#39; &amp;gt; ~/.bashrc rvm install 1.9.2  2. Install jRuby rvm install jruby cd ~/.rvm/bin/jruby-1.6.4 -S gem install rawr  3. Get and Compile CompassApp git clone https://github.com/handlino/CompassApp.git cd CompassApp bin/build-all.sh  4. Run CompassApp cd package/compass.app/ ./run.sh  </description>
+      <description>   1. Install RVM bash &amp;lt; &amp;lt;(curl -s https://rvm.beginrescueend.com/install/rvm); echo &#39;if [[ -s &amp;quot;$HOME/.rvm/scripts/rvm&amp;quot; ]] ; then source &amp;quot;$HOME/.rvm/scripts/rvm&amp;quot; ; fi&#39; &amp;gt; ~/.bashrc rvm install 1.9.2  2. Install jRuby rvm install jruby cd ~/.rvm/bin/jruby-1.6.4 -S gem install rawr  3. Get and Compile CompassApp git clone https://github.com/handlino/CompassApp.git cd CompassApp bin/build-all.sh  4. Run CompassApp cd package/compass.app/ ./run.sh  </description>
     </item>
     
     <item>

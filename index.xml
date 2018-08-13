@@ -6,10 +6,21 @@
     <description>Recent content on Choly&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 19 Feb 2018 12:17:21 -0400</lastBuildDate>
+    <lastBuildDate>Mon, 13 Aug 2018 12:04:56 -0400</lastBuildDate>
     
 	<atom:link href="http://choly.ca/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Merging Multiple Git Repositories Into A MonoRepo</title>
+      <link>http://choly.ca/post/git-merge-to-monorepo/</link>
+      <pubDate>Mon, 13 Aug 2018 12:04:56 -0400</pubDate>
+      
+      <guid>http://choly.ca/post/git-merge-to-monorepo/</guid>
+      <description>Note: Replace thing with your own repo name in the examples.
+ Create a repository which will store all your code.  mkdir monorepo &amp;amp;&amp;amp; cd monorepo git init . echo &amp;quot;# MonoRepo&amp;quot; &amp;gt; README.md git commit -am &amp;quot;first commit&amp;quot;   Clone one of the existing repositories to a temporary location.  Example Remote: &amp;ldquo;ssh://git@code.company.com/thing.git&amp;rdquo;
+git clone ssh://git@code.company.com/thing.git /tmp/thing cd /tmp/thing   Use git filter-branch to rewrite the history into a sub-directory.</description>
+    </item>
     
     <item>
       <title>Go: Composable http.Handler</title>
@@ -197,7 +208,7 @@ How to use it:</description>
       <description>QML is Nokia&amp;rsquo;s recent addition to its well known Qt framework and comes part of the Qt Quick Suite
 The way I describe it to people is:
  it&amp;rsquo;s like html and css combined with the power of Qt in a extremely simple syntax.
- Why? I have used Swing, WinForms, and GTK in the past and never really liked anything to do with GUI work. QML is the first time I&amp;rsquo;m actually enjoying designing user interfaces and this results in a better end result.</description>
+   Why? I have used Swing, WinForms, and GTK in the past and never really liked anything to do with GUI work. QML is the first time I&amp;rsquo;m actually enjoying designing user interfaces and this results in a better end result.</description>
     </item>
     
     <item>
@@ -217,7 +228,7 @@ INCLUDEPATH += /code/include/ LIBS += -L/code/include/boost/bin.v2/libs/ -lboost
       <pubDate>Tue, 20 Sep 2011 12:27:52 -0400</pubDate>
       
       <guid>http://choly.ca/post/compile-compassapp-on-ubuntu-1104/</guid>
-      <description> 1. Install RVM bash &amp;lt; &amp;lt;(curl -s https://rvm.beginrescueend.com/install/rvm); echo &#39;if [[ -s &amp;quot;$HOME/.rvm/scripts/rvm&amp;quot; ]] ; then source &amp;quot;$HOME/.rvm/scripts/rvm&amp;quot; ; fi&#39; &amp;gt; ~/.bashrc rvm install 1.9.2  2. Install jRuby rvm install jruby cd ~/.rvm/bin/jruby-1.6.4 -S gem install rawr  3. Get and Compile CompassApp git clone https://github.com/handlino/CompassApp.git cd CompassApp bin/build-all.sh  4. Run CompassApp cd package/compass.app/ ./run.sh  </description>
+      <description>   1. Install RVM bash &amp;lt; &amp;lt;(curl -s https://rvm.beginrescueend.com/install/rvm); echo &#39;if [[ -s &amp;quot;$HOME/.rvm/scripts/rvm&amp;quot; ]] ; then source &amp;quot;$HOME/.rvm/scripts/rvm&amp;quot; ; fi&#39; &amp;gt; ~/.bashrc rvm install 1.9.2  2. Install jRuby rvm install jruby cd ~/.rvm/bin/jruby-1.6.4 -S gem install rawr  3. Get and Compile CompassApp git clone https://github.com/handlino/CompassApp.git cd CompassApp bin/build-all.sh  4. Run CompassApp cd package/compass.app/ ./run.sh  </description>
     </item>
     
     <item>
