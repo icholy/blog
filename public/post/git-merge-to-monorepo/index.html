@@ -145,7 +145,6 @@ fi
 
 REPO_REMOTE=&quot;$1&quot;
 REPO_NAME=&quot;$2&quot;
-REPO_DIR_TMP=&quot;$(mktemp -d -t &quot;${REPO_NAME}.XXXX&quot;)&quot;
 
 # infer a name if one is not provided
 if [ -z &quot;$REPO_NAME&quot; ]
@@ -154,9 +153,11 @@ then
     REPO_NAME=&quot;${REPO_NAME%.*}&quot;
 fi
 
+REPO_DIR_TMP=&quot;$(mktemp -d -t &quot;${REPO_NAME}.XXXX&quot;)&quot;
+
 echo &quot;REPO REMOTE: $REPO_REMOTE&quot;
 echo &quot;REPO NAME: $REPO_NAME&quot;
-echo &quot;REPO TMP DIR: REPO_DIR_TMP&quot;
+echo &quot;REPO TMP DIR: $REPO_DIR_TMP&quot;
 echo
 read -p &quot;Press &lt;Enter&gt; to continue&quot;
 
