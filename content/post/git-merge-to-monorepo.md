@@ -81,7 +81,6 @@ fi
 
 REPO_REMOTE="$1"
 REPO_NAME="$2"
-REPO_DIR_TMP="$(mktemp -d -t "${REPO_NAME}.XXXX")"
 
 # infer a name if one is not provided
 if [ -z "$REPO_NAME" ]
@@ -90,9 +89,11 @@ then
     REPO_NAME="${REPO_NAME%.*}"
 fi
 
+REPO_DIR_TMP="$(mktemp -d -t "${REPO_NAME}.XXXX")"
+
 echo "REPO REMOTE: $REPO_REMOTE"
 echo "REPO NAME: $REPO_NAME"
-echo "REPO TMP DIR: REPO_DIR_TMP"
+echo "REPO TMP DIR: $REPO_DIR_TMP"
 echo
 read -p "Press <Enter> to continue"
 
