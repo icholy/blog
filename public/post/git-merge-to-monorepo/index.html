@@ -76,7 +76,8 @@
 <pre><code>mkdir monorepo &amp;&amp; cd monorepo
 git init .
 echo &quot;# MonoRepo&quot; &gt; README.md
-git commit -am &quot;first commit&quot;
+git add .
+git commit -m &quot;first commit&quot;
 </code></pre>
 
 <ol>
@@ -85,7 +86,8 @@ git commit -am &quot;first commit&quot;
 
 <p>Example Remote: &ldquo;ssh://git@code.company.com/thing.git&rdquo;</p>
 
-<pre><code class="language-sh">git clone ssh://git@code.company.com/thing.git /tmp/thing
+<pre><code class="language-sh">mkdir /tmp/thing
+git clone ssh://git@code.company.com/thing.git /tmp/thing
 cd /tmp/thing
 </code></pre>
 
@@ -110,14 +112,14 @@ git filter-branch -f --prune-empty --tree-filter '
 <pre><code>cd monorepo
 git remote add thing /tmp/thing
 git fetch thing
-git merge thing master
+git merge thing/master
 </code></pre>
 
 <ol>
 <li>Clean up</li>
 </ol>
 
-<pre><code>git origin rm thing
+<pre><code>git remote rm thing
 rm -rf /tmp/thing
 </code></pre>
 
