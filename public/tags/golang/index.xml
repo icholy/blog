@@ -6,10 +6,21 @@
     <description>Recent content in Golang on Choly&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 19 Mar 2016 15:41:44 -0400</lastBuildDate>
+    <lastBuildDate>Mon, 13 Aug 2018 12:04:56 -0400</lastBuildDate>
     
 	<atom:link href="http://choly.ca/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Merging Multiple Git Repositories Into A MonoRepo</title>
+      <link>http://choly.ca/post/git-merge-to-monorepo/</link>
+      <pubDate>Mon, 13 Aug 2018 12:04:56 -0400</pubDate>
+      
+      <guid>http://choly.ca/post/git-merge-to-monorepo/</guid>
+      <description>Note: Replace thing with your own repo name in the examples.
+ Create a repository which will store all your code.  mkdir monorepo &amp;amp;&amp;amp; cd monorepo git init . echo &amp;quot;# MonoRepo&amp;quot; &amp;gt; README.md git commit -am &amp;quot;first commit&amp;quot;   Clone one of the existing repositories to a temporary location.  Example Remote: &amp;ldquo;ssh://git@code.company.com/thing.git&amp;rdquo;
+git clone ssh://git@code.company.com/thing.git /tmp/thing cd /tmp/thing   Use git filter-branch to rewrite the history into a sub-directory.</description>
+    </item>
     
     <item>
       <title>TypeScript: Working with JSON</title>

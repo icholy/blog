@@ -3,7 +3,7 @@
 <head>
   <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.36" />
+  <meta name="generator" content="Hugo 0.47-DEV" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
@@ -70,12 +70,12 @@
 			      <p>When using <code>net/http</code>, handling errors is kinda annoying.</p>
 
 <pre><code class="language-go">http.HandleFunc(&quot;/foo&quot;, func(w http.ResponseWriter, r *http.Request) {
-    thing, err := storage.Get(&quot;thing&quot;)
-    if err != nil {
-        http.Error(w, err.Error(), 500)
-        return
-    }
-    _ = json.NewEncoder(w).Encode(thing)
+	thing, err := storage.Get(&quot;thing&quot;)
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		return
+	}
+	_ = json.NewEncoder(w).Encode(thing)
 })
 </code></pre>
 
@@ -84,20 +84,20 @@
 <pre><code class="language-go">type MyHandlerFunc func(w http.ResponseWriter, r *http.Request) error
 
 func (f MyHandlerFunc) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-    if err := f(w, r); err != nil {
-        http.Error(w, err.Error(), 500)
-    }
+	if err := f(w, r); err != nil {
+		http.Error(w, err.Error(), 500)
+	}
 }
 </code></pre>
 
 <p>Here&rsquo;s the previous code refactored to use the new handler.</p>
 
 <pre><code class="language-go">http.Handle(&quot;/foo&quot;, MyHandlerFunc(func(w http.ResponseWriter, r *http.Request) error {
-    thing, err := storage.Get(&quot;thing&quot;)
-    if err != nil {
-        return err
-    }
-    return json.NewEncoder(w).Encode(thing)
+	thing, err := storage.Get(&quot;thing&quot;)
+	if err != nil {
+		return err
+	}
+	return json.NewEncoder(w).Encode(thing)
 }))
 </code></pre>
 
@@ -105,35 +105,35 @@ func (f MyHandlerFunc) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 special <code>error</code> type that <code>MyHandlerFunc</code> checks for.</p>
 
 <pre><code class="language-go">type MyError struct {
-    Code int
-    Text string
+	Code int
+	Text string
 }
 
 func (e MyError) Error() string {
-    return fmt.Sprintf(&quot;%d: %s&quot;, e.Code, e.Text)
+	return fmt.Sprintf(&quot;%d: %s&quot;, e.Code, e.Text)
 }
 
 type MyHandlerFunc func(w http.ResponseWriter, r *http.Request) error
 
 func (f MyHandlerFunc) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-    if err := f(w, r); err != nil {
-        if e, ok := err.(MyError); ok {
-            http.Error(w, e.Text, e.Code)
-        } else {
-            http.Error(w, err.Error(), 500)
-        }
-    }
+	if err := f(w, r); err != nil {
+		if e, ok := err.(MyError); ok {
+			http.Error(w, e.Text, e.Code)
+		} else {
+			http.Error(w, err.Error(), 500)
+		}
+	}
 }
 </code></pre>
 
 <p>Usage:</p>
 
 <pre><code class="language-go">http.Handle(&quot;/foo&quot;, MyHandlerFunc(func(w http.ResponseWriter, r *http.Request) error {
-    thing, err := storage.Get(&quot;thing&quot;)
-    if err != nil {
-        return MyError{Code: 400, Text: &quot;SomeError&quot;}
-    }
-    return json.NewEncoder(w).Encode(thing)
+	thing, err := storage.Get(&quot;thing&quot;)
+	if err != nil {
+		return MyError{Code: 400, Text: &quot;SomeError&quot;}
+	}
+	return json.NewEncoder(w).Encode(thing)
 }))
 </code></pre>
 
@@ -144,66 +144,66 @@ over how it&rsquo;s handled.</p>
 <pre><code class="language-go">type MyHandlerFunc func(w http.ResponseWriter, r *http.Request) http.Handler
 
 func (f MyHandlerFunc) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-    if handler := f(w, r); handler != nil {
-        handler.ServeHTTP(w, r)
-    }
+	if handler := f(w, r); handler != nil {
+		handler.ServeHTTP(w, r)
+	}
 }
 </code></pre>
 
 <p>With this in place, we can implement all kinds of interesting helpers.</p>
 
 <pre><code class="language-go">func WithStatus(code int, h http.Handler) http.Handler {
-    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-        w.WriteHeader(code)
-        h.ServeHTTP(w, r)
-    })
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(code)
+		h.ServeHTTP(w, r)
+	})
 }
 
 func Error(err error, code int) http.Handler {
-    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-        http.Error(w, err.Error(), code)
-    })
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		http.Error(w, err.Error(), code)
+	})
 }
 
 func JSON(v interface{}) http.Handler {
-    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-        _ = json.NewEncoder(w).Encode(v)
-    })
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		_ = json.NewEncoder(w).Encode(v)
+	})
 }
 
 func Text(v interface{}) http.Handler {
-    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-        fmt.Fprint(w, v)
-    })
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprint(w, v)
+	})
 }
 </code></pre>
 
 <p>Usage example:</p>
 
 <pre><code class="language-go">func GetThing(w http.ResponseWriter, r *http.Request) http.Handler {
-    thing, err := storage.Get(&quot;thing&quot;)
-    if err != nil {
-        return Error(err, 500)
-    }
-    return JSON(thing)
+	thing, err := storage.Get(&quot;thing&quot;)
+	if err != nil {
+		return Error(err, 500)
+	}
+	return JSON(thing)
 }
 
 func DeleteThing(w http.ResponseWriter, r *http.Request) http.Handler {
-    if err := storage.Delete(&quot;thing&quot;); err != nil {
-        return Error(err, 400)
-    }
-    return Text(&quot;deleted thing&quot;)
+	if err := storage.Delete(&quot;thing&quot;); err != nil {
+		return Error(err, 400)
+	}
+	return Text(&quot;deleted thing&quot;)
 }
 
 func HandleThing(w http.ResponseWriter, r *http.Request) http.Handler {
-    switch r.Method {
-    case http.MethodGet:
-        return GetThing(w, r)
-    case http.MethodDelete:
-        return DeleteThing(w, r)
-    default:
-        return WithStatus(404, Text(&quot;not found&quot;))
-    }
+	switch r.Method {
+	case http.MethodGet:
+		return GetThing(w, r)
+	case http.MethodDelete:
+		return DeleteThing(w, r)
+	default:
+		return WithStatus(404, Text(&quot;not found&quot;))
+	}
 }
 
 http.Handle(&quot;/thing&quot;, MyHandlerFunc(HandleThing))

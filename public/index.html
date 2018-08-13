@@ -3,7 +3,7 @@
 <head>
   <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.36" />
+  <meta name="generator" content="Hugo 0.47-DEV" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
@@ -70,6 +70,131 @@
       
   <div class="post">
     <h1 class="post-title">
+      <a href="http://choly.ca/post/git-merge-to-monorepo/">
+        Merging Multiple Git Repositories Into A MonoRepo
+      </a>
+    </h1>
+
+    <span class="post-date">Mon, Aug 13, 2018</span>
+
+    <p><strong>Note:</strong> Replace <code>thing</code> with your own repo name in the examples.</p>
+
+<ol>
+<li>Create a repository which will store all your code.</li>
+</ol>
+
+<pre><code>mkdir monorepo &amp;&amp; cd monorepo
+git init .
+echo &quot;# MonoRepo&quot; &gt; README.md
+git commit -am &quot;first commit&quot;
+</code></pre>
+
+<ol>
+<li>Clone one of the existing repositories to a temporary location.</li>
+</ol>
+
+<p>Example Remote: &ldquo;ssh://git@code.company.com/thing.git&rdquo;</p>
+
+<pre><code class="language-sh">git clone ssh://git@code.company.com/thing.git /tmp/thing
+cd /tmp/thing
+</code></pre>
+
+<ol>
+<li>Use <a href="https://git-scm.com/docs/git-filter-branch">git filter-branch</a> to rewrite the history into a sub-directory.</li>
+</ol>
+
+<p><strong>Note:</strong> this step can take a very long time</p>
+
+<pre><code>export REPO_NAME=&quot;thing&quot; 
+
+git filter-branch -f --prune-empty --tree-filter '
+    mkdir -p &quot;$REPO_NAME&quot;
+    git ls-tree --name-only $GIT_COMMIT | xargs -I{} mv {} &quot;$REPO_NAME&quot;
+'
+</code></pre>
+
+<ol>
+<li>Merge the rewritten repository into the monorepo.</li>
+</ol>
+
+<pre><code>cd monorepo
+git remote add thing /tmp/thing
+git fetch thing
+git merge thing master
+</code></pre>
+
+<ol>
+<li>Clean up</li>
+</ol>
+
+<pre><code>git origin rm thing
+rm -rf /tmp/thing
+</code></pre>
+
+<ol>
+<li>Forget everything you just read and just use this script</li>
+</ol>
+
+<pre><code>cd monorepo
+./merge_repos.sh ssh://git@code.company.com/thing.git
+</code></pre>
+
+<pre><code class="language-sh">#!/bin/bash
+
+# This script takes a remote repository and merges it into
+# the current one as a subdirectory
+
+if [ -z &quot;$1&quot; ]
+then
+    echo &quot;Usage:&quot;
+    echo &quot;    ./merge_repos.sh &lt;repository&gt; [name]&quot;
+    exit
+fi
+
+REPO_REMOTE=&quot;$1&quot;
+REPO_NAME=&quot;$2&quot;
+REPO_DIR_TMP=&quot;$(mktemp -d -t &quot;${REPO_NAME}.XXXX&quot;)&quot;
+
+# infer a name if one is not provided
+if [ -z &quot;$REPO_NAME&quot; ]
+then
+    REPO_NAME=&quot;${REPO_REMOTE##*/}&quot;
+    REPO_NAME=&quot;${REPO_NAME%.*}&quot;
+fi
+
+echo &quot;REPO REMOTE: $REPO_REMOTE&quot;
+echo &quot;REPO NAME: $REPO_NAME&quot;
+echo &quot;REPO TMP DIR: REPO_DIR_TMP&quot;
+echo
+read -p &quot;Press &lt;Enter&gt; to continue&quot;
+
+# clone other repo
+git clone &quot;$REPO_REMOTE&quot; &quot;$REPO_DIR_TMP&quot;
+
+# rewrite the entire history into sub-directory
+export REPO_NAME
+(
+    cd $REPO_DIR_TMP &amp;&amp;
+    git filter-branch -f --prune-empty --tree-filter '
+        mkdir -p &quot;$REPO_NAME&quot;
+        git ls-tree --name-only $GIT_COMMIT | xargs -I{} mv {} &quot;$REPO_NAME&quot;
+    '
+)
+
+# merge the rewritten repo
+git remote add &quot;$REPO_NAME&quot; &quot;$REPO_DIR_TMP&quot;
+git fetch &quot;$REPO_NAME&quot;
+git merge &quot;$REPO_NAME/master&quot;
+
+# delete the rewritten repo
+rm -rf &quot;$REPO_DIR_TMP&quot;
+git remote rm &quot;$REPO_NAME&quot;
+</code></pre>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
       <a href="http://choly.ca/post/go-experiments-with-handler/">
         Go: Composable http.Handler
       </a>
@@ -80,12 +205,12 @@
     <p>When using <code>net/http</code>, handling errors is kinda annoying.</p>
 
 <pre><code class="language-go">http.HandleFunc(&quot;/foo&quot;, func(w http.ResponseWriter, r *http.Request) {
-    thing, err := storage.Get(&quot;thing&quot;)
-    if err != nil {
-        http.Error(w, err.Error(), 500)
-        return
-    }
-    _ = json.NewEncoder(w).Encode(thing)
+	thing, err := storage.Get(&quot;thing&quot;)
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		return
+	}
+	_ = json.NewEncoder(w).Encode(thing)
 })
 </code></pre>
 
@@ -94,20 +219,20 @@
 <pre><code class="language-go">type MyHandlerFunc func(w http.ResponseWriter, r *http.Request) error
 
 func (f MyHandlerFunc) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-    if err := f(w, r); err != nil {
-        http.Error(w, err.Error(), 500)
-    }
+	if err := f(w, r); err != nil {
+		http.Error(w, err.Error(), 500)
+	}
 }
 </code></pre>
 
 <p>Here&rsquo;s the previous code refactored to use the new handler.</p>
 
 <pre><code class="language-go">http.Handle(&quot;/foo&quot;, MyHandlerFunc(func(w http.ResponseWriter, r *http.Request) error {
-    thing, err := storage.Get(&quot;thing&quot;)
-    if err != nil {
-        return err
-    }
-    return json.NewEncoder(w).Encode(thing)
+	thing, err := storage.Get(&quot;thing&quot;)
+	if err != nil {
+		return err
+	}
+	return json.NewEncoder(w).Encode(thing)
 }))
 </code></pre>
 
@@ -115,35 +240,35 @@ func (f MyHandlerFunc) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 special <code>error</code> type that <code>MyHandlerFunc</code> checks for.</p>
 
 <pre><code class="language-go">type MyError struct {
-    Code int
-    Text string
+	Code int
+	Text string
 }
 
 func (e MyError) Error() string {
-    return fmt.Sprintf(&quot;%d: %s&quot;, e.Code, e.Text)
+	return fmt.Sprintf(&quot;%d: %s&quot;, e.Code, e.Text)
 }
 
 type MyHandlerFunc func(w http.ResponseWriter, r *http.Request) error
 
 func (f MyHandlerFunc) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-    if err := f(w, r); err != nil {
-        if e, ok := err.(MyError); ok {
-            http.Error(w, e.Text, e.Code)
-        } else {
-            http.Error(w, err.Error(), 500)
-        }
-    }
+	if err := f(w, r); err != nil {
+		if e, ok := err.(MyError); ok {
+			http.Error(w, e.Text, e.Code)
+		} else {
+			http.Error(w, err.Error(), 500)
+		}
+	}
 }
 </code></pre>
 
 <p>Usage:</p>
 
 <pre><code class="language-go">http.Handle(&quot;/foo&quot;, MyHandlerFunc(func(w http.ResponseWriter, r *http.Request) error {
-    thing, err := storage.Get(&quot;thing&quot;)
-    if err != nil {
-        return MyError{Code: 400, Text: &quot;SomeError&quot;}
-    }
-    return json.NewEncoder(w).Encode(thing)
+	thing, err := storage.Get(&quot;thing&quot;)
+	if err != nil {
+		return MyError{Code: 400, Text: &quot;SomeError&quot;}
+	}
+	return json.NewEncoder(w).Encode(thing)
 }))
 </code></pre>
 
@@ -154,66 +279,66 @@ over how it&rsquo;s handled.</p>
 <pre><code class="language-go">type MyHandlerFunc func(w http.ResponseWriter, r *http.Request) http.Handler
 
 func (f MyHandlerFunc) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-    if handler := f(w, r); handler != nil {
-        handler.ServeHTTP(w, r)
-    }
+	if handler := f(w, r); handler != nil {
+		handler.ServeHTTP(w, r)
+	}
 }
 </code></pre>
 
 <p>With this in place, we can implement all kinds of interesting helpers.</p>
 
 <pre><code class="language-go">func WithStatus(code int, h http.Handler) http.Handler {
-    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-        w.WriteHeader(code)
-        h.ServeHTTP(w, r)
-    })
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(code)
+		h.ServeHTTP(w, r)
+	})
 }
 
 func Error(err error, code int) http.Handler {
-    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-        http.Error(w, err.Error(), code)
-    })
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		http.Error(w, err.Error(), code)
+	})
 }
 
 func JSON(v interface{}) http.Handler {
-    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-        _ = json.NewEncoder(w).Encode(v)
-    })
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		_ = json.NewEncoder(w).Encode(v)
+	})
 }
 
 func Text(v interface{}) http.Handler {
-    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-        fmt.Fprint(w, v)
-    })
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprint(w, v)
+	})
 }
 </code></pre>
 
 <p>Usage example:</p>
 
 <pre><code class="language-go">func GetThing(w http.ResponseWriter, r *http.Request) http.Handler {
-    thing, err := storage.Get(&quot;thing&quot;)
-    if err != nil {
-        return Error(err, 500)
-    }
-    return JSON(thing)
+	thing, err := storage.Get(&quot;thing&quot;)
+	if err != nil {
+		return Error(err, 500)
+	}
+	return JSON(thing)
 }
 
 func DeleteThing(w http.ResponseWriter, r *http.Request) http.Handler {
-    if err := storage.Delete(&quot;thing&quot;); err != nil {
-        return Error(err, 400)
-    }
-    return Text(&quot;deleted thing&quot;)
+	if err := storage.Delete(&quot;thing&quot;); err != nil {
+		return Error(err, 400)
+	}
+	return Text(&quot;deleted thing&quot;)
 }
 
 func HandleThing(w http.ResponseWriter, r *http.Request) http.Handler {
-    switch r.Method {
-    case http.MethodGet:
-        return GetThing(w, r)
-    case http.MethodDelete:
-        return DeleteThing(w, r)
-    default:
-        return WithStatus(404, Text(&quot;not found&quot;))
-    }
+	switch r.Method {
+	case http.MethodGet:
+		return GetThing(w, r)
+	case http.MethodDelete:
+		return DeleteThing(w, r)
+	default:
+		return WithStatus(404, Text(&quot;not found&quot;))
+	}
 }
 
 http.Handle(&quot;/thing&quot;, MyHandlerFunc(HandleThing))
@@ -641,21 +766,21 @@ interface UserJSON {
 <pre><code class="language-go">package main
 
 import (
-    &quot;encoding/json&quot;
-    &quot;os&quot;
-    &quot;time&quot;
+	&quot;encoding/json&quot;
+	&quot;os&quot;
+	&quot;time&quot;
 )
 
 type MyUser struct {
-    ID       int64     `json:&quot;id&quot;`
-    Name     string    `json:&quot;name&quot;`
-    LastSeen time.Time `json:&quot;lastSeen&quot;`
+	ID       int64     `json:&quot;id&quot;`
+	Name     string    `json:&quot;name&quot;`
+	LastSeen time.Time `json:&quot;lastSeen&quot;`
 }
 
 func main() {
-    _ = json.NewEncoder(os.Stdout).Encode(
-        &amp;MyUser{1, &quot;Ken&quot;, time.Now()},
-    )
+	_ = json.NewEncoder(os.Stdout).Encode(
+		&amp;MyUser{1, &quot;Ken&quot;, time.Now()},
+	)
 }
 </code></pre>
 
@@ -669,15 +794,15 @@ func main() {
 <p>The simple solution is to introduce another auxiliary <code>struct</code> and populate it with the correctly formatted values in the <code>MarshalJSON</code> method.</p>
 
 <pre><code class="language-go">func (u *MyUser) MarshalJSON() ([]byte, error) {
-    return json.Marshal(&amp;struct {
-        ID       int64  `json:&quot;id&quot;`
-        Name     string `json:&quot;name&quot;`
-        LastSeen int64  `json:&quot;lastSeen&quot;`
-    }{
-        ID:       u.ID,
-        Name:     u.Name,
-        LastSeen: u.LastSeen.Unix(),
-    })
+	return json.Marshal(&amp;struct {
+		ID       int64  `json:&quot;id&quot;`
+		Name     string `json:&quot;name&quot;`
+		LastSeen int64  `json:&quot;lastSeen&quot;`
+	}{
+		ID:       u.ID,
+		Name:     u.Name,
+		LastSeen: u.LastSeen.Unix(),
+	})
 }
 </code></pre>
 
@@ -685,45 +810,45 @@ func main() {
 It would be nice if we could embed the original <code>struct</code> into the auxiliary <code>struct</code> and have it inherit all the fields that do not need to be changed.</p>
 
 <pre><code class="language-go">func (u *MyUser) MarshalJSON() ([]byte, error) {
-    return json.Marshal(&amp;struct {
-        LastSeen int64 `json:&quot;lastSeen&quot;`
-        *MyUser
-    }{
-        LastSeen: u.LastSeen.Unix(),
-        MyUser:   u,
-    })
+	return json.Marshal(&amp;struct {
+		LastSeen int64 `json:&quot;lastSeen&quot;`
+		*MyUser
+	}{
+		LastSeen: u.LastSeen.Unix(),
+		MyUser:   u,
+	})
 }
 </code></pre>
 
 <p>The problem here is that the auxiliary <code>struct</code> will also inherit the original&rsquo;s <code>MarshalJSON</code> method, causing it to go into an infinite loop. The solution is to alias the original type. This alias will have all the same fields, but none of the methods.</p>
 
 <pre><code class="language-go">func (u *MyUser) MarshalJSON() ([]byte, error) {
-    type Alias MyUser
-    return json.Marshal(&amp;struct {
-        LastSeen int64 `json:&quot;lastSeen&quot;`
-        *Alias
-    }{
-        LastSeen: u.LastSeen.Unix(),
-        Alias:    (*Alias)(u),
-    })
+	type Alias MyUser
+	return json.Marshal(&amp;struct {
+		LastSeen int64 `json:&quot;lastSeen&quot;`
+		*Alias
+	}{
+		LastSeen: u.LastSeen.Unix(),
+		Alias:    (*Alias)(u),
+	})
 }
 </code></pre>
 
 <p>The same technique can be used for implementing an <code>UnmarshalJSON</code> method.</p>
 
 <pre><code class="language-go">func (u *MyUser) UnmarshalJSON(data []byte) error {
-    type Alias MyUser
-    aux := &amp;struct {
-        LastSeen int64 `json:&quot;lastSeen&quot;`
-        *Alias
-    }{
-        Alias: (*Alias)(u),
-    }
-    if err := json.Unmarshal(data, &amp;aux); err != nil {
-        return err
-    }
-    u.LastSeen = time.Unix(aux.LastSeen, 0)
-    return nil
+	type Alias MyUser
+	aux := &amp;struct {
+		LastSeen int64 `json:&quot;lastSeen&quot;`
+		*Alias
+	}{
+		Alias: (*Alias)(u),
+	}
+	if err := json.Unmarshal(data, &amp;aux); err != nil {
+		return err
+	}
+	u.LastSeen = time.Unix(aux.LastSeen, 0)
+	return nil
 }
 </code></pre>
 
@@ -827,9 +952,9 @@ set completeopt-=preview
 
 <pre><code class="language-man">&amp;pattern
 
-    Display only lines which match the pattern; lines which do not match the pattern are not displayed. If pattern is empty (if you type &amp; immediately followed by ENTER), any filtering is turned off, and all lines are displayed. While filtering is in effect, an ampersand is displayed at the beginning of the prompt, as a reminder that some lines in the file may be hidden.
+	Display only lines which match the pattern; lines which do not match the pattern are not displayed. If pattern is empty (if you type &amp; immediately followed by ENTER), any filtering is turned off, and all lines are displayed. While filtering is in effect, an ampersand is displayed at the beginning of the prompt, as a reminder that some lines in the file may be hidden.
 
-    Certain characters are special as in the / command:
+	Certain characters are special as in the / command:
 </code></pre>
 
 <p><strong>Activate:</strong> <code>&amp;pattern</code> hit enter<br />
