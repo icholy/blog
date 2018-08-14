@@ -9,7 +9,7 @@ title = "Merging Multiple Git Repositories Into A MonoRepo"
 
 **Note:** Replace `thing` with your own repo name in the examples.
 
-1. Create a repository which will store all your code.
+### 1. Create a repository which will store all your code
 
 ```
 mkdir monorepo && cd monorepo
@@ -19,9 +19,9 @@ git add .
 git commit -m "first commit"
 ```
 
-2. Clone one of the existing repositories to a temporary location.
+### 2. Clone one of the existing repositories to a temporary location
 
-Example Remote: "ssh://git@code.company.com/thing.git"
+Example Remote: `ssh://git@code.company.com/thing.git`
 
 ``` sh
 mkdir /tmp/thing
@@ -29,7 +29,7 @@ git clone ssh://git@code.company.com/thing.git /tmp/thing
 cd /tmp/thing
 ```
 
-3. Use [git filter-branch](https://git-scm.com/docs/git-filter-branch) to rewrite the history into a sub-directory.
+### 3. Use [git filter-branch](https://git-scm.com/docs/git-filter-branch) to rewrite the history into a sub-directory.
 
 **Note:** this step can take a very long time
 
@@ -42,7 +42,7 @@ git filter-branch -f --prune-empty --tree-filter '
 '
 ```
 
-4. Merge the rewritten repository into the monorepo.
+### 4. Merge the rewritten repository into the monorepo
 
 ```
 cd monorepo
@@ -51,14 +51,14 @@ git fetch thing
 git merge thing/master
 ```
 
-5. Clean up
+### 5. Clean up
 
 ```
 git remote rm thing
 rm -rf /tmp/thing
 ```
 
-6. Forget everything you just read and just use this script
+### 6. Forget everything you just read and just use this script
 
 
 ```
