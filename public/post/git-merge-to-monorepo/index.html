@@ -115,64 +115,13 @@ git merge thing/master
 rm -rf /tmp/thing
 </code></pre>
 
-<h3 id="6-here-s-a-script-that-performs-all-the-steps">6. Here&rsquo;s a script that performs all the steps</h3>
+<h3 id="here-s-a-script-that-performs-all-the-steps">Here&rsquo;s a script that performs all the steps</h3>
 
 <pre><code>cd monorepo
 ./merge_repos.sh ssh://git@code.company.com/thing.git
 </code></pre>
 
-<pre><code class="language-sh">#!/bin/bash
-
-# This script takes a remote repository and merges it into
-# the current one as a subdirectory
-
-if [ -z &quot;$1&quot; ]
-then
-    echo &quot;Usage:&quot;
-    echo &quot;    ./merge_repos.sh &lt;repository&gt; [name]&quot;
-    exit
-fi
-
-REPO_REMOTE=&quot;$1&quot;
-REPO_NAME=&quot;$2&quot;
-
-# infer a name if one is not provided
-if [ -z &quot;$REPO_NAME&quot; ]
-then
-    REPO_NAME=&quot;${REPO_REMOTE##*/}&quot;
-    REPO_NAME=&quot;${REPO_NAME%.*}&quot;
-fi
-
-REPO_DIR_TMP=&quot;$(mktemp -d -t &quot;${REPO_NAME}.XXXX&quot;)&quot;
-
-echo &quot;REPO REMOTE: $REPO_REMOTE&quot;
-echo &quot;REPO NAME: $REPO_NAME&quot;
-echo &quot;REPO TMP DIR: $REPO_DIR_TMP&quot;
-echo
-read -p &quot;Press &lt;Enter&gt; to continue&quot;
-
-# clone other repo
-git clone &quot;$REPO_REMOTE&quot; &quot;$REPO_DIR_TMP&quot;
-
-# rewrite the entire history into sub-directory
-export REPO_NAME
-(
-    cd $REPO_DIR_TMP &amp;&amp;
-    git filter-branch -f --prune-empty --tree-filter '
-        mkdir -p &quot;$REPO_NAME&quot;
-        git ls-tree --name-only $GIT_COMMIT | xargs -I{} mv {} &quot;$REPO_NAME&quot;
-    '
-)
-
-# merge the rewritten repo
-git remote add &quot;$REPO_NAME&quot; &quot;$REPO_DIR_TMP&quot;
-git fetch &quot;$REPO_NAME&quot;
-git merge &quot;$REPO_NAME/master&quot;
-
-# delete the rewritten repo
-rm -rf &quot;$REPO_DIR_TMP&quot;
-git remote rm &quot;$REPO_NAME&quot;
-</code></pre>
+<script src="http://gist.github.com/6491787bbb6894dbf4fe69a743975332.js"></script>
 
 			</div>
 
