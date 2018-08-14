@@ -18,8 +18,8 @@
       
       <guid>http://choly.ca/post/git-merge-to-monorepo/</guid>
       <description>Note: Replace thing with your own repo name in the examples.
- Create a repository which will store all your code.  mkdir monorepo &amp;amp;&amp;amp; cd monorepo git init . echo &amp;quot;# MonoRepo&amp;quot; &amp;gt; README.md git add . git commit -m &amp;quot;first commit&amp;quot;   Clone one of the existing repositories to a temporary location.  Example Remote: &amp;ldquo;ssh://git@code.company.com/thing.git&amp;rdquo;
-mkdir /tmp/thing git clone ssh://git@code.company.com/thing.git /tmp/thing cd /tmp/thing   Use git filter-branch to rewrite the history into a sub-directory.</description>
+1. Create a repository which will store all your code mkdir monorepo &amp;amp;&amp;amp; cd monorepo git init . echo &amp;quot;# MonoRepo&amp;quot; &amp;gt; README.md git add . git commit -m &amp;quot;first commit&amp;quot;  2. Clone one of the existing repositories to a temporary location Example Remote: ssh://git@code.company.com/thing.git
+mkdir /tmp/thing git clone ssh://git@code.company.com/thing.git /tmp/thing cd /tmp/thing  3. Use git filter-branch to rewrite the history into a sub-directory.</description>
     </item>
     
     <item>
