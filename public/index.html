@@ -77,11 +77,11 @@
 
     <span class="post-date">Mon, Aug 13, 2018</span>
 
-    <p><strong>Note:</strong> Replace <code>thing</code> with your own repo name in the examples.</p>
+    
 
-<ol>
-<li>Create a repository which will store all your code.</li>
-</ol>
+<p><strong>Note:</strong> Replace <code>thing</code> with your own repo name in the examples.</p>
+
+<h3 id="1-create-a-repository-which-will-store-all-your-code">1. Create a repository which will store all your code</h3>
 
 <pre><code>mkdir monorepo &amp;&amp; cd monorepo
 git init .
@@ -90,20 +90,16 @@ git add .
 git commit -m &quot;first commit&quot;
 </code></pre>
 
-<ol>
-<li>Clone one of the existing repositories to a temporary location.</li>
-</ol>
+<h3 id="2-clone-one-of-the-existing-repositories-to-a-temporary-location">2. Clone one of the existing repositories to a temporary location</h3>
 
-<p>Example Remote: &ldquo;ssh://git@code.company.com/thing.git&rdquo;</p>
+<p>Example Remote: <code>ssh://git@code.company.com/thing.git</code></p>
 
 <pre><code class="language-sh">mkdir /tmp/thing
 git clone ssh://git@code.company.com/thing.git /tmp/thing
 cd /tmp/thing
 </code></pre>
 
-<ol>
-<li>Use <a href="https://git-scm.com/docs/git-filter-branch">git filter-branch</a> to rewrite the history into a sub-directory.</li>
-</ol>
+<h3 id="3-use-git-filter-branch-https-git-scm-com-docs-git-filter-branch-to-rewrite-the-history-into-a-sub-directory">3. Use <a href="https://git-scm.com/docs/git-filter-branch">git filter-branch</a> to rewrite the history into a sub-directory.</h3>
 
 <p><strong>Note:</strong> this step can take a very long time</p>
 
@@ -115,9 +111,7 @@ git filter-branch -f --prune-empty --tree-filter '
 '
 </code></pre>
 
-<ol>
-<li>Merge the rewritten repository into the monorepo.</li>
-</ol>
+<h3 id="4-merge-the-rewritten-repository-into-the-monorepo">4. Merge the rewritten repository into the monorepo</h3>
 
 <pre><code>cd monorepo
 git remote add thing /tmp/thing
@@ -125,17 +119,13 @@ git fetch thing
 git merge thing/master
 </code></pre>
 
-<ol>
-<li>Clean up</li>
-</ol>
+<h3 id="5-clean-up">5. Clean up</h3>
 
 <pre><code>git remote rm thing
 rm -rf /tmp/thing
 </code></pre>
 
-<ol>
-<li>Forget everything you just read and just use this script</li>
-</ol>
+<h3 id="6-forget-everything-you-just-read-and-just-use-this-script">6. Forget everything you just read and just use this script</h3>
 
 <pre><code>cd monorepo
 ./merge_repos.sh ssh://git@code.company.com/thing.git
