@@ -58,7 +58,7 @@ git remote rm thing
 rm -rf /tmp/thing
 ```
 
-### 6. Forget everything you just read and just use this script
+### 6. Here's a script that performs all the steps
 
 
 ```
