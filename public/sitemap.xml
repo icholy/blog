@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://choly.ca/post/debugging-go-with-rr/</loc>
+    <lastmod>2021-02-22T12:48:39-05:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://choly.ca/post/git-merge-to-monorepo/</loc>
     <lastmod>2018-08-13T12:04:56-04:00</lastmod>
   </url>
@@ -190,7 +195,7 @@
   
   <url>
     <loc>http://choly.ca/</loc>
-    <lastmod>2018-08-13T12:04:56-04:00</lastmod>
+    <lastmod>2021-02-22T12:48:39-05:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -225,14 +230,20 @@
   </url>
   
   <url>
+    <loc>http://choly.ca/tags/debug/</loc>
+    <lastmod>2021-02-22T12:48:39-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>http://choly.ca/tags/development/</loc>
-    <lastmod>2018-08-13T12:04:56-04:00</lastmod>
+    <lastmod>2021-02-22T12:48:39-05:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://choly.ca/categories/development/</loc>
-    <lastmod>2018-08-13T12:04:56-04:00</lastmod>
+    <lastmod>2021-02-22T12:48:39-05:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -256,13 +267,13 @@
   
   <url>
     <loc>http://choly.ca/tags/golang/</loc>
-    <lastmod>2018-08-13T12:04:56-04:00</lastmod>
+    <lastmod>2021-02-22T12:48:39-05:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://choly.ca/categories/golang/</loc>
-    <lastmod>2018-08-13T12:04:56-04:00</lastmod>
+    <lastmod>2021-02-22T12:48:39-05:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -310,7 +321,7 @@
   
   <url>
     <loc>http://choly.ca/post/</loc>
-    <lastmod>2018-08-13T12:04:56-04:00</lastmod>
+    <lastmod>2021-02-22T12:48:39-05:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -323,6 +334,12 @@
   <url>
     <loc>http://choly.ca/categories/qml/</loc>
     <lastmod>2011-09-30T12:20:44-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://choly.ca/tags/rr/</loc>
+    <lastmod>2021-02-22T12:48:39-05:00</lastmod>
     <priority>0</priority>
   </url>
   
