@@ -66,9 +66,18 @@
     </item>
     
     <item>
+      <title>Debug</title>
+      <link>http://choly.ca/tags/debug/</link>
+      <pubDate>Mon, 22 Feb 2021 12:48:39 -0500</pubDate>
+      
+      <guid>http://choly.ca/tags/debug/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Development</title>
       <link>http://choly.ca/tags/development/</link>
-      <pubDate>Mon, 13 Aug 2018 12:04:56 -0400</pubDate>
+      <pubDate>Mon, 22 Feb 2021 12:48:39 -0500</pubDate>
       
       <guid>http://choly.ca/tags/development/</guid>
       <description></description>
@@ -95,7 +104,7 @@
     <item>
       <title>Golang</title>
       <link>http://choly.ca/tags/golang/</link>
-      <pubDate>Mon, 13 Aug 2018 12:04:56 -0400</pubDate>
+      <pubDate>Mon, 22 Feb 2021 12:48:39 -0500</pubDate>
       
       <guid>http://choly.ca/tags/golang/</guid>
       <description></description>
@@ -143,6 +152,15 @@
       <pubDate>Fri, 30 Sep 2011 12:20:44 -0400</pubDate>
       
       <guid>http://choly.ca/tags/qml/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Rr</title>
+      <link>http://choly.ca/tags/rr/</link>
+      <pubDate>Mon, 22 Feb 2021 12:48:39 -0500</pubDate>
+      
+      <guid>http://choly.ca/tags/rr/</guid>
       <description></description>
     </item>
     
