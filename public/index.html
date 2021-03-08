@@ -156,7 +156,7 @@ done
 <h2 id="record-the-test-execution-in-a-loop-until-it-fails">Record the test execution in a loop until it fails</h2>
 
 <pre><code>echo -1 | sudo tee -a /proc/sys/kernel/perf_event_paranoid
-echo 0 | sudo tee -a /proc/sys/kernel/
+echo 0 | sudo tee -a /proc/sys/kernel/kptr_restrict
 
 rrloop record ./my.test
 </code></pre>
