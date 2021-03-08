@@ -79,7 +79,7 @@ done
 
 ```
 echo -1 | sudo tee -a /proc/sys/kernel/perf_event_paranoid
-echo 0 | sudo tee -a /proc/sys/kernel/
+echo 0 | sudo tee -a /proc/sys/kernel/kptr_restrict
 
 rrloop record ./my.test
 ```
