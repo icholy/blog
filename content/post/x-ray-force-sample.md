@@ -50,8 +50,6 @@ export function createTraceID(): string {
 	const random = randomBytes(12).toString('hex');
 	return `1-${timestamp}-${random}`;
 }
-
-console.log(randomTraceID());
 ```
 
 Go Implementation:
