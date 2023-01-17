@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Development on Choly&#39;s Blog</title>
@@ -6,11 +6,7 @@
     <description>Recent content in Development on Choly&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 22 Feb 2021 12:48:39 -0500</lastBuildDate>
-    
-	<atom:link href="http://choly.ca/tags/development/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Mon, 22 Feb 2021 12:48:39 -0500</lastBuildDate><atom:link href="http://choly.ca/tags/development/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Debugging a flaky Go test with Mozilla rr</title>
       <link>http://choly.ca/post/debugging-go-with-rr/</link>
@@ -18,7 +14,7 @@
       
       <guid>http://choly.ca/post/debugging-go-with-rr/</guid>
       <description>This is how you debug a test that only fails once every 1000 times.
- The Test package my import ( &amp;quot;math/rand&amp;quot; &amp;quot;testing&amp;quot; &amp;quot;time&amp;quot; ) func init() { rand.Seed(time.Now().UnixNano()) } func TestRandFail(t *testing.T) { if n := rand.Intn(1000); n == 50 { t.Fatalf(&amp;quot;finally got %d&amp;quot;, n) } }   This is obviously a pedagogical example.  Get the newest version of rr git clone https://github.com/rr-debugger/rr.git cd rr git checkout 5.</description>
+The Test package my import ( &amp;#34;math/rand&amp;#34; &amp;#34;testing&amp;#34; &amp;#34;time&amp;#34; ) func init() { rand.Seed(time.Now().UnixNano()) } func TestRandFail(t *testing.T) { if n := rand.Intn(1000); n == 50 { t.Fatalf(&amp;#34;finally got %d&amp;#34;, n) } } This is obviously a pedagogical example. Get the newest version of rr git clone https://github.com/rr-debugger/rr.git cd rr git checkout 5.4.0 # change this to the latest release (DO NOT BUILD HEAD) mkdir build cd build cmake .</description>
     </item>
     
     <item>
@@ -28,8 +24,8 @@
       
       <guid>http://choly.ca/post/git-merge-to-monorepo/</guid>
       <description>Note: Replace thing with your own repo name in the examples.
-1. Create a repository which will store all your code mkdir monorepo &amp;amp;&amp;amp; cd monorepo git init . echo &amp;quot;# MonoRepo&amp;quot; &amp;gt; README.md git add . git commit -m &amp;quot;first commit&amp;quot;  2. Clone one of the existing repositories to a temporary location Example Remote: ssh://git@code.company.com/thing.git
-mkdir /tmp/thing git clone ssh://git@code.company.com/thing.git /tmp/thing cd /tmp/thing  3. Use git filter-branch to rewrite the history into a sub-directory.</description>
+1. Create a repository which will store all your code mkdir monorepo &amp;amp;&amp;amp; cd monorepo git init . echo &amp;#34;# MonoRepo&amp;#34; &amp;gt; README.md git add . git commit -m &amp;#34;first commit&amp;#34; 2. Clone one of the existing repositories to a temporary location Example Remote: ssh://git@code.company.com/thing.git
+mkdir /tmp/thing git clone ssh://git@code.company.com/thing.git /tmp/thing cd /tmp/thing 3. Use git filter-branch to rewrite the history into a sub-directory.</description>
     </item>
     
     <item>
@@ -39,7 +35,7 @@ mkdir /tmp/thing git clone ssh://git@code.company.com/thing.git /tmp/thing cd /t
       
       <guid>http://choly.ca/post/go-experiments-with-handler/</guid>
       <description>When using net/http, handling errors is kinda annoying.
-http.HandleFunc(&amp;quot;/foo&amp;quot;, func(w http.ResponseWriter, r *http.Request) { thing, err := storage.Get(&amp;quot;thing&amp;quot;) if err != nil { http.Error(w, err.Error(), 500) return } _ = json.NewEncoder(w).Encode(thing) })  Ideally, I could just return an error from the handler. Let&amp;rsquo;s create a type to let that happen.
+http.HandleFunc(&amp;#34;/foo&amp;#34;, func(w http.ResponseWriter, r *http.Request) { thing, err := storage.Get(&amp;#34;thing&amp;#34;) if err != nil { http.Error(w, err.Error(), 500) return } _ = json.NewEncoder(w).Encode(thing) }) Ideally, I could just return an error from the handler. Let&amp;rsquo;s create a type to let that happen.
 type MyHandlerFunc func(w http.ResponseWriter, r *http.Request) error func (f MyHandlerFunc) ServeHTTP(w http.ResponseWriter, r *http.Request) { if err := f(w, r); err !</description>
     </item>
     
@@ -51,7 +47,7 @@ type MyHandlerFunc func(w http.ResponseWriter, r *http.Request) error func (f My
       <guid>http://choly.ca/post/angular-events/</guid>
       <description>I&amp;rsquo;ve been trying to find an elegant way of dealing with events in AngularJS recently. If you&amp;rsquo;re not farmiliar with Angular, that&amp;rsquo;s ok, this is a pretty common pattern.
 Here I have a controller that registers an event listener:
-function MyController($rootScope) { $rootScope.$on(&#39;event1&#39;, () =&amp;gt; { console.log(&#39;event 1 occured&#39;); }); }  There&amp;rsquo;s an issue with this code. It doesn&amp;rsquo;t unbind the listener when the controller (or its scope) is destroyed.</description>
+function MyController($rootScope) { $rootScope.$on(&amp;#39;event1&amp;#39;, () =&amp;gt; { console.log(&amp;#39;event 1 occured&amp;#39;); }); } There&amp;rsquo;s an issue with this code. It doesn&amp;rsquo;t unbind the listener when the controller (or its scope) is destroyed. Let&amp;rsquo;s take care of this.</description>
     </item>
     
     <item>
@@ -61,8 +57,9 @@ function MyController($rootScope) { $rootScope.$on(&#39;event1&#39;, () =&amp;gt
       
       <guid>http://choly.ca/post/typescript-json/</guid>
       <description>EDITS:
- Calling toString on Date is for illustrative purposes. There&amp;rsquo;s a full commented example at the end. Use toJSON method as suggested by Schipperz. Add reviver method as suggested by Anders Ringqvist.  So you have a User type in your code.
-interface User { name: string; age: number; created: Date; }  At some point you&amp;rsquo;re going to want to encode this as JSON. This works as you&amp;rsquo;d expect.</description>
+Calling toString on Date is for illustrative purposes. There&amp;rsquo;s a full commented example at the end. Use toJSON method as suggested by Schipperz. Add reviver method as suggested by Anders Ringqvist. So you have a User type in your code.
+interface User { name: string; age: number; created: Date; } At some point you&amp;rsquo;re going to want to encode this as JSON. This works as you&amp;rsquo;d expect.
+&amp;gt; JSON.stringify({ name: &amp;#34;bob&amp;#34;, age: 34, created: new Date() }); &amp;#39;{&amp;#34;name&amp;#34;:&amp;#34;bob&amp;#34;,&amp;#34;age&amp;#34;:34,&amp;#34;created&amp;#34;:&amp;#34;2016-03-19T18:15:12.</description>
     </item>
     
     <item>
@@ -72,8 +69,8 @@ interface User { name: string; age: number; created: Date; }  At some point you&
       
       <guid>http://choly.ca/post/go-json-marshalling/</guid>
       <description>Go&amp;rsquo;s encoding/json package makes it really easy to marshal structs to JSON data.
-package main import ( &amp;quot;encoding/json&amp;quot; &amp;quot;os&amp;quot; &amp;quot;time&amp;quot; ) type MyUser struct { ID int64 `json:&amp;quot;id&amp;quot;` Name string `json:&amp;quot;name&amp;quot;` LastSeen time.Time `json:&amp;quot;lastSeen&amp;quot;` } func main() { _ = json.NewEncoder(os.Stdout).Encode( &amp;amp;MyUser{1, &amp;quot;Ken&amp;quot;, time.Now()}, ) }  Output:
-{&amp;quot;id&amp;quot;:1,&amp;quot;name&amp;quot;:&amp;quot;Ken&amp;quot;,&amp;quot;lastSeen&amp;quot;:&amp;quot;2009-11-10T23:00:00Z&amp;quot;}  But what if we want to change how one of the field values are displayed? For example, say I wanted LastSeen to be a unix timestamp.</description>
+package main import ( &amp;#34;encoding/json&amp;#34; &amp;#34;os&amp;#34; &amp;#34;time&amp;#34; ) type MyUser struct { ID int64 `json:&amp;#34;id&amp;#34;` Name string `json:&amp;#34;name&amp;#34;` LastSeen time.Time `json:&amp;#34;lastSeen&amp;#34;` } func main() { _ = json.NewEncoder(os.Stdout).Encode( &amp;amp;MyUser{1, &amp;#34;Ken&amp;#34;, time.Now()}, ) } Output:
+{&amp;#34;id&amp;#34;:1,&amp;#34;name&amp;#34;:&amp;#34;Ken&amp;#34;,&amp;#34;lastSeen&amp;#34;:&amp;#34;2009-11-10T23:00:00Z&amp;#34;} But what if we want to change how one of the field values are displayed? For example, say I wanted LastSeen to be a unix timestamp.</description>
     </item>
     
     <item>
@@ -83,8 +80,8 @@ package main import ( &amp;quot;encoding/json&amp;quot; &amp;quot;os&amp;quot; &
       
       <guid>http://choly.ca/post/typescript-vim-completion/</guid>
       <description>One of the main advantages of using static types is that you get much better support from your tools. I recently got TypeScript auto-completion working in vim and I&amp;rsquo;m documenting how to do it here.
-Demo: 1. Install TSS git clone https://github.com/clausreinke/typescript-tools.git cd typescript-tools git checkout testing_ts1.4 sudo npm install -g  2. Install Vim Plugin I&amp;rsquo;m using Vundle to manage my plugins.
-Bundle &amp;quot;icholy/typescript-tools.git&amp;quot; au BufRead,BufNewFile *.ts setlocal filetype=typescript  3.</description>
+Demo: 1. Install TSS git clone https://github.com/clausreinke/typescript-tools.git cd typescript-tools git checkout testing_ts1.4 sudo npm install -g 2. Install Vim Plugin I&amp;rsquo;m using Vundle to manage my plugins.
+Bundle &amp;#34;icholy/typescript-tools.git&amp;#34; au BufRead,BufNewFile *.ts setlocal filetype=typescript 3. Install TSD sudo npm install tsd@next -g 4.</description>
     </item>
     
     <item>
@@ -124,7 +121,7 @@ struct Foo { int m_number = 123; inline int number () { return m_number; } }; in
       
       <guid>http://choly.ca/post/vim-marks/</guid>
       <description>Marks are a feature that I’ve never really used enough. Hopefully writing about them will change that for the better.
-Make a basic, file local, mark called a ma  Jump back to that mark &#39;a  Now I try to be pragmatic. So use cases are what motivate me to learn new thing. I think that marks are a good replacement for a lot of the things I use visual line V mode for now.</description>
+Make a basic, file local, mark called a ma Jump back to that mark &amp;#39;a Now I try to be pragmatic. So use cases are what motivate me to learn new thing. I think that marks are a good replacement for a lot of the things I use visual line V mode for now.</description>
     </item>
     
     <item>
@@ -134,8 +131,8 @@ Make a basic, file local, mark called a ma  Jump back to that mark &#39;a  Now I
       
       <guid>http://choly.ca/post/c-plus-plus-extending-classes-via-the-stream-operator/</guid>
       <description>Vision Looking for a way to create a class which behaved like one of the std::ostream classes.
-MyClass obj; obj &amp;lt;&amp;lt; &amp;quot;foo&amp;quot; &amp;lt;&amp;lt; 123 &amp;lt;&amp;lt; some_string.c_str();  Problem Implementing all those operator&amp;lt;&amp;lt; overloads would be redundant because something like std::stringstream already does it. However inheriting from std::stringstream is more complicated than it should be.
-struct MyClass : public std::stringstream { /* not that simple ... */ };  Solution You can use a simple template to achive the desired effect.</description>
+MyClass obj; obj &amp;lt;&amp;lt; &amp;#34;foo&amp;#34; &amp;lt;&amp;lt; 123 &amp;lt;&amp;lt; some_string.c_str(); Problem Implementing all those operator&amp;lt;&amp;lt; overloads would be redundant because something like std::stringstream already does it. However inheriting from std::stringstream is more complicated than it should be.
+struct MyClass : public std::stringstream { /* not that simple ... */ }; Solution You can use a simple template to achive the desired effect.</description>
     </item>
     
     <item>
@@ -145,7 +142,7 @@ struct MyClass : public std::stringstream { /* not that simple ... */ };  Soluti
       
       <guid>http://choly.ca/post/c-plus-plus-logging-log4cxx-vs-glog-vs-wrapper/</guid>
       <description>It seems that logging in C++ isn’t a much discused topic when compared to a language like java. In a recent C++ project, I needed to add real logging support. Up till this point, the following was good enough (don’t judge).
-#ifdef DEBUG std::cerr &amp;lt;&amp;lt; &amp;quot;some error&amp;quot; &amp;lt;&amp;lt; std::endl; #endif  I started googling and the following to be the most popular and mature.
+#ifdef DEBUG std::cerr &amp;lt;&amp;lt; &amp;#34;some error&amp;#34; &amp;lt;&amp;lt; std::endl; #endif I started googling and the following to be the most popular and mature.
 glog homepage
 glog was my first choice because it’s the simplest one to set up and it has hardly any dependencies.</description>
     </item>
@@ -156,7 +153,7 @@ glog was my first choice because it’s the simplest one to set up and it has ha
       <pubDate>Mon, 03 Dec 2012 11:40:51 -0400</pubDate>
       
       <guid>http://choly.ca/post/libpq-pqexec-timeout/</guid>
-      <description> 1. Establish the connection PGconn *pg_conn = PQconnect(&amp;quot;info&amp;quot;); // error check if (PQstatus(pg_conn) != CONNECTION_OK) throw &amp;quot;invalid connection&amp;quot;;  2. Grab the socket file descriptor int socket_fd = PQsocket(pg_conn); // error check if (socket_fd &amp;lt; 0) throw &amp;quot;invalid socket&amp;quot;;  3. Set the timeout // 5 second timeout struct timeval timeout = { 5, 0 }; // recv timeout int setopt_result_1 = setsockopt( socket_fd, SOL_SOCKET, SO_RCVTIMEO, (char *)&amp;amp;timeout, sizeof(timeout) ); // send timeout int setopt_result_2 = setsockopt( socket_fd, SOL_SOCKET, SO_SNDTIMEO, (char *)&amp;amp;timeout, sizeof(timeout) ); // error check if (setopt_result_1 &amp;lt; 0 || setopt_result_2 &amp;lt; 0) throw &amp;quot;failed to set timeout&amp;quot;;  </description>
+      <description>1. Establish the connection PGconn *pg_conn = PQconnect(&amp;#34;info&amp;#34;); // error check if (PQstatus(pg_conn) != CONNECTION_OK) throw &amp;#34;invalid connection&amp;#34;; 2. Grab the socket file descriptor int socket_fd = PQsocket(pg_conn); // error check if (socket_fd &amp;lt; 0) throw &amp;#34;invalid socket&amp;#34;; 3. Set the timeout // 5 second timeout struct timeval timeout = { 5, 0 }; // recv timeout int setopt_result_1 = setsockopt( socket_fd, SOL_SOCKET, SO_RCVTIMEO, (char *)&amp;amp;timeout, sizeof(timeout) ); // send timeout int setopt_result_2 = setsockopt( socket_fd, SOL_SOCKET, SO_SNDTIMEO, (char *)&amp;amp;timeout, sizeof(timeout) ); // error check if (setopt_result_1 &amp;lt; 0 || setopt_result_2 &amp;lt; 0) throw &amp;#34;failed to set timeout&amp;#34;; </description>
     </item>
     
     <item>
@@ -194,7 +191,7 @@ So Vim is, without a doubt, the best text editor I&amp;rsquo;ve ever used.</desc
       
       <guid>http://choly.ca/post/css-compass-gradient-generator/</guid>
       <description>This is a css gradient generator that i&amp;rsquo;ve been using for a while:
- http://www.colorzilla.com/gradient-editor/  CSS Output
+http://www.colorzilla.com/gradient-editor/ CSS Output
 background: #1e5799; /* Old browsers */ background: -moz-linear-gradient(top, #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%); /* FF3.6+ */ background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(50%,#2989d8), color-stop(51%,#207cca), color-stop(100%,#7db9e8)); /* Chrome,Safari4+ */ background: -webkit-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* Chrome10+,Safari5.1+ */ background: -o-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* Opera 11.10+ */ background: -ms-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* IE10+ */ background: linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* W3C */ filter: progid:DXImageTransform.</description>
     </item>
     
@@ -217,8 +214,8 @@ How to use it:</description>
       <guid>http://choly.ca/post/qml-is-awesome/</guid>
       <description>QML is Nokia&amp;rsquo;s recent addition to its well known Qt framework and comes part of the Qt Quick Suite
 The way I describe it to people is:
- it&amp;rsquo;s like html and css combined with the power of Qt in a extremely simple syntax.
-   Why? I have used Swing, WinForms, and GTK in the past and never really liked anything to do with GUI work. QML is the first time I&amp;rsquo;m actually enjoying designing user interfaces and this results in a better end result.</description>
+it&amp;rsquo;s like html and css combined with the power of Qt in a extremely simple syntax.
+Why? I have used Swing, WinForms, and GTK in the past and never really liked anything to do with GUI work. QML is the first time I&amp;rsquo;m actually enjoying designing user interfaces and this results in a better end result.</description>
     </item>
     
     <item>
@@ -227,9 +224,9 @@ The way I describe it to people is:
       <pubDate>Mon, 26 Sep 2011 12:23:39 -0400</pubDate>
       
       <guid>http://choly.ca/post/qt-creator-boost-on-ubuntu-1104/</guid>
-      <description>1. make a home for boost sudo mkdir -p /code/include sudo chown -R YOUR_USER_NAME /code cd /code/include  2. download boost sudo apt-get install subversion svn co http://svn.boost.org/svn/boost/trunk boost cd boost  3. compile boost sudo ./bootstrap.sh sudo ./b2  note: this will take a while, go get some coffee.
+      <description>1. make a home for boost sudo mkdir -p /code/include sudo chown -R YOUR_USER_NAME /code cd /code/include 2. download boost sudo apt-get install subversion svn co http://svn.boost.org/svn/boost/trunk boost cd boost 3. compile boost sudo ./bootstrap.sh sudo ./b2 note: this will take a while, go get some coffee.
 4. Include in qt project Add the following to your .pro file.
-INCLUDEPATH += /code/include/ LIBS += -L/code/include/boost/bin.v2/libs/ -lboost_system -lboost_filesystem -lboost_asio  In this example i&amp;rsquo;m linking boost::filesystem and boost::asio.</description>
+INCLUDEPATH += /code/include/ LIBS += -L/code/include/boost/bin.v2/libs/ -lboost_system -lboost_filesystem -lboost_asio In this example i&amp;rsquo;m linking boost::filesystem and boost::asio.</description>
     </item>
     
     <item>
@@ -238,7 +235,7 @@ INCLUDEPATH += /code/include/ LIBS += -L/code/include/boost/bin.v2/libs/ -lboost
       <pubDate>Tue, 20 Sep 2011 12:27:52 -0400</pubDate>
       
       <guid>http://choly.ca/post/compile-compassapp-on-ubuntu-1104/</guid>
-      <description>   1. Install RVM bash &amp;lt; &amp;lt;(curl -s https://rvm.beginrescueend.com/install/rvm); echo &#39;if [[ -s &amp;quot;$HOME/.rvm/scripts/rvm&amp;quot; ]] ; then source &amp;quot;$HOME/.rvm/scripts/rvm&amp;quot; ; fi&#39; &amp;gt; ~/.bashrc rvm install 1.9.2  2. Install jRuby rvm install jruby cd ~/.rvm/bin/jruby-1.6.4 -S gem install rawr  3. Get and Compile CompassApp git clone https://github.com/handlino/CompassApp.git cd CompassApp bin/build-all.sh  4. Run CompassApp cd package/compass.app/ ./run.sh  </description>
+      <description> 1. Install RVM bash &amp;lt; &amp;lt;(curl -s https://rvm.beginrescueend.com/install/rvm); echo &amp;#39;if [[ -s &amp;#34;$HOME/.rvm/scripts/rvm&amp;#34; ]] ; then source &amp;#34;$HOME/.rvm/scripts/rvm&amp;#34; ; fi&amp;#39; &amp;gt; ~/.bashrc rvm install 1.9.2 2. Install jRuby rvm install jruby cd ~/.rvm/bin/jruby-1.6.4 -S gem install rawr 3. Get and Compile CompassApp git clone https://github.com/handlino/CompassApp.git cd CompassApp bin/build-all.sh 4. Run CompassApp cd package/compass.app/ ./run.sh </description>
     </item>
     
     <item>
@@ -328,7 +325,7 @@ Me: I threw together this mockup of a potential design. It&amp;rsquo;s very roug
       
       <guid>http://choly.ca/post/absolutefudge-ie6-absolute-positioning/</guid>
       <description>I don&amp;rsquo;t know about you, but here is a snippet of css that I love.
-div#selector { position: absolute; left: 10px; right: 10px; top: 10px; bottom: 10px; }  assuming that the parent element has either relative or absolute positioning, the child div will fit inside with a 10px margin. This is a very powerful technique for creating liquid css layouts.
+div#selector { position: absolute; left: 10px; right: 10px; top: 10px; bottom: 10px; } assuming that the parent element has either relative or absolute positioning, the child div will fit inside with a 10px margin. This is a very powerful technique for creating liquid css layouts.
 Problem
 The problem is, that ie doesn&amp;rsquo;t support giving values to all sides (top,bottom,left,right) so you were forced to have a separate stylesheet for ie with a static layout.</description>
     </item>

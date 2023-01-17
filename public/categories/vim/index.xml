@@ -1,16 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Vim on Choly&#39;s Blog</title>
+    <title>vim on Choly&#39;s Blog</title>
     <link>http://choly.ca/categories/vim/</link>
-    <description>Recent content in Vim on Choly&#39;s Blog</description>
+    <description>Recent content in vim on Choly&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 07 Dec 2012 11:29:54 -0400</lastBuildDate>
-    
-	<atom:link href="http://choly.ca/categories/vim/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 07 Dec 2012 11:29:54 -0400</lastBuildDate><atom:link href="http://choly.ca/categories/vim/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Vim Marks</title>
       <link>http://choly.ca/post/vim-marks/</link>
@@ -18,7 +14,7 @@
       
       <guid>http://choly.ca/post/vim-marks/</guid>
       <description>Marks are a feature that I’ve never really used enough. Hopefully writing about them will change that for the better.
-Make a basic, file local, mark called a ma  Jump back to that mark &#39;a  Now I try to be pragmatic. So use cases are what motivate me to learn new thing. I think that marks are a good replacement for a lot of the things I use visual line V mode for now.</description>
+Make a basic, file local, mark called a ma Jump back to that mark &amp;#39;a Now I try to be pragmatic. So use cases are what motivate me to learn new thing. I think that marks are a good replacement for a lot of the things I use visual line V mode for now.</description>
     </item>
     
     <item>

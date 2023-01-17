@@ -1,16 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Cpp on Choly&#39;s Blog</title>
+    <title>cpp on Choly&#39;s Blog</title>
     <link>http://choly.ca/tags/cpp/</link>
-    <description>Recent content in Cpp on Choly&#39;s Blog</description>
+    <description>Recent content in cpp on Choly&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 31 Dec 2012 11:26:44 -0400</lastBuildDate>
-    
-	<atom:link href="http://choly.ca/tags/cpp/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Mon, 31 Dec 2012 11:26:44 -0400</lastBuildDate><atom:link href="http://choly.ca/tags/cpp/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>C&#43;&#43;: Make Repl</title>
       <link>http://choly.ca/post/c-plus-plus-make-repl/</link>
@@ -38,8 +34,8 @@ struct Foo { int m_number = 123; inline int number () { return m_number; } }; in
       
       <guid>http://choly.ca/post/c-plus-plus-extending-classes-via-the-stream-operator/</guid>
       <description>Vision Looking for a way to create a class which behaved like one of the std::ostream classes.
-MyClass obj; obj &amp;lt;&amp;lt; &amp;quot;foo&amp;quot; &amp;lt;&amp;lt; 123 &amp;lt;&amp;lt; some_string.c_str();  Problem Implementing all those operator&amp;lt;&amp;lt; overloads would be redundant because something like std::stringstream already does it. However inheriting from std::stringstream is more complicated than it should be.
-struct MyClass : public std::stringstream { /* not that simple ... */ };  Solution You can use a simple template to achive the desired effect.</description>
+MyClass obj; obj &amp;lt;&amp;lt; &amp;#34;foo&amp;#34; &amp;lt;&amp;lt; 123 &amp;lt;&amp;lt; some_string.c_str(); Problem Implementing all those operator&amp;lt;&amp;lt; overloads would be redundant because something like std::stringstream already does it. However inheriting from std::stringstream is more complicated than it should be.
+struct MyClass : public std::stringstream { /* not that simple ... */ }; Solution You can use a simple template to achive the desired effect.</description>
     </item>
     
     <item>
@@ -49,7 +45,7 @@ struct MyClass : public std::stringstream { /* not that simple ... */ };  Soluti
       
       <guid>http://choly.ca/post/c-plus-plus-logging-log4cxx-vs-glog-vs-wrapper/</guid>
       <description>It seems that logging in C++ isn’t a much discused topic when compared to a language like java. In a recent C++ project, I needed to add real logging support. Up till this point, the following was good enough (don’t judge).
-#ifdef DEBUG std::cerr &amp;lt;&amp;lt; &amp;quot;some error&amp;quot; &amp;lt;&amp;lt; std::endl; #endif  I started googling and the following to be the most popular and mature.
+#ifdef DEBUG std::cerr &amp;lt;&amp;lt; &amp;#34;some error&amp;#34; &amp;lt;&amp;lt; std::endl; #endif I started googling and the following to be the most popular and mature.
 glog homepage
 glog was my first choice because it’s the simplest one to set up and it has hardly any dependencies.</description>
     </item>
@@ -60,9 +56,9 @@ glog was my first choice because it’s the simplest one to set up and it has ha
       <pubDate>Mon, 26 Sep 2011 12:23:39 -0400</pubDate>
       
       <guid>http://choly.ca/post/qt-creator-boost-on-ubuntu-1104/</guid>
-      <description>1. make a home for boost sudo mkdir -p /code/include sudo chown -R YOUR_USER_NAME /code cd /code/include  2. download boost sudo apt-get install subversion svn co http://svn.boost.org/svn/boost/trunk boost cd boost  3. compile boost sudo ./bootstrap.sh sudo ./b2  note: this will take a while, go get some coffee.
+      <description>1. make a home for boost sudo mkdir -p /code/include sudo chown -R YOUR_USER_NAME /code cd /code/include 2. download boost sudo apt-get install subversion svn co http://svn.boost.org/svn/boost/trunk boost cd boost 3. compile boost sudo ./bootstrap.sh sudo ./b2 note: this will take a while, go get some coffee.
 4. Include in qt project Add the following to your .pro file.
-INCLUDEPATH += /code/include/ LIBS += -L/code/include/boost/bin.v2/libs/ -lboost_system -lboost_filesystem -lboost_asio  In this example i&amp;rsquo;m linking boost::filesystem and boost::asio.</description>
+INCLUDEPATH += /code/include/ LIBS += -L/code/include/boost/bin.v2/libs/ -lboost_system -lboost_filesystem -lboost_asio In this example i&amp;rsquo;m linking boost::filesystem and boost::asio.</description>
     </item>
     
   </channel>

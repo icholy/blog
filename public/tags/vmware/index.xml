@@ -1,16 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Vmware on Choly&#39;s Blog</title>
+    <title>vmware on Choly&#39;s Blog</title>
     <link>http://choly.ca/tags/vmware/</link>
-    <description>Recent content in Vmware on Choly&#39;s Blog</description>
+    <description>Recent content in vmware on Choly&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 16 Oct 2011 12:14:52 -0400</lastBuildDate>
-    
-	<atom:link href="http://choly.ca/tags/vmware/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 16 Oct 2011 12:14:52 -0400</lastBuildDate><atom:link href="http://choly.ca/tags/vmware/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>VMware Workstation Ubuntu problems</title>
       <link>http://choly.ca/post/vmware-workstation-ubuntu-problems/</link>

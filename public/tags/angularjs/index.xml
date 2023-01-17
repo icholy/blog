@@ -1,16 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Angularjs on Choly&#39;s Blog</title>
+    <title>angularjs on Choly&#39;s Blog</title>
     <link>http://choly.ca/tags/angularjs/</link>
-    <description>Recent content in Angularjs on Choly&#39;s Blog</description>
+    <description>Recent content in angularjs on Choly&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 23 Mar 2016 10:06:22 -0400</lastBuildDate>
-    
-	<atom:link href="http://choly.ca/tags/angularjs/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Wed, 23 Mar 2016 10:06:22 -0400</lastBuildDate><atom:link href="http://choly.ca/tags/angularjs/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Angular Events</title>
       <link>http://choly.ca/post/angular-events/</link>
@@ -19,7 +15,7 @@
       <guid>http://choly.ca/post/angular-events/</guid>
       <description>I&amp;rsquo;ve been trying to find an elegant way of dealing with events in AngularJS recently. If you&amp;rsquo;re not farmiliar with Angular, that&amp;rsquo;s ok, this is a pretty common pattern.
 Here I have a controller that registers an event listener:
-function MyController($rootScope) { $rootScope.$on(&#39;event1&#39;, () =&amp;gt; { console.log(&#39;event 1 occured&#39;); }); }  There&amp;rsquo;s an issue with this code. It doesn&amp;rsquo;t unbind the listener when the controller (or its scope) is destroyed.</description>
+function MyController($rootScope) { $rootScope.$on(&amp;#39;event1&amp;#39;, () =&amp;gt; { console.log(&amp;#39;event 1 occured&amp;#39;); }); } There&amp;rsquo;s an issue with this code. It doesn&amp;rsquo;t unbind the listener when the controller (or its scope) is destroyed. Let&amp;rsquo;s take care of this.</description>
     </item>
     
   </channel>
