@@ -2,10 +2,15 @@ baseurl = "http://choly.ca/"
 languageCode = "en-us"
 title = "Choly's Blog"
 theme = "hyde"
+googleAnalytics = "UA-36797023-1"
+
+[markup]
+  [markup.highlight]
+    style = "tango"
 
 [params]
-  disqusShortname = "choly"
   description = "Documented Procrastination"
+  disqusShortname = "choly"
 
 [[menu.main]]
   name = "Github"
