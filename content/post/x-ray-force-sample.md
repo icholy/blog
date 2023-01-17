@@ -98,7 +98,7 @@ import (
 func CreateTraceID() string {
 	var id [12]byte
 	rand.Read(id[:])
-	return fmt.Sprintf("Root=1-%08x-%x;Sampled=1", time.Now().Unix(), id)
+	return fmt.Sprintf("1-%08x-%x", time.Now().Unix(), id)
 }
 
 func main() {
