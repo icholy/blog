@@ -125,7 +125,7 @@ Using our newly aquired information, lets see how we can use it to debug a flaky
 it("should create and delete a user", async () => {
 	const user = await api.createUser({
 		name: "Bob Marley",
-		"email": "bob.marley@protonmail.com"
+		email: "bob.marley@protonmail.com",
 	});
 	await api.deleteUser(user.id);
 });
@@ -166,7 +166,7 @@ it("should create and delete a user", async () => {
 
 	const user = await api.createUser({ 
 		name: "Bob Marley",
-		"email": "bob.marley@protonmail.com",
+		email: "bob.marley@protonmail.com",
 	});
 	await api.deleteUser(user.id);
 
