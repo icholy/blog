@@ -14,10 +14,6 @@ theme = "hyde"
 [[menu.main]]
   name = "Stack Overflow"
   url = "http://stackoverflow.com/users/215969/ilia-choly"
-
-[[menu.main]]
-  name = "Twitter"
-  url = "https://twitter.com/icholy"
     
 
   
