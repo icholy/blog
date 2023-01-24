@@ -65,5 +65,4 @@ cd monorepo
 ./merge_repos.sh ssh://git@code.company.com/thing.git
 ```
 
-<script src="http://gist.github.com/6491787bbb6894dbf4fe69a743975332.js"></script>
-
+{{< gist icholy 6491787bbb6894dbf4fe69a743975332 >}}
