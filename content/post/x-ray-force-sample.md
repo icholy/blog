@@ -117,6 +117,26 @@ func main() {
 }
 ```
 
+### Debugging Postman Requests
+
+Postman has a feature called "Pre-request Scripts" which can be used to add a trace header:
+
+``` js
+const bytes = Array.from({length: 12}, () => Math.trunc(Math.random() * 255));
+const random = Buffer.from(bytes).toString('hex');
+const timestamp = Math.floor(Date.now() / 1000).toString(16);
+const id = `1-${timestamp}-${random}`;
+
+console.log(`Trace ID: ${id}`);
+
+pm.request.headers.add({
+    key: 'X-Amzn-Trace-Id',
+    value: `Root=${id};Sampled=1`
+});
+```
+
+Open the console to view the printed trace id.
+
 ### Debugging a flaky Node.js Test
 
 Using our newly aquired information, lets see how we can use it to debug a flaky integration test that only fails in CI.
