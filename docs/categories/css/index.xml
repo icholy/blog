@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>CSS on Choly&#39;s Blog</title>
-    <link>http://choly.ca/categories/css/</link>
+    <link>https://choly.ca/categories/css/</link>
     <description>Recent content in CSS on Choly&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 27 Oct 2011 12:10:52 -0400</lastBuildDate><atom:link href="http://choly.ca/categories/css/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 27 Oct 2011 12:10:52 -0400</lastBuildDate><atom:link href="https://choly.ca/categories/css/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>CSS Compass Gradient Generator</title>
-      <link>http://choly.ca/post/css-compass-gradient-generator/</link>
+      <link>https://choly.ca/post/css-compass-gradient-generator/</link>
       <pubDate>Thu, 27 Oct 2011 12:10:52 -0400</pubDate>
       
-      <guid>http://choly.ca/post/css-compass-gradient-generator/</guid>
+      <guid>https://choly.ca/post/css-compass-gradient-generator/</guid>
       <description>This is a css gradient generator that i&amp;rsquo;ve been using for a while:
 http://www.colorzilla.com/gradient-editor/ CSS Output
 background: #1e5799; /* Old browsers */ background: -moz-linear-gradient(top, #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%); /* FF3.6+ */ background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(50%,#2989d8), color-stop(51%,#207cca), color-stop(100%,#7db9e8)); /* Chrome,Safari4+ */ background: -webkit-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* Chrome10+,Safari5.1+ */ background: -o-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* Opera 11.10+ */ background: -ms-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* IE10+ */ background: linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* W3C */ filter: progid:DXImageTransform.</description>
@@ -20,19 +20,19 @@ background: #1e5799; /* Old browsers */ background: -moz-linear-gradient(top, #1
     
     <item>
       <title>Compile CompassApp on Ubuntu 11.04</title>
-      <link>http://choly.ca/post/compile-compassapp-on-ubuntu-1104/</link>
+      <link>https://choly.ca/post/compile-compassapp-on-ubuntu-1104/</link>
       <pubDate>Tue, 20 Sep 2011 12:27:52 -0400</pubDate>
       
-      <guid>http://choly.ca/post/compile-compassapp-on-ubuntu-1104/</guid>
+      <guid>https://choly.ca/post/compile-compassapp-on-ubuntu-1104/</guid>
       <description> 1. Install RVM bash &amp;lt; &amp;lt;(curl -s https://rvm.beginrescueend.com/install/rvm); echo &amp;#39;if [[ -s &amp;#34;$HOME/.rvm/scripts/rvm&amp;#34; ]] ; then source &amp;#34;$HOME/.rvm/scripts/rvm&amp;#34; ; fi&amp;#39; &amp;gt; ~/.bashrc rvm install 1.9.2 2. Install jRuby rvm install jruby cd ~/.rvm/bin/jruby-1.6.4 -S gem install rawr 3. Get and Compile CompassApp git clone https://github.com/handlino/CompassApp.git cd CompassApp bin/build-all.sh 4. Run CompassApp cd package/compass.app/ ./run.sh </description>
     </item>
     
     <item>
       <title>Sass Compass Blueprint</title>
-      <link>http://choly.ca/post/sass-compass-blueprint/</link>
+      <link>https://choly.ca/post/sass-compass-blueprint/</link>
       <pubDate>Thu, 11 Aug 2011 12:34:59 -0400</pubDate>
       
-      <guid>http://choly.ca/post/sass-compass-blueprint/</guid>
+      <guid>https://choly.ca/post/sass-compass-blueprint/</guid>
       <description>So I just realized that I hadn&amp;rsquo;t actually written anything about compass. Now I feel a little dumb about the title of the Formalize post but w.e shit happens. Anyway I&amp;rsquo;ll be talking about css in this post. I started using these a while back so I don&amp;rsquo;t really know why I haven&amp;rsquo;t posted anything about it. Better late than never.
 Let&amp;rsquo;s start with SASS. Syntactically Awesome Style Sheet
 well actually I&amp;rsquo;ll be talking about SCSS which is sass syntax which is more like css.</description>
@@ -40,28 +40,28 @@ well actually I&amp;rsquo;ll be talking about SCSS which is sass syntax which is
     
     <item>
       <title>Formalize [More Compass]</title>
-      <link>http://choly.ca/post/formalize-compass/</link>
+      <link>https://choly.ca/post/formalize-compass/</link>
       <pubDate>Fri, 05 Aug 2011 12:39:12 -0400</pubDate>
       
-      <guid>http://choly.ca/post/formalize-compass/</guid>
+      <guid>https://choly.ca/post/formalize-compass/</guid>
       <description>I think forms and all things related ( inputs, buttons, etc&amp;hellip; ) are probably one of the more annoying things when building a website. They&amp;rsquo;re just not consistent and it takes a lot of effort to make them look decent. I spent some time looking for a tool to help me with this and I ended up with formalize which comes as a compass plugin and integrates with any web framework you&amp;rsquo;re using.</description>
     </item>
     
     <item>
       <title>Skybound Stylizer 5 - CSS Editor</title>
-      <link>http://choly.ca/post/skybound-stylizer-5-css-editor/</link>
+      <link>https://choly.ca/post/skybound-stylizer-5-css-editor/</link>
       <pubDate>Thu, 14 Jul 2011 12:55:01 -0400</pubDate>
       
-      <guid>http://choly.ca/post/skybound-stylizer-5-css-editor/</guid>
+      <guid>https://choly.ca/post/skybound-stylizer-5-css-editor/</guid>
       <description>Lets start with a little preface. Prior to finding Stylizer, I was completely happy using a regular text editor (gedit, notepad++) with firebug to do my css coding. I don&amp;rsquo;t really know how I found stylizer, or what motivated me to download it, but I am glad I did. Stylizer is, by far, the best css editor. I went on to try 10+ different editors in hopes of finding a free alternative and nothing even comes close.</description>
     </item>
     
     <item>
       <title>absoluteFudge - ie6 absolute positioning</title>
-      <link>http://choly.ca/post/absolutefudge-ie6-absolute-positioning/</link>
+      <link>https://choly.ca/post/absolutefudge-ie6-absolute-positioning/</link>
       <pubDate>Thu, 14 Jul 2011 12:48:23 -0400</pubDate>
       
-      <guid>http://choly.ca/post/absolutefudge-ie6-absolute-positioning/</guid>
+      <guid>https://choly.ca/post/absolutefudge-ie6-absolute-positioning/</guid>
       <description>I don&amp;rsquo;t know about you, but here is a snippet of css that I love.
 div#selector { position: absolute; left: 10px; right: 10px; top: 10px; bottom: 10px; } assuming that the parent element has either relative or absolute positioning, the child div will fit inside with a 10px margin. This is a very powerful technique for creating liquid css layouts.
 Problem

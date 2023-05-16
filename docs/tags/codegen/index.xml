@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>codegen on Choly&#39;s Blog</title>
-    <link>http://choly.ca/tags/codegen/</link>
+    <link>https://choly.ca/tags/codegen/</link>
     <description>Recent content in codegen on Choly&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 18 Oct 2012 12:02:06 -0400</lastBuildDate><atom:link href="http://choly.ca/tags/codegen/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 18 Oct 2012 12:02:06 -0400</lastBuildDate><atom:link href="https://choly.ca/tags/codegen/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>SWAPM: Code generation made easy.</title>
-      <link>http://choly.ca/post/swapm-code-generation-made-easy/</link>
+      <link>https://choly.ca/post/swapm-code-generation-made-easy/</link>
       <pubDate>Thu, 18 Oct 2012 12:02:06 -0400</pubDate>
       
-      <guid>http://choly.ca/post/swapm-code-generation-made-easy/</guid>
+      <guid>https://choly.ca/post/swapm-code-generation-made-easy/</guid>
       <description>I finally got around to reading the Pragmatic Programmer book. One thing that really interested me was the section on Code Generation. So in a recent C++ project I was interfacing with postgres and there was a LOT of code repetition. The sql query, class members, getters/setters, response parsing logic. They all contained the same information. Perfect I thought, here was the ideal chance to give code generation a shot. My first incarnation was a very ugly perl script (aren&amp;rsquo;t they all .</description>
     </item>
     

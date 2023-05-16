@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>vmware on Choly&#39;s Blog</title>
-    <link>http://choly.ca/tags/vmware/</link>
+    <link>https://choly.ca/tags/vmware/</link>
     <description>Recent content in vmware on Choly&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 16 Oct 2011 12:14:52 -0400</lastBuildDate><atom:link href="http://choly.ca/tags/vmware/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 16 Oct 2011 12:14:52 -0400</lastBuildDate><atom:link href="https://choly.ca/tags/vmware/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>VMware Workstation Ubuntu problems</title>
-      <link>http://choly.ca/post/vmware-workstation-ubuntu-problems/</link>
+      <link>https://choly.ca/post/vmware-workstation-ubuntu-problems/</link>
       <pubDate>Sun, 16 Oct 2011 12:14:52 -0400</pubDate>
       
-      <guid>http://choly.ca/post/vmware-workstation-ubuntu-problems/</guid>
+      <guid>https://choly.ca/post/vmware-workstation-ubuntu-problems/</guid>
       <description>I just tried starting up vmware workstation and was greeted with a message saying it needed to compile some modules and then went on to fail this step no matter what. This is an issue I&amp;rsquo;ve encountered before on Ubuntu 11.04 and now on 11.10.
 This is a bug with all v7.x of workstation and can be fixed with a simple patch I found today at http://weltall.heliohost.org/wordpress/2011/05/14/running-vmware-workstation-player-on-linux-2-6-39-updated/
 How to use it:</description>

@@ -2,37 +2,37 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>C&#43;&#43; on Choly&#39;s Blog</title>
-    <link>http://choly.ca/categories/c&#43;&#43;/</link>
+    <link>https://choly.ca/categories/c&#43;&#43;/</link>
     <description>Recent content in C&#43;&#43; on Choly&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 31 Dec 2012 11:26:44 -0400</lastBuildDate><atom:link href="http://choly.ca/categories/c++/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 31 Dec 2012 11:26:44 -0400</lastBuildDate><atom:link href="https://choly.ca/categories/c++/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>C&#43;&#43;: Make Repl</title>
-      <link>http://choly.ca/post/c-plus-plus-make-repl/</link>
+      <link>https://choly.ca/post/c-plus-plus-make-repl/</link>
       <pubDate>Mon, 31 Dec 2012 11:26:44 -0400</pubDate>
       
-      <guid>http://choly.ca/post/c-plus-plus-make-repl/</guid>
+      <guid>https://choly.ca/post/c-plus-plus-make-repl/</guid>
       <description>One of the things I really like about dynamic languages like javascript &amp;amp; python is the repl. After you’ve gotten used to that type of exploratory programming, it’s hard to go back to the edit/compile/run cycle.
 Luckily that has finally changed with cling. It’s an interactive C++ environment that behaves pretty much like a repl. In my recent projects I’ve been adding a new make rule: repl which lets me interactively play with the code I’m working on and it has drastically improved my productivity.</description>
     </item>
     
     <item>
       <title>C&#43;&#43;: Inline Functions</title>
-      <link>http://choly.ca/post/c-plus-plus-inline-functions/</link>
+      <link>https://choly.ca/post/c-plus-plus-inline-functions/</link>
       <pubDate>Mon, 31 Dec 2012 11:21:15 -0400</pubDate>
       
-      <guid>http://choly.ca/post/c-plus-plus-inline-functions/</guid>
+      <guid>https://choly.ca/post/c-plus-plus-inline-functions/</guid>
       <description>Even though overuse of getter and setter functions can be frowned upon, they can help a lot if you’re looking to provide a intuitive api. However the overhead the additional function call introduces is undesirable. Thankfully, there’s the inline keyword. It tells the compiler to replace each invocation of the function with the body of the function.
 struct Foo { int m_number = 123; inline int number () { return m_number; } }; int main () { Foo foo; // used like a regular function std::cout &amp;lt;&amp;lt; foo.</description>
     </item>
     
     <item>
       <title>C&#43;&#43; Extending Classes via the Stream Operator</title>
-      <link>http://choly.ca/post/c-plus-plus-extending-classes-via-the-stream-operator/</link>
+      <link>https://choly.ca/post/c-plus-plus-extending-classes-via-the-stream-operator/</link>
       <pubDate>Mon, 03 Dec 2012 11:49:42 -0400</pubDate>
       
-      <guid>http://choly.ca/post/c-plus-plus-extending-classes-via-the-stream-operator/</guid>
+      <guid>https://choly.ca/post/c-plus-plus-extending-classes-via-the-stream-operator/</guid>
       <description>Vision Looking for a way to create a class which behaved like one of the std::ostream classes.
 MyClass obj; obj &amp;lt;&amp;lt; &amp;#34;foo&amp;#34; &amp;lt;&amp;lt; 123 &amp;lt;&amp;lt; some_string.c_str(); Problem Implementing all those operator&amp;lt;&amp;lt; overloads would be redundant because something like std::stringstream already does it. However inheriting from std::stringstream is more complicated than it should be.
 struct MyClass : public std::stringstream { /* not that simple ... */ }; Solution You can use a simple template to achive the desired effect.</description>
@@ -40,10 +40,10 @@ struct MyClass : public std::stringstream { /* not that simple ... */ }; Solutio
     
     <item>
       <title>C&#43;&#43; Log4cxx vs Glog vs Boost.log vs Wrapper</title>
-      <link>http://choly.ca/post/c-plus-plus-logging-log4cxx-vs-glog-vs-wrapper/</link>
+      <link>https://choly.ca/post/c-plus-plus-logging-log4cxx-vs-glog-vs-wrapper/</link>
       <pubDate>Mon, 03 Dec 2012 11:44:06 -0400</pubDate>
       
-      <guid>http://choly.ca/post/c-plus-plus-logging-log4cxx-vs-glog-vs-wrapper/</guid>
+      <guid>https://choly.ca/post/c-plus-plus-logging-log4cxx-vs-glog-vs-wrapper/</guid>
       <description>It seems that logging in C++ isn’t a much discused topic when compared to a language like java. In a recent C++ project, I needed to add real logging support. Up till this point, the following was good enough (don’t judge).
 #ifdef DEBUG std::cerr &amp;lt;&amp;lt; &amp;#34;some error&amp;#34; &amp;lt;&amp;lt; std::endl; #endif I started googling and the following to be the most popular and mature.
 glog homepage
@@ -52,10 +52,10 @@ glog was my first choice because it’s the simplest one to set up and it has ha
     
     <item>
       <title>Qt Creator &#43; Boost on Ubuntu 11.04</title>
-      <link>http://choly.ca/post/qt-creator-boost-on-ubuntu-1104/</link>
+      <link>https://choly.ca/post/qt-creator-boost-on-ubuntu-1104/</link>
       <pubDate>Mon, 26 Sep 2011 12:23:39 -0400</pubDate>
       
-      <guid>http://choly.ca/post/qt-creator-boost-on-ubuntu-1104/</guid>
+      <guid>https://choly.ca/post/qt-creator-boost-on-ubuntu-1104/</guid>
       <description>1. make a home for boost sudo mkdir -p /code/include sudo chown -R YOUR_USER_NAME /code cd /code/include 2. download boost sudo apt-get install subversion svn co http://svn.boost.org/svn/boost/trunk boost cd boost 3. compile boost sudo ./bootstrap.sh sudo ./b2 note: this will take a while, go get some coffee.
 4. Include in qt project Add the following to your .pro file.
 INCLUDEPATH += /code/include/ LIBS += -L/code/include/boost/bin.v2/libs/ -lboost_system -lboost_filesystem -lboost_asio In this example i&amp;rsquo;m linking boost::filesystem and boost::asio.</description>

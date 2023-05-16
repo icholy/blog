@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>php on Choly&#39;s Blog</title>
-    <link>http://choly.ca/tags/php/</link>
+    <link>https://choly.ca/tags/php/</link>
     <description>Recent content in php on Choly&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 15 Jul 2011 12:43:11 -0400</lastBuildDate><atom:link href="http://choly.ca/tags/php/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 15 Jul 2011 12:43:11 -0400</lastBuildDate><atom:link href="https://choly.ca/tags/php/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>JPProxy - tiny jsonp proxy</title>
-      <link>http://choly.ca/post/jpproxy/</link>
+      <link>https://choly.ca/post/jpproxy/</link>
       <pubDate>Fri, 15 Jul 2011 12:43:11 -0400</pubDate>
       
-      <guid>http://choly.ca/post/jpproxy/</guid>
+      <guid>https://choly.ca/post/jpproxy/</guid>
       <description>JPProxy is a very simple yet powerful JSONP script. It allows you to make ajax like requests to any page on a server that has the jpproxy.php script on it. I tried really hard to make it as simple and generic as possible so the source is tiny.
 1. Client A script tag is injected into the DOM and all the values are added to the url as GET parameters.</description>
     </item>

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>coffeescript on Choly&#39;s Blog</title>
-    <link>http://choly.ca/tags/coffeescript/</link>
+    <link>https://choly.ca/tags/coffeescript/</link>
     <description>Recent content in coffeescript on Choly&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 07 Aug 2011 12:37:05 -0400</lastBuildDate><atom:link href="http://choly.ca/tags/coffeescript/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 07 Aug 2011 12:37:05 -0400</lastBuildDate><atom:link href="https://choly.ca/tags/coffeescript/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>CoffeeScript</title>
-      <link>http://choly.ca/post/coffeescript/</link>
+      <link>https://choly.ca/post/coffeescript/</link>
       <pubDate>Sun, 07 Aug 2011 12:37:05 -0400</pubDate>
       
-      <guid>http://choly.ca/post/coffeescript/</guid>
+      <guid>https://choly.ca/post/coffeescript/</guid>
       <description>I just spent the last 5 hours learning CoffeeScript and I feel like I have pretty much everything down. My brain is kinda dead right now, but at the same time I&amp;rsquo;m pretty excited to actually try it in a real project. In case you don&amp;rsquo;t know CoffeeScript is a python-esque language which &amp;lsquo;compiles&amp;rsquo; into javascript. classes, list comprehension inheritance, ranges, semantic code etc&amp;hellip;. dream come true. http://jashkenas.github.com/coffee-script/
 One thing I was worried about was being able to use 3rd party libraries with it.</description>
     </item>

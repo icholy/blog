@@ -2,134 +2,134 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Choly&#39;s Blog</title>
-    <link>http://choly.ca/categories/</link>
+    <link>https://choly.ca/categories/</link>
     <description>Recent content in Categories on Choly&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 17 Jan 2023 12:44:05 -0500</lastBuildDate><atom:link href="http://choly.ca/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 17 Jan 2023 12:44:05 -0500</lastBuildDate><atom:link href="https://choly.ca/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Development</title>
-      <link>http://choly.ca/categories/development/</link>
+      <link>https://choly.ca/categories/development/</link>
       <pubDate>Tue, 17 Jan 2023 12:44:05 -0500</pubDate>
       
-      <guid>http://choly.ca/categories/development/</guid>
+      <guid>https://choly.ca/categories/development/</guid>
       <description></description>
     </item>
     
     <item>
       <title>GoLang</title>
-      <link>http://choly.ca/categories/golang/</link>
+      <link>https://choly.ca/categories/golang/</link>
       <pubDate>Tue, 17 Jan 2023 12:44:05 -0500</pubDate>
       
-      <guid>http://choly.ca/categories/golang/</guid>
+      <guid>https://choly.ca/categories/golang/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Go</title>
-      <link>http://choly.ca/categories/go/</link>
+      <link>https://choly.ca/categories/go/</link>
       <pubDate>Mon, 19 Feb 2018 12:17:21 -0400</pubDate>
       
-      <guid>http://choly.ca/categories/go/</guid>
+      <guid>https://choly.ca/categories/go/</guid>
       <description></description>
     </item>
     
     <item>
       <title>AngularJS</title>
-      <link>http://choly.ca/categories/angularjs/</link>
+      <link>https://choly.ca/categories/angularjs/</link>
       <pubDate>Wed, 23 Mar 2016 10:06:22 -0400</pubDate>
       
-      <guid>http://choly.ca/categories/angularjs/</guid>
+      <guid>https://choly.ca/categories/angularjs/</guid>
       <description></description>
     </item>
     
     <item>
       <title>JavaScript</title>
-      <link>http://choly.ca/categories/javascript/</link>
+      <link>https://choly.ca/categories/javascript/</link>
       <pubDate>Wed, 23 Mar 2016 10:06:22 -0400</pubDate>
       
-      <guid>http://choly.ca/categories/javascript/</guid>
+      <guid>https://choly.ca/categories/javascript/</guid>
       <description></description>
     </item>
     
     <item>
       <title>TypeScript</title>
-      <link>http://choly.ca/categories/typescript/</link>
+      <link>https://choly.ca/categories/typescript/</link>
       <pubDate>Tue, 31 Mar 2015 10:17:00 -0400</pubDate>
       
-      <guid>http://choly.ca/categories/typescript/</guid>
+      <guid>https://choly.ca/categories/typescript/</guid>
       <description></description>
     </item>
     
     <item>
       <title>linux</title>
-      <link>http://choly.ca/categories/linux/</link>
+      <link>https://choly.ca/categories/linux/</link>
       <pubDate>Mon, 31 Mar 2014 12:56:53 -0400</pubDate>
       
-      <guid>http://choly.ca/categories/linux/</guid>
+      <guid>https://choly.ca/categories/linux/</guid>
       <description></description>
     </item>
     
     <item>
       <title>C&#43;&#43;</title>
-      <link>http://choly.ca/categories/c&#43;&#43;/</link>
+      <link>https://choly.ca/categories/c&#43;&#43;/</link>
       <pubDate>Mon, 31 Dec 2012 11:26:44 -0400</pubDate>
       
-      <guid>http://choly.ca/categories/c&#43;&#43;/</guid>
+      <guid>https://choly.ca/categories/c&#43;&#43;/</guid>
       <description></description>
     </item>
     
     <item>
       <title>vim</title>
-      <link>http://choly.ca/categories/vim/</link>
+      <link>https://choly.ca/categories/vim/</link>
       <pubDate>Fri, 07 Dec 2012 11:29:54 -0400</pubDate>
       
-      <guid>http://choly.ca/categories/vim/</guid>
+      <guid>https://choly.ca/categories/vim/</guid>
       <description></description>
     </item>
     
     <item>
       <title>c</title>
-      <link>http://choly.ca/categories/c/</link>
+      <link>https://choly.ca/categories/c/</link>
       <pubDate>Mon, 03 Dec 2012 11:40:51 -0400</pubDate>
       
-      <guid>http://choly.ca/categories/c/</guid>
+      <guid>https://choly.ca/categories/c/</guid>
       <description></description>
     </item>
     
     <item>
       <title>CSS</title>
-      <link>http://choly.ca/categories/css/</link>
+      <link>https://choly.ca/categories/css/</link>
       <pubDate>Thu, 27 Oct 2011 12:10:52 -0400</pubDate>
       
-      <guid>http://choly.ca/categories/css/</guid>
+      <guid>https://choly.ca/categories/css/</guid>
       <description></description>
     </item>
     
     <item>
       <title>VMWare</title>
-      <link>http://choly.ca/categories/vmware/</link>
+      <link>https://choly.ca/categories/vmware/</link>
       <pubDate>Sun, 16 Oct 2011 12:14:52 -0400</pubDate>
       
-      <guid>http://choly.ca/categories/vmware/</guid>
+      <guid>https://choly.ca/categories/vmware/</guid>
       <description></description>
     </item>
     
     <item>
       <title>QML</title>
-      <link>http://choly.ca/categories/qml/</link>
+      <link>https://choly.ca/categories/qml/</link>
       <pubDate>Fri, 30 Sep 2011 12:20:44 -0400</pubDate>
       
-      <guid>http://choly.ca/categories/qml/</guid>
+      <guid>https://choly.ca/categories/qml/</guid>
       <description></description>
     </item>
     
     <item>
       <title>PHP</title>
-      <link>http://choly.ca/categories/php/</link>
+      <link>https://choly.ca/categories/php/</link>
       <pubDate>Fri, 15 Jul 2011 12:43:11 -0400</pubDate>
       
-      <guid>http://choly.ca/categories/php/</guid>
+      <guid>https://choly.ca/categories/php/</guid>
       <description></description>
     </item>
     

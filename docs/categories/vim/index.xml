@@ -2,27 +2,27 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>vim on Choly&#39;s Blog</title>
-    <link>http://choly.ca/categories/vim/</link>
+    <link>https://choly.ca/categories/vim/</link>
     <description>Recent content in vim on Choly&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 07 Dec 2012 11:29:54 -0400</lastBuildDate><atom:link href="http://choly.ca/categories/vim/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 07 Dec 2012 11:29:54 -0400</lastBuildDate><atom:link href="https://choly.ca/categories/vim/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Vim Marks</title>
-      <link>http://choly.ca/post/vim-marks/</link>
+      <link>https://choly.ca/post/vim-marks/</link>
       <pubDate>Fri, 07 Dec 2012 11:29:54 -0400</pubDate>
       
-      <guid>http://choly.ca/post/vim-marks/</guid>
+      <guid>https://choly.ca/post/vim-marks/</guid>
       <description>Marks are a feature that I’ve never really used enough. Hopefully writing about them will change that for the better.
 Make a basic, file local, mark called a ma Jump back to that mark &amp;#39;a Now I try to be pragmatic. So use cases are what motivate me to learn new thing. I think that marks are a good replacement for a lot of the things I use visual line V mode for now.</description>
     </item>
     
     <item>
       <title>A week with Vim</title>
-      <link>http://choly.ca/post/week-with-vim/</link>
+      <link>https://choly.ca/post/week-with-vim/</link>
       <pubDate>Tue, 16 Oct 2012 12:17:21 -0400</pubDate>
       
-      <guid>http://choly.ca/post/week-with-vim/</guid>
+      <guid>https://choly.ca/post/week-with-vim/</guid>
       <description>During the past week I&amp;rsquo;ve been learning to use Vim (gVim). Day 1 and 2 weren&amp;rsquo;t fun to say the least. But now I&amp;rsquo;m completely hooked. I&amp;rsquo;m the type of person who will sit there for hours customizing my development environment until I think it&amp;rsquo;s perfect. I&amp;rsquo;ve been playing with almost every cool plugin i can find (and wasting a lot of time in the process).
 So Vim is, without a doubt, the best text editor I&amp;rsquo;ve ever used.</description>
     </item>
