@@ -1,4 +1,4 @@
-baseurl = "http://choly.ca/"
+baseurl = "https://choly.ca/"
 languageCode = "en-us"
 title = "Choly's Blog"
 theme = "hyde"
@@ -19,7 +19,7 @@ publishDir = "docs"
 
 [[menu.main]]
   name = "Stack Overflow"
-  url = "http://stackoverflow.com/users/215969/ilia-choly"
+  url = "https://stackoverflow.com/users/215969/ilia-choly"
     
 
   
