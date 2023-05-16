@@ -2,6 +2,8 @@ module github.com/icholy/blog
 
 go 1.19
 
+require github.com/gohugoio/hugo v0.110.0
+
 require (
 	cloud.google.com/go v0.101.0 // indirect
 	cloud.google.com/go/compute v1.6.1 // indirect
@@ -55,7 +57,6 @@ require (
 	github.com/gobuffalo/flect v0.3.0 // indirect
 	github.com/gobwas/glob v0.2.3 // indirect
 	github.com/gohugoio/go-i18n/v2 v2.1.3-0.20210430103248-4c28c89f8013 // indirect
-	github.com/gohugoio/hugo v0.110.0 // indirect
 	github.com/gohugoio/locales v0.14.0 // indirect
 	github.com/gohugoio/localescompressed v1.0.1 // indirect
 	github.com/golang-jwt/jwt/v4 v4.0.0 // indirect
