@@ -2,16 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://choly.ca/categories/3d-printing/</loc>
+    <lastmod>2023-12-09T09:11:00-05:00</lastmod>
+  </url><url>
+    <loc>https://choly.ca/post/3d-printing/</loc>
+    <lastmod>2023-12-09T09:11:00-05:00</lastmod>
+  </url><url>
+    <loc>https://choly.ca/tags/3d-printing/</loc>
+    <lastmod>2023-12-09T09:11:00-05:00</lastmod>
+  </url><url>
+    <loc>https://choly.ca/categories/</loc>
+    <lastmod>2023-12-09T09:11:00-05:00</lastmod>
+  </url><url>
+    <loc>https://choly.ca/</loc>
+    <lastmod>2023-12-09T09:11:00-05:00</lastmod>
+  </url><url>
+    <loc>https://choly.ca/tags/onshape/</loc>
+    <lastmod>2023-12-09T09:11:00-05:00</lastmod>
+  </url><url>
+    <loc>https://choly.ca/post/</loc>
+    <lastmod>2023-12-09T09:11:00-05:00</lastmod>
+  </url><url>
+    <loc>https://choly.ca/tags/</loc>
+    <lastmod>2023-12-09T09:11:00-05:00</lastmod>
+  </url><url>
     <loc>https://choly.ca/tags/aws/</loc>
     <lastmod>2023-01-17T12:44:05-05:00</lastmod>
   </url><url>
     <loc>https://choly.ca/post/x-ray-force-sample/</loc>
-    <lastmod>2023-01-17T12:44:05-05:00</lastmod>
-  </url><url>
-    <loc>https://choly.ca/categories/</loc>
-    <lastmod>2023-01-17T12:44:05-05:00</lastmod>
-  </url><url>
-    <loc>https://choly.ca/</loc>
     <lastmod>2023-01-17T12:44:05-05:00</lastmod>
   </url><url>
     <loc>https://choly.ca/tags/debugging/</loc>
@@ -24,12 +42,6 @@
     <lastmod>2023-01-17T12:44:05-05:00</lastmod>
   </url><url>
     <loc>https://choly.ca/categories/golang/</loc>
-    <lastmod>2023-01-17T12:44:05-05:00</lastmod>
-  </url><url>
-    <loc>https://choly.ca/post/</loc>
-    <lastmod>2023-01-17T12:44:05-05:00</lastmod>
-  </url><url>
-    <loc>https://choly.ca/tags/</loc>
     <lastmod>2023-01-17T12:44:05-05:00</lastmod>
   </url><url>
     <loc>https://choly.ca/tags/x-ray/</loc>
