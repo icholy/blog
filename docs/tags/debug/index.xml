@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>debug on Choly&#39;s Blog</title>
-    <link>https://choly.ca/tags/debug/</link>
-    <description>Recent content in debug on Choly&#39;s Blog</description>
+    <title>Debug on Choly&#39;s Blog</title>
+    <link>http://localhost:1313/tags/debug/</link>
+    <description>Recent content in Debug on Choly&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 22 Feb 2021 12:48:39 -0500</lastBuildDate><atom:link href="https://choly.ca/tags/debug/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 22 Feb 2021 12:48:39 -0500</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/debug/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Debugging a flaky Go test with Mozilla rr</title>
-      <link>https://choly.ca/post/debugging-go-with-rr/</link>
+      <link>http://localhost:1313/post/debugging-go-with-rr/</link>
       <pubDate>Mon, 22 Feb 2021 12:48:39 -0500</pubDate>
-      
-      <guid>https://choly.ca/post/debugging-go-with-rr/</guid>
-      <description>This is how you debug a test that only fails once every 1000 times.
-The Test package my import ( &amp;#34;math/rand&amp;#34; &amp;#34;testing&amp;#34; &amp;#34;time&amp;#34; ) func init() { rand.Seed(time.Now().UnixNano()) } func TestRandFail(t *testing.T) { if n := rand.Intn(1000); n == 50 { t.Fatalf(&amp;#34;finally got %d&amp;#34;, n) } } This is obviously a pedagogical example. Get the newest version of rr git clone https://github.com/rr-debugger/rr.git cd rr git checkout 5.4.0 # change this to the latest release (DO NOT BUILD HEAD) mkdir build cd build cmake .</description>
+      <guid>http://localhost:1313/post/debugging-go-with-rr/</guid>
+      <description>This is how you debug a test that only fails once every 1000 times.&#xA;The Test package my import ( &amp;#34;math/rand&amp;#34; &amp;#34;testing&amp;#34; &amp;#34;time&amp;#34; ) func init() { rand.Seed(time.Now().UnixNano()) } func TestRandFail(t *testing.T) { if n := rand.Intn(1000); n == 50 { t.Fatalf(&amp;#34;finally got %d&amp;#34;, n) } } This is obviously a pedagogical example. Get the newest version of rr git clone https://github.com/rr-debugger/rr.git cd rr git checkout 5.4.0 # change this to the latest release (DO NOT BUILD HEAD) mkdir build cd build cmake .</description>
     </item>
-    
   </channel>
 </rss>

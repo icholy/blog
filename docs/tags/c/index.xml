@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>c on Choly&#39;s Blog</title>
-    <link>https://choly.ca/tags/c/</link>
-    <description>Recent content in c on Choly&#39;s Blog</description>
+    <title>C on Choly&#39;s Blog</title>
+    <link>http://localhost:1313/tags/c/</link>
+    <description>Recent content in C on Choly&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 03 Dec 2012 11:40:51 -0400</lastBuildDate><atom:link href="https://choly.ca/tags/c/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 03 Dec 2012 11:40:51 -0400</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/c/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Libpq: PQexec Timeout</title>
-      <link>https://choly.ca/post/libpq-pqexec-timeout/</link>
+      <link>http://localhost:1313/post/libpq-pqexec-timeout/</link>
       <pubDate>Mon, 03 Dec 2012 11:40:51 -0400</pubDate>
-      
-      <guid>https://choly.ca/post/libpq-pqexec-timeout/</guid>
+      <guid>http://localhost:1313/post/libpq-pqexec-timeout/</guid>
       <description>1. Establish the connection PGconn *pg_conn = PQconnect(&amp;#34;info&amp;#34;); // error check if (PQstatus(pg_conn) != CONNECTION_OK) throw &amp;#34;invalid connection&amp;#34;; 2. Grab the socket file descriptor int socket_fd = PQsocket(pg_conn); // error check if (socket_fd &amp;lt; 0) throw &amp;#34;invalid socket&amp;#34;; 3. Set the timeout // 5 second timeout struct timeval timeout = { 5, 0 }; // recv timeout int setopt_result_1 = setsockopt( socket_fd, SOL_SOCKET, SO_RCVTIMEO, (char *)&amp;amp;timeout, sizeof(timeout) ); // send timeout int setopt_result_2 = setsockopt( socket_fd, SOL_SOCKET, SO_SNDTIMEO, (char *)&amp;amp;timeout, sizeof(timeout) ); // error check if (setopt_result_1 &amp;lt; 0 || setopt_result_2 &amp;lt; 0) throw &amp;#34;failed to set timeout&amp;#34;; </description>
     </item>
-    
   </channel>
 </rss>

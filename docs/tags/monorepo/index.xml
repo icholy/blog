@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Monorepo on Choly&#39;s Blog</title>
+    <link>http://localhost:1313/tags/monorepo/</link>
+    <description>Recent content in Monorepo on Choly&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 01 Mar 2024 11:57:11 -0400</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/monorepo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Git: programmatic staging</title>
+      <link>http://localhost:1313/post/git-programmatic-staging/</link>
+      <pubDate>Fri, 01 Mar 2024 11:57:11 -0400</pubDate>
+      <guid>http://localhost:1313/post/git-programmatic-staging/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

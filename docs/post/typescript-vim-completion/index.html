@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.110.0">
+  <meta name="generator" content="Hugo 0.123.7">
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,10 +12,10 @@
   <meta name="description" content="" />
 
   
-  <link type="text/css" rel="stylesheet" href="https://choly.ca/css/print.css" media="print">
-  <link type="text/css" rel="stylesheet" href="https://choly.ca/css/poole.css">
-  <link type="text/css" rel="stylesheet" href="https://choly.ca/css/syntax.css">
-  <link type="text/css" rel="stylesheet" href="https://choly.ca/css/hyde.css">
+  <link type="text/css" rel="stylesheet" href="http://localhost:1313/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="http://localhost:1313/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="http://localhost:1313/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="http://localhost:1313/css/hyde.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
 
 
@@ -31,7 +31,7 @@
   <aside class="sidebar">
   <div class="container sidebar-sticky">
     <div class="sidebar-about">
-      <a href="https://choly.ca/"><h1>Choly&#39;s Blog</h1></a>
+      <a href="http://localhost:1313/"><h1>Choly&#39;s Blog</h1></a>
       <p class="lead">
        Documented Procrastination 
       </p>
@@ -39,12 +39,12 @@
 
     <nav>
       <ul class="sidebar-nav">
-        <li><a href="https://choly.ca/">Home</a> </li>
+        <li><a href="http://localhost:1313/">Home</a> </li>
         <li><a href="https://github.com/icholy"> Github </a></li><li><a href="https://stackoverflow.com/users/215969/ilia-choly"> Stack Overflow </a></li>
       </ul>
     </nav>
 
-    <p>&copy; 2023. All rights reserved. </p>
+    <p>&copy; 2024. All rights reserved. </p>
   </div>
 </aside>
 
@@ -63,9 +63,9 @@ I recently got <a href="http://www.typescriptlang.org/">TypeScript</a> auto-comp
 </span></span><span style="display:flex;"><span>sudo npm install -g
 </span></span></code></pre></div><h3 id="2-install-vim-plugin">2. Install Vim Plugin</h3>
 <p>I&rsquo;m using <a href="https://github.com/gmarik/Vundle.vim">Vundle</a> to manage my plugins.</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-vim" data-lang="vim"><span style="display:flex;"><span><span style="color:#000">Bundle</span> <span style="color:#4e9a06">&#34;icholy/typescript-tools.git&#34;</span><span style="color:#a40000">
-</span></span></span><span style="display:flex;"><span><span style="color:#a40000"></span><span style="color:#000">au</span> <span style="color:#000">BufRead</span><span style="color:#000;font-weight:bold">,</span><span style="color:#000">BufNewFile</span> *.<span style="color:#000">ts</span>  <span style="color:#000">setlocal</span> <span style="color:#000">filetype</span><span style="color:#000;font-weight:bold">=</span><span style="color:#000">typescript</span><span style="color:#a40000">
-</span></span></span></code></pre></div><h3 id="3-install-tsd">3. Install TSD</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-vim" data-lang="vim"><span style="display:flex;"><span><span style="color:#000">Bundle</span> <span style="color:#4e9a06">&#34;icholy/typescript-tools.git&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">au</span> <span style="color:#000">BufRead</span><span style="color:#000;font-weight:bold">,</span><span style="color:#000">BufNewFile</span> *.<span style="color:#000">ts</span>  <span style="color:#000">setlocal</span> <span style="color:#204a87;font-weight:bold">filetype</span><span style="color:#000;font-weight:bold">=</span><span style="color:#000">typescript</span>
+</span></span></code></pre></div><h3 id="3-install-tsd">3. Install TSD</h3>
 <div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo npm install tsd@next -g
 </span></span></code></pre></div><h3 id="4-create-project">4. Create Project</h3>
 <div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>mkdir project
@@ -89,34 +89,20 @@ I recently got <a href="http://www.typescriptlang.org/">TypeScript</a> auto-comp
 </span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">}</span>
 </span></span></code></pre></div><h3 id="6-start-tss-in-vim">6. Start TSS in vim</h3>
 <p>Make sure you&rsquo;re cwd is somewhere in the directory containing <code>tsconfig.json</code></p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-vim" data-lang="vim"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">:</span><span style="color:#000">TSSstart</span><span style="color:#a40000">
-</span></span></span></code></pre></div><p>You might get some errors, but it should still work.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-vim" data-lang="vim"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">:</span><span style="color:#000">TSSstart</span>
+</span></span></code></pre></div><p>You might get some errors, but it should still work.</p>
 <h3 id="7-optional-making-it-work-with-youcompletemehttpsgithubcomvalloricyoucompleteme">7. (Optional) Making it work with <a href="https://github.com/Valloric/YouCompleteMe">YouCompleteMe</a></h3>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-vim" data-lang="vim"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">!</span><span style="color:#000">exists</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;g:ycm_semantic_triggers&#34;</span><span style="color:#000;font-weight:bold">)</span><span style="color:#a40000">
-</span></span></span><span style="display:flex;"><span><span style="color:#a40000"></span>   <span style="color:#204a87;font-weight:bold">let</span> <span style="color:#000">g</span>:<span style="color:#000">ycm_semantic_triggers</span> <span style="color:#000;font-weight:bold">=</span> {}<span style="color:#a40000">
-</span></span></span><span style="display:flex;"><span><span style="color:#a40000"></span><span style="color:#204a87;font-weight:bold">endif</span><span style="color:#a40000">
-</span></span></span><span style="display:flex;"><span><span style="color:#a40000"></span><span style="color:#204a87;font-weight:bold">let</span> <span style="color:#000">g</span>:<span style="color:#000">ycm_semantic_triggers</span>[<span style="color:#4e9a06">&#39;typescript&#39;</span>] <span style="color:#000;font-weight:bold">=</span> [<span style="color:#4e9a06">&#39;.&#39;</span>]<span style="color:#a40000">
-</span></span></span><span style="display:flex;"><span><span style="color:#a40000"></span><span style="color:#000">set</span> <span style="color:#000">completeopt</span><span style="color:#000;font-weight:bold">-=</span><span style="color:#000">preview</span><span style="color:#a40000">
-</span></span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-vim" data-lang="vim"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">!</span><span style="color:#000">exists</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;g:ycm_semantic_triggers&#34;</span><span style="color:#000;font-weight:bold">)</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#204a87;font-weight:bold">let</span> <span style="color:#000">g</span>:<span style="color:#000">ycm_semantic_triggers</span> <span style="color:#000;font-weight:bold">=</span> {}
+</span></span><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">endif</span>
+</span></span><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">let</span> <span style="color:#000">g</span>:<span style="color:#000">ycm_semantic_triggers</span>[<span style="color:#4e9a06">&#39;typescript&#39;</span>] <span style="color:#000;font-weight:bold">=</span> [<span style="color:#4e9a06">&#39;.&#39;</span>]
+</span></span><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">set</span> <span style="color:#000">completeopt</span><span style="color:#000;font-weight:bold">-=</span><span style="color:#000">preview</span>
+</span></span></code></pre></div>
 </div>
 
 
     </main>
 
-    
-      
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-	ga('create', 'UA-36797023-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
     
   </body>
 </html>
