@@ -8,7 +8,7 @@ title = "Git: programmatic staging"
 
 In the past year, I’ve been using a lot of tools to automatically rewrite/refactor code. These include  [semgrep](https://semgrep.dev/), [ast-grep](https://ast-grep.github.io/), LLMs, and one-off scripts. After running these tools on a large code-base, you usually end up with lots of additional unintended changes. These range from formatting/whitespace to unrequested modifications by LLMs.
 
-The “cleanup” step is a very manual and tedious process. I’m essentially running `git add -p` and staging hunks one at a time. At times it feels like this step offsets the productivity gain from the rewrite tool itself.
+The subsequent "cleanup" step is a very manual and tedious process. I’m essentially running `git add -p` and staging hunks one at a time. At times it feels like this step offsets the productivity gain from the rewrite tool itself.
 
 After doing this several times, I realized that most of the hunks I was staging included some common text. If I could automatically stage hunks containing a search term, I could automate a lot of this work! Git does not natively support this, but it can be easily accomplished using the [expect](https://linux.die.net/man/1/expect) tool:
 
@@ -44,3 +44,12 @@ expect {
   eof
 }
 ```
+
+To install this script, save it in your `PATH` with the name `git-add-match`.
+Once installed, the usage is as follows:
+
+``` sh
+$ git add-match foo
+```
+
+After running this command, all hunks where the string "foo" is found will be staged.

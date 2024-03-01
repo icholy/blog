@@ -53,7 +53,7 @@
   <h1>Git: programmatic staging</h1>
   <time datetime=2024-03-01T11:57:11-0400 class="post-date">Fri, Mar 1, 2024</time>
   <p>In the past year, I’ve been using a lot of tools to automatically rewrite/refactor code. These include  <a href="https://semgrep.dev/">semgrep</a>, <a href="https://ast-grep.github.io/">ast-grep</a>, LLMs, and one-off scripts. After running these tools on a large code-base, you usually end up with lots of additional unintended changes. These range from formatting/whitespace to unrequested modifications by LLMs.</p>
-<p>The “cleanup” step is a very manual and tedious process. I’m essentially running <code>git add -p</code> and staging hunks one at a time. At times it feels like this step offsets the productivity gain from the rewrite tool itself.</p>
+<p>The subsequent &ldquo;cleanup&rdquo; step is a very manual and tedious process. I’m essentially running <code>git add -p</code> and staging hunks one at a time. At times it feels like this step offsets the productivity gain from the rewrite tool itself.</p>
 <p>After doing this several times, I realized that most of the hunks I was staging included some common text. If I could automatically stage hunks containing a search term, I could automate a lot of this work! Git does not natively support this, but it can be easily accomplished using the <a href="https://linux.die.net/man/1/expect">expect</a> tool:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">#!/usr/bin/expect -f
 </span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span>
@@ -85,7 +85,11 @@
 </span></span><span style="display:flex;"><span>  <span style="color:#ce5c00;font-weight:bold">}</span>
 </span></span><span style="display:flex;"><span>  eof
 </span></span><span style="display:flex;"><span><span style="color:#ce5c00;font-weight:bold">}</span>
-</span></span></code></pre></div>
+</span></span></code></pre></div><p>To install this script, save it in your <code>PATH</code> with the name <code>git-add-match</code>.
+Once installed, the usage is as follows:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>$ git add-match foo
+</span></span></code></pre></div><p>After running this command, all hunks where the string &ldquo;foo&rdquo; is found will be staged.</p>
+
 </div>
 
 
