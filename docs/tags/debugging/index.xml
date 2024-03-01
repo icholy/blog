@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Debugging on Choly&#39;s Blog</title>
-    <link>http://localhost:1313/tags/debugging/</link>
+    <link>https://choly.ca/tags/debugging/</link>
     <description>Recent content in Debugging on Choly&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 17 Jan 2023 12:44:05 -0500</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/debugging/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://choly.ca/tags/debugging/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>AWS X-Ray: Force Sample</title>
-      <link>http://localhost:1313/post/x-ray-force-sample/</link>
+      <link>https://choly.ca/post/x-ray-force-sample/</link>
       <pubDate>Tue, 17 Jan 2023 12:44:05 -0500</pubDate>
-      <guid>http://localhost:1313/post/x-ray-force-sample/</guid>
+      <guid>https://choly.ca/post/x-ray-force-sample/</guid>
       <description>Background At my current workplace, we use X-Ray configured with a sample rate of 0.01. This means that a random 1% of requests will be traced. The low rate is great at keeping costs down, but it&amp;rsquo;s not useful for debugging specific failed requests. Fortunately, you can force X-Ray to sample your request by generating a trace id, and setting the X-Amzn-Trace-Id header.&#xA;Generating trace IDs The id format is documented here along with a Python code sample.</description>
     </item>
   </channel>

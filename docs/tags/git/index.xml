@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Git on Choly&#39;s Blog</title>
-    <link>http://localhost:1313/tags/git/</link>
+    <link>https://choly.ca/tags/git/</link>
     <description>Recent content in Git on Choly&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 01 Mar 2024 11:57:11 -0400</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://choly.ca/tags/git/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Git: programmatic staging</title>
-      <link>http://localhost:1313/post/git-programmatic-staging/</link>
+      <link>https://choly.ca/post/git-programmatic-staging/</link>
       <pubDate>Fri, 01 Mar 2024 11:57:11 -0400</pubDate>
-      <guid>http://localhost:1313/post/git-programmatic-staging/</guid>
-      <description></description>
+      <guid>https://choly.ca/post/git-programmatic-staging/</guid>
+      <description>In the past year, I’ve been using a lot of tools to automatically rewrite/refactor code. These include semgrep, ast-grep, LLMs, and one-off scripts. After running these tools on a large code-base, you usually end up with lots of additional unintended changes. These range from formatting/whitespace to unrequested modifications by LLMs.&#xA;The “cleanup” step is a very manual and tedious process. I’m essentially running git add -p and staging hunks one at a time.</description>
     </item>
   </channel>
 </rss>

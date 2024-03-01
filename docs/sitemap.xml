@@ -2,256 +2,256 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/categories/</loc>
+    <loc>https://choly.ca/categories/</loc>
     <lastmod>2024-03-01T11:57:11-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/</loc>
+    <loc>https://choly.ca/</loc>
     <lastmod>2024-03-01T11:57:11-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/development/</loc>
+    <loc>https://choly.ca/tags/development/</loc>
     <lastmod>2024-03-01T11:57:11-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/development/</loc>
+    <loc>https://choly.ca/categories/development/</loc>
     <lastmod>2024-03-01T11:57:11-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/git/</loc>
+    <loc>https://choly.ca/tags/git/</loc>
     <lastmod>2024-03-01T11:57:11-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/git/</loc>
+    <loc>https://choly.ca/categories/git/</loc>
     <lastmod>2024-03-01T11:57:11-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/git-programmatic-staging/</loc>
+    <loc>https://choly.ca/post/git-programmatic-staging/</loc>
     <lastmod>2024-03-01T11:57:11-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/grep/</loc>
+    <loc>https://choly.ca/tags/grep/</loc>
     <lastmod>2024-03-01T11:57:11-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/monorepo/</loc>
+    <loc>https://choly.ca/tags/monorepo/</loc>
     <lastmod>2024-03-01T11:57:11-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/</loc>
+    <loc>https://choly.ca/post/</loc>
     <lastmod>2024-03-01T11:57:11-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/refactor/</loc>
+    <loc>https://choly.ca/tags/refactor/</loc>
     <lastmod>2024-03-01T11:57:11-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/</loc>
+    <loc>https://choly.ca/tags/</loc>
     <lastmod>2024-03-01T11:57:11-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/3d-printing/</loc>
+    <loc>https://choly.ca/categories/3d-printing/</loc>
     <lastmod>2023-12-09T09:11:00-05:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/3d-printing/</loc>
+    <loc>https://choly.ca/post/3d-printing/</loc>
     <lastmod>2023-12-09T09:11:00-05:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/3d-printing/</loc>
+    <loc>https://choly.ca/tags/3d-printing/</loc>
     <lastmod>2023-12-09T09:11:00-05:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/onshape/</loc>
+    <loc>https://choly.ca/tags/onshape/</loc>
     <lastmod>2023-12-09T09:11:00-05:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/aws/</loc>
+    <loc>https://choly.ca/tags/aws/</loc>
     <lastmod>2023-01-17T12:44:05-05:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/x-ray-force-sample/</loc>
+    <loc>https://choly.ca/post/x-ray-force-sample/</loc>
     <lastmod>2023-01-17T12:44:05-05:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/debugging/</loc>
+    <loc>https://choly.ca/tags/debugging/</loc>
     <lastmod>2023-01-17T12:44:05-05:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/golang/</loc>
+    <loc>https://choly.ca/categories/golang/</loc>
     <lastmod>2023-01-17T12:44:05-05:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/x-ray/</loc>
+    <loc>https://choly.ca/tags/x-ray/</loc>
     <lastmod>2023-01-17T12:44:05-05:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/debug/</loc>
+    <loc>https://choly.ca/tags/debug/</loc>
     <lastmod>2021-02-22T12:48:39-05:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/debugging-go-with-rr/</loc>
+    <loc>https://choly.ca/post/debugging-go-with-rr/</loc>
     <lastmod>2021-02-22T12:48:39-05:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/golang/</loc>
+    <loc>https://choly.ca/tags/golang/</loc>
     <lastmod>2021-02-22T12:48:39-05:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/rr/</loc>
+    <loc>https://choly.ca/tags/rr/</loc>
     <lastmod>2021-02-22T12:48:39-05:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/git-merge-to-monorepo/</loc>
+    <loc>https://choly.ca/post/git-merge-to-monorepo/</loc>
     <lastmod>2018-08-13T12:04:56-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/go/</loc>
+    <loc>https://choly.ca/tags/go/</loc>
     <lastmod>2018-02-19T12:17:21-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/go/</loc>
+    <loc>https://choly.ca/categories/go/</loc>
     <lastmod>2018-02-19T12:17:21-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/go-experiments-with-handler/</loc>
+    <loc>https://choly.ca/post/go-experiments-with-handler/</loc>
     <lastmod>2018-02-19T12:17:21-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/http/</loc>
+    <loc>https://choly.ca/tags/http/</loc>
     <lastmod>2018-02-19T12:17:21-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/angular-events/</loc>
+    <loc>https://choly.ca/post/angular-events/</loc>
     <lastmod>2016-03-23T10:06:22-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/angularjs/</loc>
+    <loc>https://choly.ca/tags/angularjs/</loc>
     <lastmod>2016-03-23T10:06:22-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/angularjs/</loc>
+    <loc>https://choly.ca/categories/angularjs/</loc>
     <lastmod>2016-03-23T10:06:22-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/javascript/</loc>
+    <loc>https://choly.ca/tags/javascript/</loc>
     <lastmod>2016-03-23T10:06:22-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/javascript/</loc>
+    <loc>https://choly.ca/categories/javascript/</loc>
     <lastmod>2016-03-23T10:06:22-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/typescript-json/</loc>
+    <loc>https://choly.ca/post/typescript-json/</loc>
     <lastmod>2016-03-19T15:41:44-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/go-json-marshalling/</loc>
+    <loc>https://choly.ca/post/go-json-marshalling/</loc>
     <lastmod>2015-04-10T12:54:44-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/typescript/</loc>
+    <loc>https://choly.ca/tags/typescript/</loc>
     <lastmod>2015-03-31T10:17:00-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/typescript/</loc>
+    <loc>https://choly.ca/categories/typescript/</loc>
     <lastmod>2015-03-31T10:17:00-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/typescript-vim-completion/</loc>
+    <loc>https://choly.ca/post/typescript-vim-completion/</loc>
     <lastmod>2015-03-31T10:17:00-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/interactive-filtering-with-less/</loc>
+    <loc>https://choly.ca/post/interactive-filtering-with-less/</loc>
     <lastmod>2014-03-31T12:56:53-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/linux/</loc>
+    <loc>https://choly.ca/tags/linux/</loc>
     <lastmod>2014-03-31T12:56:53-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/linux/</loc>
+    <loc>https://choly.ca/categories/linux/</loc>
     <lastmod>2014-03-31T12:56:53-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/c&#43;&#43;/</loc>
+    <loc>https://choly.ca/categories/c&#43;&#43;/</loc>
     <lastmod>2012-12-31T11:26:44-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/c-plus-plus-make-repl/</loc>
+    <loc>https://choly.ca/post/c-plus-plus-make-repl/</loc>
     <lastmod>2012-12-31T11:26:44-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/cpp/</loc>
+    <loc>https://choly.ca/tags/cpp/</loc>
     <lastmod>2012-12-31T11:26:44-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/c-plus-plus-inline-functions/</loc>
+    <loc>https://choly.ca/post/c-plus-plus-inline-functions/</loc>
     <lastmod>2012-12-31T11:21:15-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/vim/</loc>
+    <loc>https://choly.ca/tags/vim/</loc>
     <lastmod>2012-12-07T11:29:54-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/vim/</loc>
+    <loc>https://choly.ca/categories/vim/</loc>
     <lastmod>2012-12-07T11:29:54-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/vim-marks/</loc>
+    <loc>https://choly.ca/post/vim-marks/</loc>
     <lastmod>2012-12-07T11:29:54-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/c-plus-plus-extending-classes-via-the-stream-operator/</loc>
+    <loc>https://choly.ca/post/c-plus-plus-extending-classes-via-the-stream-operator/</loc>
     <lastmod>2012-12-03T11:49:42-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/c-plus-plus-logging-log4cxx-vs-glog-vs-wrapper/</loc>
+    <loc>https://choly.ca/post/c-plus-plus-logging-log4cxx-vs-glog-vs-wrapper/</loc>
     <lastmod>2012-12-03T11:44:06-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/c/</loc>
+    <loc>https://choly.ca/tags/c/</loc>
     <lastmod>2012-12-03T11:40:51-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/c/</loc>
+    <loc>https://choly.ca/categories/c/</loc>
     <lastmod>2012-12-03T11:40:51-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/libpq-pqexec-timeout/</loc>
+    <loc>https://choly.ca/post/libpq-pqexec-timeout/</loc>
     <lastmod>2012-12-03T11:40:51-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/codegen/</loc>
+    <loc>https://choly.ca/tags/codegen/</loc>
     <lastmod>2012-10-18T12:02:06-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/swapm-code-generation-made-easy/</loc>
+    <loc>https://choly.ca/post/swapm-code-generation-made-easy/</loc>
     <lastmod>2012-10-18T12:02:06-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/week-with-vim/</loc>
+    <loc>https://choly.ca/post/week-with-vim/</loc>
     <lastmod>2012-10-16T12:17:21-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/emberjs-with-brunch/</loc>
+    <loc>https://choly.ca/post/emberjs-with-brunch/</loc>
     <lastmod>2012-06-07T12:04:56-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/emberjs/</loc>
+    <loc>https://choly.ca/tags/emberjs/</loc>
     <lastmod>2012-06-07T12:04:56-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/css/</loc>
+    <loc>https://choly.ca/tags/css/</loc>
     <lastmod>2011-10-27T12:10:52-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/css/</loc>
+    <loc>https://choly.ca/categories/css/</loc>
     <lastmod>2011-10-27T12:10:52-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/css-compass-gradient-generator/</loc>
+    <loc>https://choly.ca/post/css-compass-gradient-generator/</loc>
     <lastmod>2011-10-27T12:10:52-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/vmware/</loc>
+    <loc>https://choly.ca/tags/vmware/</loc>
     <lastmod>2011-10-16T12:14:52-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/vmware/</loc>
+    <loc>https://choly.ca/categories/vmware/</loc>
     <lastmod>2011-10-16T12:14:52-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/vmware-workstation-ubuntu-problems/</loc>
+    <loc>https://choly.ca/post/vmware-workstation-ubuntu-problems/</loc>
     <lastmod>2011-10-16T12:14:52-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/qml/</loc>
+    <loc>https://choly.ca/tags/qml/</loc>
     <lastmod>2011-09-30T12:20:44-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/qml/</loc>
+    <loc>https://choly.ca/categories/qml/</loc>
     <lastmod>2011-09-30T12:20:44-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/qml-is-awesome/</loc>
+    <loc>https://choly.ca/post/qml-is-awesome/</loc>
     <lastmod>2011-09-30T12:20:44-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/qt-creator-boost-on-ubuntu-1104/</loc>
+    <loc>https://choly.ca/post/qt-creator-boost-on-ubuntu-1104/</loc>
     <lastmod>2011-09-26T12:23:39-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/compile-compassapp-on-ubuntu-1104/</loc>
+    <loc>https://choly.ca/post/compile-compassapp-on-ubuntu-1104/</loc>
     <lastmod>2011-09-20T12:27:52-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/scss/</loc>
+    <loc>https://choly.ca/tags/scss/</loc>
     <lastmod>2011-09-20T12:27:52-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/cloud9-ide/</loc>
+    <loc>https://choly.ca/post/cloud9-ide/</loc>
     <lastmod>2011-08-31T12:31:21-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/sass-compass-blueprint/</loc>
+    <loc>https://choly.ca/post/sass-compass-blueprint/</loc>
     <lastmod>2011-08-11T12:34:59-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/coffeescript/</loc>
+    <loc>https://choly.ca/tags/coffeescript/</loc>
     <lastmod>2011-08-07T12:37:05-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/coffeescript/</loc>
+    <loc>https://choly.ca/post/coffeescript/</loc>
     <lastmod>2011-08-07T12:37:05-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/formalize-compass/</loc>
+    <loc>https://choly.ca/post/formalize-compass/</loc>
     <lastmod>2011-08-05T12:39:12-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/reloader/</loc>
+    <loc>https://choly.ca/post/reloader/</loc>
     <lastmod>2011-07-20T12:40:37-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/jpproxy/</loc>
+    <loc>https://choly.ca/post/jpproxy/</loc>
     <lastmod>2011-07-15T12:43:11-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/php/</loc>
+    <loc>https://choly.ca/tags/php/</loc>
     <lastmod>2011-07-15T12:43:11-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/php/</loc>
+    <loc>https://choly.ca/categories/php/</loc>
     <lastmod>2011-07-15T12:43:11-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/skybound-stylizer-5-css-editor/</loc>
+    <loc>https://choly.ca/post/skybound-stylizer-5-css-editor/</loc>
     <lastmod>2011-07-14T12:55:01-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/balsamiq-mockups-wireframing-done-right/</loc>
+    <loc>https://choly.ca/post/balsamiq-mockups-wireframing-done-right/</loc>
     <lastmod>2011-07-14T12:51:14-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/absolutefudge-ie6-absolute-positioning/</loc>
+    <loc>https://choly.ca/post/absolutefudge-ie6-absolute-positioning/</loc>
     <lastmod>2011-07-14T12:48:23-04:00</lastmod>
   </url>
 </urlset>

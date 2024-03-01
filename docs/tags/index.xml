@@ -2,220 +2,220 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Choly&#39;s Blog</title>
-    <link>http://localhost:1313/tags/</link>
+    <link>https://choly.ca/tags/</link>
     <description>Recent content in Tags on Choly&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 01 Mar 2024 11:57:11 -0400</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://choly.ca/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Development</title>
-      <link>http://localhost:1313/tags/development/</link>
+      <link>https://choly.ca/tags/development/</link>
       <pubDate>Fri, 01 Mar 2024 11:57:11 -0400</pubDate>
-      <guid>http://localhost:1313/tags/development/</guid>
+      <guid>https://choly.ca/tags/development/</guid>
       <description></description>
     </item>
     <item>
       <title>Git</title>
-      <link>http://localhost:1313/tags/git/</link>
+      <link>https://choly.ca/tags/git/</link>
       <pubDate>Fri, 01 Mar 2024 11:57:11 -0400</pubDate>
-      <guid>http://localhost:1313/tags/git/</guid>
+      <guid>https://choly.ca/tags/git/</guid>
       <description></description>
     </item>
     <item>
       <title>Grep</title>
-      <link>http://localhost:1313/tags/grep/</link>
+      <link>https://choly.ca/tags/grep/</link>
       <pubDate>Fri, 01 Mar 2024 11:57:11 -0400</pubDate>
-      <guid>http://localhost:1313/tags/grep/</guid>
+      <guid>https://choly.ca/tags/grep/</guid>
       <description></description>
     </item>
     <item>
       <title>Monorepo</title>
-      <link>http://localhost:1313/tags/monorepo/</link>
+      <link>https://choly.ca/tags/monorepo/</link>
       <pubDate>Fri, 01 Mar 2024 11:57:11 -0400</pubDate>
-      <guid>http://localhost:1313/tags/monorepo/</guid>
+      <guid>https://choly.ca/tags/monorepo/</guid>
       <description></description>
     </item>
     <item>
       <title>Refactor</title>
-      <link>http://localhost:1313/tags/refactor/</link>
+      <link>https://choly.ca/tags/refactor/</link>
       <pubDate>Fri, 01 Mar 2024 11:57:11 -0400</pubDate>
-      <guid>http://localhost:1313/tags/refactor/</guid>
+      <guid>https://choly.ca/tags/refactor/</guid>
       <description></description>
     </item>
     <item>
       <title>3d-Printing</title>
-      <link>http://localhost:1313/tags/3d-printing/</link>
+      <link>https://choly.ca/tags/3d-printing/</link>
       <pubDate>Sat, 09 Dec 2023 09:11:00 -0500</pubDate>
-      <guid>http://localhost:1313/tags/3d-printing/</guid>
+      <guid>https://choly.ca/tags/3d-printing/</guid>
       <description></description>
     </item>
     <item>
       <title>Onshape</title>
-      <link>http://localhost:1313/tags/onshape/</link>
+      <link>https://choly.ca/tags/onshape/</link>
       <pubDate>Sat, 09 Dec 2023 09:11:00 -0500</pubDate>
-      <guid>http://localhost:1313/tags/onshape/</guid>
+      <guid>https://choly.ca/tags/onshape/</guid>
       <description></description>
     </item>
     <item>
       <title>Aws</title>
-      <link>http://localhost:1313/tags/aws/</link>
+      <link>https://choly.ca/tags/aws/</link>
       <pubDate>Tue, 17 Jan 2023 12:44:05 -0500</pubDate>
-      <guid>http://localhost:1313/tags/aws/</guid>
+      <guid>https://choly.ca/tags/aws/</guid>
       <description></description>
     </item>
     <item>
       <title>Debugging</title>
-      <link>http://localhost:1313/tags/debugging/</link>
+      <link>https://choly.ca/tags/debugging/</link>
       <pubDate>Tue, 17 Jan 2023 12:44:05 -0500</pubDate>
-      <guid>http://localhost:1313/tags/debugging/</guid>
+      <guid>https://choly.ca/tags/debugging/</guid>
       <description></description>
     </item>
     <item>
       <title>X-Ray</title>
-      <link>http://localhost:1313/tags/x-ray/</link>
+      <link>https://choly.ca/tags/x-ray/</link>
       <pubDate>Tue, 17 Jan 2023 12:44:05 -0500</pubDate>
-      <guid>http://localhost:1313/tags/x-ray/</guid>
+      <guid>https://choly.ca/tags/x-ray/</guid>
       <description></description>
     </item>
     <item>
       <title>Debug</title>
-      <link>http://localhost:1313/tags/debug/</link>
+      <link>https://choly.ca/tags/debug/</link>
       <pubDate>Mon, 22 Feb 2021 12:48:39 -0500</pubDate>
-      <guid>http://localhost:1313/tags/debug/</guid>
+      <guid>https://choly.ca/tags/debug/</guid>
       <description></description>
     </item>
     <item>
       <title>Golang</title>
-      <link>http://localhost:1313/tags/golang/</link>
+      <link>https://choly.ca/tags/golang/</link>
       <pubDate>Mon, 22 Feb 2021 12:48:39 -0500</pubDate>
-      <guid>http://localhost:1313/tags/golang/</guid>
+      <guid>https://choly.ca/tags/golang/</guid>
       <description></description>
     </item>
     <item>
       <title>Rr</title>
-      <link>http://localhost:1313/tags/rr/</link>
+      <link>https://choly.ca/tags/rr/</link>
       <pubDate>Mon, 22 Feb 2021 12:48:39 -0500</pubDate>
-      <guid>http://localhost:1313/tags/rr/</guid>
+      <guid>https://choly.ca/tags/rr/</guid>
       <description></description>
     </item>
     <item>
       <title>Go</title>
-      <link>http://localhost:1313/tags/go/</link>
+      <link>https://choly.ca/tags/go/</link>
       <pubDate>Mon, 19 Feb 2018 12:17:21 -0400</pubDate>
-      <guid>http://localhost:1313/tags/go/</guid>
+      <guid>https://choly.ca/tags/go/</guid>
       <description></description>
     </item>
     <item>
       <title>Http</title>
-      <link>http://localhost:1313/tags/http/</link>
+      <link>https://choly.ca/tags/http/</link>
       <pubDate>Mon, 19 Feb 2018 12:17:21 -0400</pubDate>
-      <guid>http://localhost:1313/tags/http/</guid>
+      <guid>https://choly.ca/tags/http/</guid>
       <description></description>
     </item>
     <item>
       <title>Angularjs</title>
-      <link>http://localhost:1313/tags/angularjs/</link>
+      <link>https://choly.ca/tags/angularjs/</link>
       <pubDate>Wed, 23 Mar 2016 10:06:22 -0400</pubDate>
-      <guid>http://localhost:1313/tags/angularjs/</guid>
+      <guid>https://choly.ca/tags/angularjs/</guid>
       <description></description>
     </item>
     <item>
       <title>Javascript</title>
-      <link>http://localhost:1313/tags/javascript/</link>
+      <link>https://choly.ca/tags/javascript/</link>
       <pubDate>Wed, 23 Mar 2016 10:06:22 -0400</pubDate>
-      <guid>http://localhost:1313/tags/javascript/</guid>
+      <guid>https://choly.ca/tags/javascript/</guid>
       <description></description>
     </item>
     <item>
       <title>TypeScript</title>
-      <link>http://localhost:1313/tags/typescript/</link>
+      <link>https://choly.ca/tags/typescript/</link>
       <pubDate>Tue, 31 Mar 2015 10:17:00 -0400</pubDate>
-      <guid>http://localhost:1313/tags/typescript/</guid>
+      <guid>https://choly.ca/tags/typescript/</guid>
       <description></description>
     </item>
     <item>
       <title>Linux</title>
-      <link>http://localhost:1313/tags/linux/</link>
+      <link>https://choly.ca/tags/linux/</link>
       <pubDate>Mon, 31 Mar 2014 12:56:53 -0400</pubDate>
-      <guid>http://localhost:1313/tags/linux/</guid>
+      <guid>https://choly.ca/tags/linux/</guid>
       <description></description>
     </item>
     <item>
       <title>Cpp</title>
-      <link>http://localhost:1313/tags/cpp/</link>
+      <link>https://choly.ca/tags/cpp/</link>
       <pubDate>Mon, 31 Dec 2012 11:26:44 -0400</pubDate>
-      <guid>http://localhost:1313/tags/cpp/</guid>
+      <guid>https://choly.ca/tags/cpp/</guid>
       <description></description>
     </item>
     <item>
       <title>Vim</title>
-      <link>http://localhost:1313/tags/vim/</link>
+      <link>https://choly.ca/tags/vim/</link>
       <pubDate>Fri, 07 Dec 2012 11:29:54 -0400</pubDate>
-      <guid>http://localhost:1313/tags/vim/</guid>
+      <guid>https://choly.ca/tags/vim/</guid>
       <description></description>
     </item>
     <item>
       <title>C</title>
-      <link>http://localhost:1313/tags/c/</link>
+      <link>https://choly.ca/tags/c/</link>
       <pubDate>Mon, 03 Dec 2012 11:40:51 -0400</pubDate>
-      <guid>http://localhost:1313/tags/c/</guid>
+      <guid>https://choly.ca/tags/c/</guid>
       <description></description>
     </item>
     <item>
       <title>Codegen</title>
-      <link>http://localhost:1313/tags/codegen/</link>
+      <link>https://choly.ca/tags/codegen/</link>
       <pubDate>Thu, 18 Oct 2012 12:02:06 -0400</pubDate>
-      <guid>http://localhost:1313/tags/codegen/</guid>
+      <guid>https://choly.ca/tags/codegen/</guid>
       <description></description>
     </item>
     <item>
       <title>Emberjs</title>
-      <link>http://localhost:1313/tags/emberjs/</link>
+      <link>https://choly.ca/tags/emberjs/</link>
       <pubDate>Thu, 07 Jun 2012 12:04:56 -0400</pubDate>
-      <guid>http://localhost:1313/tags/emberjs/</guid>
+      <guid>https://choly.ca/tags/emberjs/</guid>
       <description></description>
     </item>
     <item>
       <title>Css</title>
-      <link>http://localhost:1313/tags/css/</link>
+      <link>https://choly.ca/tags/css/</link>
       <pubDate>Thu, 27 Oct 2011 12:10:52 -0400</pubDate>
-      <guid>http://localhost:1313/tags/css/</guid>
+      <guid>https://choly.ca/tags/css/</guid>
       <description></description>
     </item>
     <item>
       <title>Vmware</title>
-      <link>http://localhost:1313/tags/vmware/</link>
+      <link>https://choly.ca/tags/vmware/</link>
       <pubDate>Sun, 16 Oct 2011 12:14:52 -0400</pubDate>
-      <guid>http://localhost:1313/tags/vmware/</guid>
+      <guid>https://choly.ca/tags/vmware/</guid>
       <description></description>
     </item>
     <item>
       <title>Qml</title>
-      <link>http://localhost:1313/tags/qml/</link>
+      <link>https://choly.ca/tags/qml/</link>
       <pubDate>Fri, 30 Sep 2011 12:20:44 -0400</pubDate>
-      <guid>http://localhost:1313/tags/qml/</guid>
+      <guid>https://choly.ca/tags/qml/</guid>
       <description></description>
     </item>
     <item>
       <title>Scss</title>
-      <link>http://localhost:1313/tags/scss/</link>
+      <link>https://choly.ca/tags/scss/</link>
       <pubDate>Tue, 20 Sep 2011 12:27:52 -0400</pubDate>
-      <guid>http://localhost:1313/tags/scss/</guid>
+      <guid>https://choly.ca/tags/scss/</guid>
       <description></description>
     </item>
     <item>
       <title>Coffeescript</title>
-      <link>http://localhost:1313/tags/coffeescript/</link>
+      <link>https://choly.ca/tags/coffeescript/</link>
       <pubDate>Sun, 07 Aug 2011 12:37:05 -0400</pubDate>
-      <guid>http://localhost:1313/tags/coffeescript/</guid>
+      <guid>https://choly.ca/tags/coffeescript/</guid>
       <description></description>
     </item>
     <item>
       <title>Php</title>
-      <link>http://localhost:1313/tags/php/</link>
+      <link>https://choly.ca/tags/php/</link>
       <pubDate>Fri, 15 Jul 2011 12:43:11 -0400</pubDate>
-      <guid>http://localhost:1313/tags/php/</guid>
+      <guid>https://choly.ca/tags/php/</guid>
       <description></description>
     </item>
   </channel>

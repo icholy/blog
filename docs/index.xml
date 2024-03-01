@@ -2,248 +2,248 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Choly&#39;s Blog</title>
-    <link>http://localhost:1313/</link>
+    <link>https://choly.ca/</link>
     <description>Recent content on Choly&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 01 Mar 2024 11:57:11 -0400</lastBuildDate>
-    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://choly.ca/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Git: programmatic staging</title>
-      <link>http://localhost:1313/post/git-programmatic-staging/</link>
+      <link>https://choly.ca/post/git-programmatic-staging/</link>
       <pubDate>Fri, 01 Mar 2024 11:57:11 -0400</pubDate>
-      <guid>http://localhost:1313/post/git-programmatic-staging/</guid>
+      <guid>https://choly.ca/post/git-programmatic-staging/</guid>
       <description>In the past year, I’ve been using a lot of tools to automatically rewrite/refactor code. These include semgrep, ast-grep, LLMs, and one-off scripts. After running these tools on a large code-base, you usually end up with lots of additional unintended changes. These range from formatting/whitespace to unrequested modifications by LLMs.&#xA;The “cleanup” step is a very manual and tedious process. I’m essentially running git add -p and staging hunks one at a time.</description>
     </item>
     <item>
       <title>3D Printing</title>
-      <link>http://localhost:1313/post/3d-printing/</link>
+      <link>https://choly.ca/post/3d-printing/</link>
       <pubDate>Sat, 09 Dec 2023 09:11:00 -0500</pubDate>
-      <guid>http://localhost:1313/post/3d-printing/</guid>
+      <guid>https://choly.ca/post/3d-printing/</guid>
       <description>About a year ago, I purchased a BambuLab P1P 3D printer for about $1000 CAD (after taxes and shipping). This is something I’ve wanted to do on-and-off for the past 10 years and I finally decided to pull the trigger.&#xA;For my first few projects, I decided to print existing STL models I found on the internet instead of designing my own. This was a good idea at first, but eventually led me down the (very expensive) rabbit hole of 3D printed RC (Radio Control) vehicles.</description>
     </item>
     <item>
       <title>AWS X-Ray: Force Sample</title>
-      <link>http://localhost:1313/post/x-ray-force-sample/</link>
+      <link>https://choly.ca/post/x-ray-force-sample/</link>
       <pubDate>Tue, 17 Jan 2023 12:44:05 -0500</pubDate>
-      <guid>http://localhost:1313/post/x-ray-force-sample/</guid>
+      <guid>https://choly.ca/post/x-ray-force-sample/</guid>
       <description>Background At my current workplace, we use X-Ray configured with a sample rate of 0.01. This means that a random 1% of requests will be traced. The low rate is great at keeping costs down, but it&amp;rsquo;s not useful for debugging specific failed requests. Fortunately, you can force X-Ray to sample your request by generating a trace id, and setting the X-Amzn-Trace-Id header.&#xA;Generating trace IDs The id format is documented here along with a Python code sample.</description>
     </item>
     <item>
       <title>Debugging a flaky Go test with Mozilla rr</title>
-      <link>http://localhost:1313/post/debugging-go-with-rr/</link>
+      <link>https://choly.ca/post/debugging-go-with-rr/</link>
       <pubDate>Mon, 22 Feb 2021 12:48:39 -0500</pubDate>
-      <guid>http://localhost:1313/post/debugging-go-with-rr/</guid>
+      <guid>https://choly.ca/post/debugging-go-with-rr/</guid>
       <description>This is how you debug a test that only fails once every 1000 times.&#xA;The Test package my import ( &amp;#34;math/rand&amp;#34; &amp;#34;testing&amp;#34; &amp;#34;time&amp;#34; ) func init() { rand.Seed(time.Now().UnixNano()) } func TestRandFail(t *testing.T) { if n := rand.Intn(1000); n == 50 { t.Fatalf(&amp;#34;finally got %d&amp;#34;, n) } } This is obviously a pedagogical example. Get the newest version of rr git clone https://github.com/rr-debugger/rr.git cd rr git checkout 5.4.0 # change this to the latest release (DO NOT BUILD HEAD) mkdir build cd build cmake .</description>
     </item>
     <item>
       <title>Merging Multiple Git Repositories Into A MonoRepo</title>
-      <link>http://localhost:1313/post/git-merge-to-monorepo/</link>
+      <link>https://choly.ca/post/git-merge-to-monorepo/</link>
       <pubDate>Mon, 13 Aug 2018 12:04:56 -0400</pubDate>
-      <guid>http://localhost:1313/post/git-merge-to-monorepo/</guid>
+      <guid>https://choly.ca/post/git-merge-to-monorepo/</guid>
       <description>Note: Replace thing with your own repo name in the examples.&#xA;1. Create a repository which will store all your code mkdir monorepo &amp;amp;&amp;amp; cd monorepo git init . echo &amp;#34;# MonoRepo&amp;#34; &amp;gt; README.md git add . git commit -m &amp;#34;first commit&amp;#34; 2. Clone one of the existing repositories to a temporary location Example Remote: ssh://git@code.company.com/thing.git&#xA;mkdir /tmp/thing git clone ssh://git@code.company.com/thing.git /tmp/thing cd /tmp/thing 3. Use git filter-branch to rewrite the history into a sub-directory.</description>
     </item>
     <item>
       <title>Go: Composable http.Handler</title>
-      <link>http://localhost:1313/post/go-experiments-with-handler/</link>
+      <link>https://choly.ca/post/go-experiments-with-handler/</link>
       <pubDate>Mon, 19 Feb 2018 12:17:21 -0400</pubDate>
-      <guid>http://localhost:1313/post/go-experiments-with-handler/</guid>
+      <guid>https://choly.ca/post/go-experiments-with-handler/</guid>
       <description>When using net/http, handling errors is kinda annoying.&#xA;http.HandleFunc(&amp;#34;/foo&amp;#34;, func(w http.ResponseWriter, r *http.Request) { thing, err := storage.Get(&amp;#34;thing&amp;#34;) if err != nil { http.Error(w, err.Error(), 500) return } _ = json.NewEncoder(w).Encode(thing) }) Ideally, I could just return an error from the handler. Let&amp;rsquo;s create a type to let that happen.&#xA;type MyHandlerFunc func(w http.ResponseWriter, r *http.Request) error func (f MyHandlerFunc) ServeHTTP(w http.ResponseWriter, r *http.Request) { if err := f(w, r); err !</description>
     </item>
     <item>
       <title>Angular Events</title>
-      <link>http://localhost:1313/post/angular-events/</link>
+      <link>https://choly.ca/post/angular-events/</link>
       <pubDate>Wed, 23 Mar 2016 10:06:22 -0400</pubDate>
-      <guid>http://localhost:1313/post/angular-events/</guid>
+      <guid>https://choly.ca/post/angular-events/</guid>
       <description>I&amp;rsquo;ve been trying to find an elegant way of dealing with events in AngularJS recently. If you&amp;rsquo;re not farmiliar with Angular, that&amp;rsquo;s ok, this is a pretty common pattern.&#xA;Here I have a controller that registers an event listener:&#xA;function MyController($rootScope) { $rootScope.$on(&amp;#39;event1&amp;#39;, () =&amp;gt; { console.log(&amp;#39;event 1 occured&amp;#39;); }); } There&amp;rsquo;s an issue with this code. It doesn&amp;rsquo;t unbind the listener when the controller (or its scope) is destroyed. Let&amp;rsquo;s take care of this.</description>
     </item>
     <item>
       <title>TypeScript: Working with JSON</title>
-      <link>http://localhost:1313/post/typescript-json/</link>
+      <link>https://choly.ca/post/typescript-json/</link>
       <pubDate>Sat, 19 Mar 2016 15:41:44 -0400</pubDate>
-      <guid>http://localhost:1313/post/typescript-json/</guid>
+      <guid>https://choly.ca/post/typescript-json/</guid>
       <description>EDITS:&#xA;Calling toString on Date is for illustrative purposes. There&amp;rsquo;s a full commented example at the end. Use toJSON method as suggested by Schipperz. Add reviver method as suggested by Anders Ringqvist. So you have a User type in your code.&#xA;interface User { name: string; age: number; created: Date; } At some point you&amp;rsquo;re going to want to encode this as JSON. This works as you&amp;rsquo;d expect.&#xA;&amp;gt; JSON.stringify({ name: &amp;#34;bob&amp;#34;, age: 34, created: new Date() }); &amp;#39;{&amp;#34;name&amp;#34;:&amp;#34;bob&amp;#34;,&amp;#34;age&amp;#34;:34,&amp;#34;created&amp;#34;:&amp;#34;2016-03-19T18:15:12.</description>
     </item>
     <item>
       <title>Custom JSON Marshalling in Go</title>
-      <link>http://localhost:1313/post/go-json-marshalling/</link>
+      <link>https://choly.ca/post/go-json-marshalling/</link>
       <pubDate>Fri, 10 Apr 2015 12:54:44 -0400</pubDate>
-      <guid>http://localhost:1313/post/go-json-marshalling/</guid>
+      <guid>https://choly.ca/post/go-json-marshalling/</guid>
       <description>Go&amp;rsquo;s encoding/json package makes it really easy to marshal structs to JSON data.&#xA;package main import ( &amp;#34;encoding/json&amp;#34; &amp;#34;os&amp;#34; &amp;#34;time&amp;#34; ) type MyUser struct { ID int64 `json:&amp;#34;id&amp;#34;` Name string `json:&amp;#34;name&amp;#34;` LastSeen time.Time `json:&amp;#34;lastSeen&amp;#34;` } func main() { _ = json.NewEncoder(os.Stdout).Encode( &amp;amp;MyUser{1, &amp;#34;Ken&amp;#34;, time.Now()}, ) } Output:&#xA;{&amp;#34;id&amp;#34;:1,&amp;#34;name&amp;#34;:&amp;#34;Ken&amp;#34;,&amp;#34;lastSeen&amp;#34;:&amp;#34;2009-11-10T23:00:00Z&amp;#34;} But what if we want to change how one of the field values are displayed? For example, say I wanted LastSeen to be a unix timestamp.</description>
     </item>
     <item>
       <title>TypeScript completion in Vim</title>
-      <link>http://localhost:1313/post/typescript-vim-completion/</link>
+      <link>https://choly.ca/post/typescript-vim-completion/</link>
       <pubDate>Tue, 31 Mar 2015 10:17:00 -0400</pubDate>
-      <guid>http://localhost:1313/post/typescript-vim-completion/</guid>
+      <guid>https://choly.ca/post/typescript-vim-completion/</guid>
       <description>One of the main advantages of using static types is that you get much better support from your tools. I recently got TypeScript auto-completion working in vim and I&amp;rsquo;m documenting how to do it here.&#xA;Demo: 1. Install TSS git clone https://github.com/clausreinke/typescript-tools.git cd typescript-tools git checkout testing_ts1.4 sudo npm install -g 2. Install Vim Plugin I&amp;rsquo;m using Vundle to manage my plugins.&#xA;Bundle &amp;#34;icholy/typescript-tools.git&amp;#34; au BufRead,BufNewFile *.ts setlocal filetype=typescript 3. Install TSD sudo npm install tsd@next -g 4.</description>
     </item>
     <item>
       <title>interactive filtering with less</title>
-      <link>http://localhost:1313/post/interactive-filtering-with-less/</link>
+      <link>https://choly.ca/post/interactive-filtering-with-less/</link>
       <pubDate>Mon, 31 Mar 2014 12:56:53 -0400</pubDate>
-      <guid>http://localhost:1313/post/interactive-filtering-with-less/</guid>
+      <guid>https://choly.ca/post/interactive-filtering-with-less/</guid>
       <description>I discovered a cool little feature in less (not less.css) today. You can interactively filter the data.&#xA;&amp;amp;pattern Display only lines which match the pattern; lines which do not match the pattern are not displayed. If pattern is empty (if you type &amp;amp; immediately followed by ENTER), any filtering is turned off, and all lines are displayed. While filtering is in effect, an ampersand is displayed at the beginning of the prompt, as a reminder that some lines in the file may be hidden.</description>
     </item>
     <item>
       <title>C&#43;&#43;: Make Repl</title>
-      <link>http://localhost:1313/post/c-plus-plus-make-repl/</link>
+      <link>https://choly.ca/post/c-plus-plus-make-repl/</link>
       <pubDate>Mon, 31 Dec 2012 11:26:44 -0400</pubDate>
-      <guid>http://localhost:1313/post/c-plus-plus-make-repl/</guid>
+      <guid>https://choly.ca/post/c-plus-plus-make-repl/</guid>
       <description>One of the things I really like about dynamic languages like javascript &amp;amp; python is the repl. After you’ve gotten used to that type of exploratory programming, it’s hard to go back to the edit/compile/run cycle.&#xA;Luckily that has finally changed with cling. It’s an interactive C++ environment that behaves pretty much like a repl. In my recent projects I’ve been adding a new make rule: repl which lets me interactively play with the code I’m working on and it has drastically improved my productivity.</description>
     </item>
     <item>
       <title>C&#43;&#43;: Inline Functions</title>
-      <link>http://localhost:1313/post/c-plus-plus-inline-functions/</link>
+      <link>https://choly.ca/post/c-plus-plus-inline-functions/</link>
       <pubDate>Mon, 31 Dec 2012 11:21:15 -0400</pubDate>
-      <guid>http://localhost:1313/post/c-plus-plus-inline-functions/</guid>
+      <guid>https://choly.ca/post/c-plus-plus-inline-functions/</guid>
       <description>Even though overuse of getter and setter functions can be frowned upon, they can help a lot if you’re looking to provide a intuitive api. However the overhead the additional function call introduces is undesirable. Thankfully, there’s the inline keyword. It tells the compiler to replace each invocation of the function with the body of the function.&#xA;struct Foo { int m_number = 123; inline int number () { return m_number; } }; int main () { Foo foo; // used like a regular function std::cout &amp;lt;&amp;lt; foo.</description>
     </item>
     <item>
       <title>Vim Marks</title>
-      <link>http://localhost:1313/post/vim-marks/</link>
+      <link>https://choly.ca/post/vim-marks/</link>
       <pubDate>Fri, 07 Dec 2012 11:29:54 -0400</pubDate>
-      <guid>http://localhost:1313/post/vim-marks/</guid>
+      <guid>https://choly.ca/post/vim-marks/</guid>
       <description>Marks are a feature that I’ve never really used enough. Hopefully writing about them will change that for the better.&#xA;Make a basic, file local, mark called a ma Jump back to that mark &amp;#39;a Now I try to be pragmatic. So use cases are what motivate me to learn new thing. I think that marks are a good replacement for a lot of the things I use visual line V mode for now.</description>
     </item>
     <item>
       <title>C&#43;&#43; Extending Classes via the Stream Operator</title>
-      <link>http://localhost:1313/post/c-plus-plus-extending-classes-via-the-stream-operator/</link>
+      <link>https://choly.ca/post/c-plus-plus-extending-classes-via-the-stream-operator/</link>
       <pubDate>Mon, 03 Dec 2012 11:49:42 -0400</pubDate>
-      <guid>http://localhost:1313/post/c-plus-plus-extending-classes-via-the-stream-operator/</guid>
+      <guid>https://choly.ca/post/c-plus-plus-extending-classes-via-the-stream-operator/</guid>
       <description>Vision Looking for a way to create a class which behaved like one of the std::ostream classes.&#xA;MyClass obj; obj &amp;lt;&amp;lt; &amp;#34;foo&amp;#34; &amp;lt;&amp;lt; 123 &amp;lt;&amp;lt; some_string.c_str(); Problem Implementing all those operator&amp;lt;&amp;lt; overloads would be redundant because something like std::stringstream already does it. However inheriting from std::stringstream is more complicated than it should be.&#xA;struct MyClass : public std::stringstream { /* not that simple ... */ }; Solution You can use a simple template to achive the desired effect.</description>
     </item>
     <item>
       <title>C&#43;&#43; Log4cxx vs Glog vs Boost.log vs Wrapper</title>
-      <link>http://localhost:1313/post/c-plus-plus-logging-log4cxx-vs-glog-vs-wrapper/</link>
+      <link>https://choly.ca/post/c-plus-plus-logging-log4cxx-vs-glog-vs-wrapper/</link>
       <pubDate>Mon, 03 Dec 2012 11:44:06 -0400</pubDate>
-      <guid>http://localhost:1313/post/c-plus-plus-logging-log4cxx-vs-glog-vs-wrapper/</guid>
+      <guid>https://choly.ca/post/c-plus-plus-logging-log4cxx-vs-glog-vs-wrapper/</guid>
       <description>It seems that logging in C++ isn’t a much discused topic when compared to a language like java. In a recent C++ project, I needed to add real logging support. Up till this point, the following was good enough (don’t judge).&#xA;#ifdef DEBUG std::cerr &amp;lt;&amp;lt; &amp;#34;some error&amp;#34; &amp;lt;&amp;lt; std::endl; #endif I started googling and the following to be the most popular and mature.&#xA;glog homepage&#xA;glog was my first choice because it’s the simplest one to set up and it has hardly any dependencies.</description>
     </item>
     <item>
       <title>Libpq: PQexec Timeout</title>
-      <link>http://localhost:1313/post/libpq-pqexec-timeout/</link>
+      <link>https://choly.ca/post/libpq-pqexec-timeout/</link>
       <pubDate>Mon, 03 Dec 2012 11:40:51 -0400</pubDate>
-      <guid>http://localhost:1313/post/libpq-pqexec-timeout/</guid>
+      <guid>https://choly.ca/post/libpq-pqexec-timeout/</guid>
       <description>1. Establish the connection PGconn *pg_conn = PQconnect(&amp;#34;info&amp;#34;); // error check if (PQstatus(pg_conn) != CONNECTION_OK) throw &amp;#34;invalid connection&amp;#34;; 2. Grab the socket file descriptor int socket_fd = PQsocket(pg_conn); // error check if (socket_fd &amp;lt; 0) throw &amp;#34;invalid socket&amp;#34;; 3. Set the timeout // 5 second timeout struct timeval timeout = { 5, 0 }; // recv timeout int setopt_result_1 = setsockopt( socket_fd, SOL_SOCKET, SO_RCVTIMEO, (char *)&amp;amp;timeout, sizeof(timeout) ); // send timeout int setopt_result_2 = setsockopt( socket_fd, SOL_SOCKET, SO_SNDTIMEO, (char *)&amp;amp;timeout, sizeof(timeout) ); // error check if (setopt_result_1 &amp;lt; 0 || setopt_result_2 &amp;lt; 0) throw &amp;#34;failed to set timeout&amp;#34;; </description>
     </item>
     <item>
       <title>SWAPM: Code generation made easy.</title>
-      <link>http://localhost:1313/post/swapm-code-generation-made-easy/</link>
+      <link>https://choly.ca/post/swapm-code-generation-made-easy/</link>
       <pubDate>Thu, 18 Oct 2012 12:02:06 -0400</pubDate>
-      <guid>http://localhost:1313/post/swapm-code-generation-made-easy/</guid>
+      <guid>https://choly.ca/post/swapm-code-generation-made-easy/</guid>
       <description>I finally got around to reading the Pragmatic Programmer book. One thing that really interested me was the section on Code Generation. So in a recent C++ project I was interfacing with postgres and there was a LOT of code repetition. The sql query, class members, getters/setters, response parsing logic. They all contained the same information. Perfect I thought, here was the ideal chance to give code generation a shot. My first incarnation was a very ugly perl script (aren&amp;rsquo;t they all .</description>
     </item>
     <item>
       <title>A week with Vim</title>
-      <link>http://localhost:1313/post/week-with-vim/</link>
+      <link>https://choly.ca/post/week-with-vim/</link>
       <pubDate>Tue, 16 Oct 2012 12:17:21 -0400</pubDate>
-      <guid>http://localhost:1313/post/week-with-vim/</guid>
+      <guid>https://choly.ca/post/week-with-vim/</guid>
       <description>During the past week I&amp;rsquo;ve been learning to use Vim (gVim). Day 1 and 2 weren&amp;rsquo;t fun to say the least. But now I&amp;rsquo;m completely hooked. I&amp;rsquo;m the type of person who will sit there for hours customizing my development environment until I think it&amp;rsquo;s perfect. I&amp;rsquo;ve been playing with almost every cool plugin i can find (and wasting a lot of time in the process).&#xA;So Vim is, without a doubt, the best text editor I&amp;rsquo;ve ever used.</description>
     </item>
     <item>
       <title>Ember.js with Brunch</title>
-      <link>http://localhost:1313/post/emberjs-with-brunch/</link>
+      <link>https://choly.ca/post/emberjs-with-brunch/</link>
       <pubDate>Thu, 07 Jun 2012 12:04:56 -0400</pubDate>
-      <guid>http://localhost:1313/post/emberjs-with-brunch/</guid>
+      <guid>https://choly.ca/post/emberjs-with-brunch/</guid>
       <description>I&amp;rsquo;ve recently discovered the brilliant Ember.js library and the first major issue I ran into was how to organize/modularize this thing!? At first I just opted into RequireJs because that&amp;rsquo;s what I know but I started hitting walls fast. I decided to try out the Brunch build system since I had heard good things about it before and this was a great opportunity to learn how to use it. Brunch uses skeletons which are essentially project templates to get rid of the boilerplate.</description>
     </item>
     <item>
       <title>CSS Compass Gradient Generator</title>
-      <link>http://localhost:1313/post/css-compass-gradient-generator/</link>
+      <link>https://choly.ca/post/css-compass-gradient-generator/</link>
       <pubDate>Thu, 27 Oct 2011 12:10:52 -0400</pubDate>
-      <guid>http://localhost:1313/post/css-compass-gradient-generator/</guid>
+      <guid>https://choly.ca/post/css-compass-gradient-generator/</guid>
       <description>This is a css gradient generator that i&amp;rsquo;ve been using for a while:&#xA;http://www.colorzilla.com/gradient-editor/ CSS Output&#xA;background: #1e5799; /* Old browsers */ background: -moz-linear-gradient(top, #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%); /* FF3.6+ */ background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(50%,#2989d8), color-stop(51%,#207cca), color-stop(100%,#7db9e8)); /* Chrome,Safari4+ */ background: -webkit-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* Chrome10+,Safari5.1+ */ background: -o-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* Opera 11.10+ */ background: -ms-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* IE10+ */ background: linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* W3C */ filter: progid:DXImageTransform.</description>
     </item>
     <item>
       <title>VMware Workstation Ubuntu problems</title>
-      <link>http://localhost:1313/post/vmware-workstation-ubuntu-problems/</link>
+      <link>https://choly.ca/post/vmware-workstation-ubuntu-problems/</link>
       <pubDate>Sun, 16 Oct 2011 12:14:52 -0400</pubDate>
-      <guid>http://localhost:1313/post/vmware-workstation-ubuntu-problems/</guid>
+      <guid>https://choly.ca/post/vmware-workstation-ubuntu-problems/</guid>
       <description>I just tried starting up vmware workstation and was greeted with a message saying it needed to compile some modules and then went on to fail this step no matter what. This is an issue I&amp;rsquo;ve encountered before on Ubuntu 11.04 and now on 11.10.&#xA;This is a bug with all v7.x of workstation and can be fixed with a simple patch I found today at http://weltall.heliohost.org/wordpress/2011/05/14/running-vmware-workstation-player-on-linux-2-6-39-updated/&#xA;How to use it:</description>
     </item>
     <item>
       <title>QML is Awesome</title>
-      <link>http://localhost:1313/post/qml-is-awesome/</link>
+      <link>https://choly.ca/post/qml-is-awesome/</link>
       <pubDate>Fri, 30 Sep 2011 12:20:44 -0400</pubDate>
-      <guid>http://localhost:1313/post/qml-is-awesome/</guid>
+      <guid>https://choly.ca/post/qml-is-awesome/</guid>
       <description>QML is Nokia&amp;rsquo;s recent addition to its well known Qt framework and comes part of the Qt Quick Suite&#xA;The way I describe it to people is:&#xA;it&amp;rsquo;s like html and css combined with the power of Qt in a extremely simple syntax.&#xA;Why? I have used Swing, WinForms, and GTK in the past and never really liked anything to do with GUI work. QML is the first time I&amp;rsquo;m actually enjoying designing user interfaces and this results in a better end result.</description>
     </item>
     <item>
       <title>Qt Creator &#43; Boost on Ubuntu 11.04</title>
-      <link>http://localhost:1313/post/qt-creator-boost-on-ubuntu-1104/</link>
+      <link>https://choly.ca/post/qt-creator-boost-on-ubuntu-1104/</link>
       <pubDate>Mon, 26 Sep 2011 12:23:39 -0400</pubDate>
-      <guid>http://localhost:1313/post/qt-creator-boost-on-ubuntu-1104/</guid>
+      <guid>https://choly.ca/post/qt-creator-boost-on-ubuntu-1104/</guid>
       <description>1. make a home for boost sudo mkdir -p /code/include sudo chown -R YOUR_USER_NAME /code cd /code/include 2. download boost sudo apt-get install subversion svn co http://svn.boost.org/svn/boost/trunk boost cd boost 3. compile boost sudo ./bootstrap.sh sudo ./b2 note: this will take a while, go get some coffee.&#xA;4. Include in qt project Add the following to your .pro file.&#xA;INCLUDEPATH += /code/include/ LIBS += -L/code/include/boost/bin.v2/libs/ -lboost_system -lboost_filesystem -lboost_asio In this example i&amp;rsquo;m linking boost::filesystem and boost::asio.</description>
     </item>
     <item>
       <title>Compile CompassApp on Ubuntu 11.04</title>
-      <link>http://localhost:1313/post/compile-compassapp-on-ubuntu-1104/</link>
+      <link>https://choly.ca/post/compile-compassapp-on-ubuntu-1104/</link>
       <pubDate>Tue, 20 Sep 2011 12:27:52 -0400</pubDate>
-      <guid>http://localhost:1313/post/compile-compassapp-on-ubuntu-1104/</guid>
+      <guid>https://choly.ca/post/compile-compassapp-on-ubuntu-1104/</guid>
       <description> 1. Install RVM bash &amp;lt; &amp;lt;(curl -s https://rvm.beginrescueend.com/install/rvm); echo &amp;#39;if [[ -s &amp;#34;$HOME/.rvm/scripts/rvm&amp;#34; ]] ; then source &amp;#34;$HOME/.rvm/scripts/rvm&amp;#34; ; fi&amp;#39; &amp;gt; ~/.bashrc rvm install 1.9.2 2. Install jRuby rvm install jruby cd ~/.rvm/bin/jruby-1.6.4 -S gem install rawr 3. Get and Compile CompassApp git clone https://github.com/handlino/CompassApp.git cd CompassApp bin/build-all.sh 4. Run CompassApp cd package/compass.app/ ./run.sh </description>
     </item>
     <item>
       <title>Cloud9 IDE</title>
-      <link>http://localhost:1313/post/cloud9-ide/</link>
+      <link>https://choly.ca/post/cloud9-ide/</link>
       <pubDate>Wed, 31 Aug 2011 12:31:21 -0400</pubDate>
-      <guid>http://localhost:1313/post/cloud9-ide/</guid>
+      <guid>https://choly.ca/post/cloud9-ide/</guid>
       <description>I&amp;rsquo;ve always wanted to like web based IDE&amp;rsquo;s. However, there was one thing that always prevented it: they&amp;rsquo;ve always been terrible.&#xA;Until now that is. http://cloud9ide.com/ Cloud9 is epic. It&amp;rsquo;s built on node.js and has support for coffeescript and sass syntax highlighting and real time error checking. I can&amp;rsquo;t even find an desktop ide to do that right!&#xA;It gets better though. It&amp;rsquo;s 100% open source so you can install it on locally.</description>
     </item>
     <item>
       <title>Sass Compass Blueprint</title>
-      <link>http://localhost:1313/post/sass-compass-blueprint/</link>
+      <link>https://choly.ca/post/sass-compass-blueprint/</link>
       <pubDate>Thu, 11 Aug 2011 12:34:59 -0400</pubDate>
-      <guid>http://localhost:1313/post/sass-compass-blueprint/</guid>
+      <guid>https://choly.ca/post/sass-compass-blueprint/</guid>
       <description>So I just realized that I hadn&amp;rsquo;t actually written anything about compass. Now I feel a little dumb about the title of the Formalize post but w.e shit happens. Anyway I&amp;rsquo;ll be talking about css in this post. I started using these a while back so I don&amp;rsquo;t really know why I haven&amp;rsquo;t posted anything about it. Better late than never.&#xA;Let&amp;rsquo;s start with SASS. Syntactically Awesome Style Sheet&#xA;well actually I&amp;rsquo;ll be talking about SCSS which is sass syntax which is more like css.</description>
     </item>
     <item>
       <title>CoffeeScript</title>
-      <link>http://localhost:1313/post/coffeescript/</link>
+      <link>https://choly.ca/post/coffeescript/</link>
       <pubDate>Sun, 07 Aug 2011 12:37:05 -0400</pubDate>
-      <guid>http://localhost:1313/post/coffeescript/</guid>
+      <guid>https://choly.ca/post/coffeescript/</guid>
       <description>I just spent the last 5 hours learning CoffeeScript and I feel like I have pretty much everything down. My brain is kinda dead right now, but at the same time I&amp;rsquo;m pretty excited to actually try it in a real project. In case you don&amp;rsquo;t know CoffeeScript is a python-esque language which &amp;lsquo;compiles&amp;rsquo; into javascript. classes, list comprehension inheritance, ranges, semantic code etc&amp;hellip;. dream come true. http://jashkenas.github.com/coffee-script/&#xA;One thing I was worried about was being able to use 3rd party libraries with it.</description>
     </item>
     <item>
       <title>Formalize [More Compass]</title>
-      <link>http://localhost:1313/post/formalize-compass/</link>
+      <link>https://choly.ca/post/formalize-compass/</link>
       <pubDate>Fri, 05 Aug 2011 12:39:12 -0400</pubDate>
-      <guid>http://localhost:1313/post/formalize-compass/</guid>
+      <guid>https://choly.ca/post/formalize-compass/</guid>
       <description>I think forms and all things related ( inputs, buttons, etc&amp;hellip; ) are probably one of the more annoying things when building a website. They&amp;rsquo;re just not consistent and it takes a lot of effort to make them look decent. I spent some time looking for a tool to help me with this and I ended up with formalize which comes as a compass plugin and integrates with any web framework you&amp;rsquo;re using.</description>
     </item>
     <item>
       <title>Reloader - multi browser live web preview</title>
-      <link>http://localhost:1313/post/reloader/</link>
+      <link>https://choly.ca/post/reloader/</link>
       <pubDate>Wed, 20 Jul 2011 12:40:37 -0400</pubDate>
-      <guid>http://localhost:1313/post/reloader/</guid>
+      <guid>https://choly.ca/post/reloader/</guid>
       <description>I recently started developing on linux and unfortunately stylizer 5 does not support linux. So I&amp;rsquo;m back to using kate. However, one thing that I really missed right away was the instant preview feature. Having to go and refresh multiple browsers every time you change a line of code blows. I searched around for a bit and found a few tools but none of them were any good. I needed something that would work in multiple browsers at the same time and I couldn&amp;rsquo;t find anything to my liking so I wrote my own.</description>
     </item>
     <item>
       <title>JPProxy - tiny jsonp proxy</title>
-      <link>http://localhost:1313/post/jpproxy/</link>
+      <link>https://choly.ca/post/jpproxy/</link>
       <pubDate>Fri, 15 Jul 2011 12:43:11 -0400</pubDate>
-      <guid>http://localhost:1313/post/jpproxy/</guid>
+      <guid>https://choly.ca/post/jpproxy/</guid>
       <description>JPProxy is a very simple yet powerful JSONP script. It allows you to make ajax like requests to any page on a server that has the jpproxy.php script on it. I tried really hard to make it as simple and generic as possible so the source is tiny.&#xA;1. Client A script tag is injected into the DOM and all the values are added to the url as GET parameters.</description>
     </item>
     <item>
       <title>Skybound Stylizer 5 - CSS Editor</title>
-      <link>http://localhost:1313/post/skybound-stylizer-5-css-editor/</link>
+      <link>https://choly.ca/post/skybound-stylizer-5-css-editor/</link>
       <pubDate>Thu, 14 Jul 2011 12:55:01 -0400</pubDate>
-      <guid>http://localhost:1313/post/skybound-stylizer-5-css-editor/</guid>
+      <guid>https://choly.ca/post/skybound-stylizer-5-css-editor/</guid>
       <description>Lets start with a little preface. Prior to finding Stylizer, I was completely happy using a regular text editor (gedit, notepad++) with firebug to do my css coding. I don&amp;rsquo;t really know how I found stylizer, or what motivated me to download it, but I am glad I did. Stylizer is, by far, the best css editor. I went on to try 10+ different editors in hopes of finding a free alternative and nothing even comes close.</description>
     </item>
     <item>
       <title>Balsamiq Mockups - wireframing done right</title>
-      <link>http://localhost:1313/post/balsamiq-mockups-wireframing-done-right/</link>
+      <link>https://choly.ca/post/balsamiq-mockups-wireframing-done-right/</link>
       <pubDate>Thu, 14 Jul 2011 12:51:14 -0400</pubDate>
-      <guid>http://localhost:1313/post/balsamiq-mockups-wireframing-done-right/</guid>
+      <guid>https://choly.ca/post/balsamiq-mockups-wireframing-done-right/</guid>
       <description>Senario: You&amp;rsquo;re designing some type of user interface. Clients never know what they want (even when they think they do) so it&amp;rsquo;s usually a good idea to come prepared with a basic design to go off. You quickly whip together something in photoshop and think you&amp;rsquo;re good to go.&#xA;This is how the conversation goes:&#xA;Me: I threw together this mockup of a potential design. It&amp;rsquo;s very rough so just look at the basic layout and ignore details.</description>
     </item>
     <item>
       <title>absoluteFudge - ie6 absolute positioning</title>
-      <link>http://localhost:1313/post/absolutefudge-ie6-absolute-positioning/</link>
+      <link>https://choly.ca/post/absolutefudge-ie6-absolute-positioning/</link>
       <pubDate>Thu, 14 Jul 2011 12:48:23 -0400</pubDate>
-      <guid>http://localhost:1313/post/absolutefudge-ie6-absolute-positioning/</guid>
+      <guid>https://choly.ca/post/absolutefudge-ie6-absolute-positioning/</guid>
       <description>I don&amp;rsquo;t know about you, but here is a snippet of css that I love.&#xA;div#selector { position: absolute; left: 10px; right: 10px; top: 10px; bottom: 10px; } assuming that the parent element has either relative or absolute positioning, the child div will fit inside with a 10px margin. This is a very powerful technique for creating liquid css layouts.&#xA;Problem&#xA;The problem is, that ie doesn&amp;rsquo;t support giving values to all sides (top,bottom,left,right) so you were forced to have a separate stylesheet for ie with a static layout.</description>
     </item>
   </channel>

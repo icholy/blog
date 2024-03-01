@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>QML on Choly&#39;s Blog</title>
-    <link>http://localhost:1313/categories/qml/</link>
+    <link>https://choly.ca/categories/qml/</link>
     <description>Recent content in QML on Choly&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 30 Sep 2011 12:20:44 -0400</lastBuildDate>
-    <atom:link href="http://localhost:1313/categories/qml/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://choly.ca/categories/qml/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>QML is Awesome</title>
-      <link>http://localhost:1313/post/qml-is-awesome/</link>
+      <link>https://choly.ca/post/qml-is-awesome/</link>
       <pubDate>Fri, 30 Sep 2011 12:20:44 -0400</pubDate>
-      <guid>http://localhost:1313/post/qml-is-awesome/</guid>
+      <guid>https://choly.ca/post/qml-is-awesome/</guid>
       <description>QML is Nokia&amp;rsquo;s recent addition to its well known Qt framework and comes part of the Qt Quick Suite&#xA;The way I describe it to people is:&#xA;it&amp;rsquo;s like html and css combined with the power of Qt in a extremely simple syntax.&#xA;Why? I have used Swing, WinForms, and GTK in the past and never really liked anything to do with GUI work. QML is the first time I&amp;rsquo;m actually enjoying designing user interfaces and this results in a better end result.</description>
     </item>
   </channel>

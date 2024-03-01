@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Scss on Choly&#39;s Blog</title>
-    <link>http://localhost:1313/tags/scss/</link>
+    <link>https://choly.ca/tags/scss/</link>
     <description>Recent content in Scss on Choly&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 20 Sep 2011 12:27:52 -0400</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/scss/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://choly.ca/tags/scss/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Compile CompassApp on Ubuntu 11.04</title>
-      <link>http://localhost:1313/post/compile-compassapp-on-ubuntu-1104/</link>
+      <link>https://choly.ca/post/compile-compassapp-on-ubuntu-1104/</link>
       <pubDate>Tue, 20 Sep 2011 12:27:52 -0400</pubDate>
-      <guid>http://localhost:1313/post/compile-compassapp-on-ubuntu-1104/</guid>
+      <guid>https://choly.ca/post/compile-compassapp-on-ubuntu-1104/</guid>
       <description> 1. Install RVM bash &amp;lt; &amp;lt;(curl -s https://rvm.beginrescueend.com/install/rvm); echo &amp;#39;if [[ -s &amp;#34;$HOME/.rvm/scripts/rvm&amp;#34; ]] ; then source &amp;#34;$HOME/.rvm/scripts/rvm&amp;#34; ; fi&amp;#39; &amp;gt; ~/.bashrc rvm install 1.9.2 2. Install jRuby rvm install jruby cd ~/.rvm/bin/jruby-1.6.4 -S gem install rawr 3. Get and Compile CompassApp git clone https://github.com/handlino/CompassApp.git cd CompassApp bin/build-all.sh 4. Run CompassApp cd package/compass.app/ ./run.sh </description>
     </item>
     <item>
       <title>Formalize [More Compass]</title>
-      <link>http://localhost:1313/post/formalize-compass/</link>
+      <link>https://choly.ca/post/formalize-compass/</link>
       <pubDate>Fri, 05 Aug 2011 12:39:12 -0400</pubDate>
-      <guid>http://localhost:1313/post/formalize-compass/</guid>
+      <guid>https://choly.ca/post/formalize-compass/</guid>
       <description>I think forms and all things related ( inputs, buttons, etc&amp;hellip; ) are probably one of the more annoying things when building a website. They&amp;rsquo;re just not consistent and it takes a lot of effort to make them look decent. I spent some time looking for a tool to help me with this and I ended up with formalize which comes as a compass plugin and integrates with any web framework you&amp;rsquo;re using.</description>
     </item>
   </channel>
