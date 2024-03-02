@@ -89,7 +89,10 @@
 Once installed, the usage is as follows:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>$ git add-match foo
 </span></span></code></pre></div><p>After running this command, all hunks where the string &ldquo;foo&rdquo; is found will be staged.</p>
-
+<h3 id="edit">Edit:</h3>
+<p>A user on <a href="https://lobste.rs/s/2iogwz/git_programmatic_staging#c_q5btxo">lobste.rs suggested</a> using <a href="https://linux.die.net/man/1/grepdiff">grepdiff</a> instead:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>git diff <span style="color:#000;font-weight:bold">|</span> grepdiff --output-matching<span style="color:#ce5c00;font-weight:bold">=</span>hunk PATTERN <span style="color:#000;font-weight:bold">|</span> git apply --cached
+</span></span></code></pre></div>
 </div>
 
 

@@ -53,3 +53,11 @@ $ git add-match foo
 ```
 
 After running this command, all hunks where the string "foo" is found will be staged.
+
+### Edit: 
+
+A user on [lobste.rs suggested](https://lobste.rs/s/2iogwz/git_programmatic_staging#c_q5btxo) using [grepdiff](https://linux.die.net/man/1/grepdiff) instead:
+
+``` sh
+git diff | grepdiff --output-matching=hunk PATTERN | git apply --cached
+```
