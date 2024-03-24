@@ -6,8 +6,15 @@
     <description>Recent content in Posts on Choly&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 01 Mar 2024 11:57:11 -0400</lastBuildDate>
+    <lastBuildDate>Sun, 24 Mar 2024 12:00:00 -0500</lastBuildDate>
     <atom:link href="https://choly.ca/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Semgrep: AutoFixes using LLMs</title>
+      <link>https://choly.ca/post/semgrep-autofix-llm/</link>
+      <pubDate>Sun, 24 Mar 2024 12:00:00 -0500</pubDate>
+      <guid>https://choly.ca/post/semgrep-autofix-llm/</guid>
+      <description>Semgrep: Semgrep is an incredible tool that allows you to search code by matching against the Abstract Syntax Tree (AST). For instance, if you want to find all method calls named get_foo, you can write a pattern like this:&#xA;$A.get_foo(...) Test your own patterns using the playground: https://semgrep.dev/playground/new&#xA;While there are other tools like this, semgrep is currently the most capable:&#xA;https://ast-grep.github.io/ https://codeql.github.com/ https://comby.dev/ AutoFix: Semgrep not only searches using patterns but also supports rewriting the matches.</description>
+    </item>
     <item>
       <title>Git: programmatic staging</title>
       <link>https://choly.ca/post/git-programmatic-staging/</link>

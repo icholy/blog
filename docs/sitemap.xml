@@ -2,17 +2,38 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://choly.ca/categories/ai/</loc>
+    <lastmod>2024-03-24T12:00:00-05:00</lastmod>
+  </url><url>
     <loc>https://choly.ca/categories/</loc>
-    <lastmod>2024-03-01T11:57:11-04:00</lastmod>
+    <lastmod>2024-03-24T12:00:00-05:00</lastmod>
   </url><url>
     <loc>https://choly.ca/</loc>
-    <lastmod>2024-03-01T11:57:11-04:00</lastmod>
+    <lastmod>2024-03-24T12:00:00-05:00</lastmod>
   </url><url>
     <loc>https://choly.ca/tags/development/</loc>
-    <lastmod>2024-03-01T11:57:11-04:00</lastmod>
+    <lastmod>2024-03-24T12:00:00-05:00</lastmod>
   </url><url>
     <loc>https://choly.ca/categories/development/</loc>
-    <lastmod>2024-03-01T11:57:11-04:00</lastmod>
+    <lastmod>2024-03-24T12:00:00-05:00</lastmod>
+  </url><url>
+    <loc>https://choly.ca/tags/llm/</loc>
+    <lastmod>2024-03-24T12:00:00-05:00</lastmod>
+  </url><url>
+    <loc>https://choly.ca/categories/llm/</loc>
+    <lastmod>2024-03-24T12:00:00-05:00</lastmod>
+  </url><url>
+    <loc>https://choly.ca/post/</loc>
+    <lastmod>2024-03-24T12:00:00-05:00</lastmod>
+  </url><url>
+    <loc>https://choly.ca/tags/semgrep/</loc>
+    <lastmod>2024-03-24T12:00:00-05:00</lastmod>
+  </url><url>
+    <loc>https://choly.ca/post/semgrep-autofix-llm/</loc>
+    <lastmod>2024-03-24T12:00:00-05:00</lastmod>
+  </url><url>
+    <loc>https://choly.ca/tags/</loc>
+    <lastmod>2024-03-24T12:00:00-05:00</lastmod>
   </url><url>
     <loc>https://choly.ca/tags/git/</loc>
     <lastmod>2024-03-01T11:57:11-04:00</lastmod>
@@ -29,13 +50,7 @@
     <loc>https://choly.ca/tags/monorepo/</loc>
     <lastmod>2024-03-01T11:57:11-04:00</lastmod>
   </url><url>
-    <loc>https://choly.ca/post/</loc>
-    <lastmod>2024-03-01T11:57:11-04:00</lastmod>
-  </url><url>
     <loc>https://choly.ca/tags/refactor/</loc>
-    <lastmod>2024-03-01T11:57:11-04:00</lastmod>
-  </url><url>
-    <loc>https://choly.ca/tags/</loc>
     <lastmod>2024-03-01T11:57:11-04:00</lastmod>
   </url><url>
     <loc>https://choly.ca/categories/3d-printing/</loc>
