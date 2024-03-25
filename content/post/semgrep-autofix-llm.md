@@ -53,6 +53,7 @@ semgrep --config ./rule.yml --autofix
 
 Although the built-in autofix feature is powerful, it's limited to simple AST transforms.
 I'm currently exploring the idea of fixing semgrep matches using a Large Language Model (LLM).
+More specifically, each match is individually fed into the LLM and replaced with the response.
 To make this possible, I've created a tool called [semgrepx](https://github.com/icholy/semgrepx), which can be thought of as [xargs](https://man7.org/linux/man-pages/man1/xargs.1.html) for semgrep.
 I then use semgrepx to rewrite the matches using the fantastic [llm](https://llm.datasette.io/en/stable/) tool.
 Here's how it works:
