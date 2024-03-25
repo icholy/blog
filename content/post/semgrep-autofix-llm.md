@@ -59,7 +59,7 @@ Here's how it works:
 
 ```bash
 semgrep -l go --pattern 'log.$A(...)' --json > matches.json
-cat matches.json | semgrepx llm 'update this go to use log.Printf'
+semgrepx llm 'update this go to use log.Printf' < matches.json
 ```
 
 ![](/images/semgrepx.png)

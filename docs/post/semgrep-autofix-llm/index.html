@@ -86,7 +86,7 @@ To make this possible, I&rsquo;ve created a tool called <a href="https://github.
 I then use semgrepx to rewrite the matches using the fantastic <a href="https://llm.datasette.io/en/stable/">llm</a> tool.
 Here&rsquo;s how it works:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>semgrep -l go --pattern <span style="color:#4e9a06">&#39;log.$A(...)&#39;</span> --json &gt; matches.json
-</span></span><span style="display:flex;"><span>cat matches.json <span style="color:#000;font-weight:bold">|</span> semgrepx llm <span style="color:#4e9a06">&#39;update this go to use log.Printf&#39;</span>
+</span></span><span style="display:flex;"><span>semgrepx llm <span style="color:#4e9a06">&#39;update this go to use log.Printf&#39;</span> &lt; matches.json
 </span></span></code></pre></div><p><img src="/images/semgrepx.png" alt=""></p>
 <p>Notes:</p>
 <ul>
