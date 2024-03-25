@@ -88,7 +88,12 @@ Here&rsquo;s how it works:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>semgrep -l go --pattern <span style="color:#4e9a06">&#39;log.$A(...)&#39;</span> --json &gt; matches.json
 </span></span><span style="display:flex;"><span>cat matches.json <span style="color:#000;font-weight:bold">|</span> semgrepx llm <span style="color:#4e9a06">&#39;update this go to use log.Printf&#39;</span>
 </span></span></code></pre></div><p><img src="/images/semgrepx.png" alt=""></p>
-<p>In my experience, Anthropic&rsquo;s Claude 3 Opus model performs much better at this task compared to GPT4.</p>
+<p>Notes:</p>
+<ul>
+<li>In my experience, Anthropic&rsquo;s Claude 3 Opus model performs much better at this task compared to GPT4.</li>
+<li>I tend to match a larger expression than necessary to provide the LLM with additional context.</li>
+<li>I make heavy use of llm&rsquo;s <a href="https://llm.datasette.io/en/stable/templates.html">template</a> feature.</li>
+</ul>
 
 </div>
 

@@ -64,4 +64,8 @@ cat matches.json | semgrepx llm 'update this go to use log.Printf'
 
 ![](/images/semgrepx.png)
 
-In my experience, Anthropic's Claude 3 Opus model performs much better at this task compared to GPT4.
+Notes:
+
+* In my experience, Anthropic's Claude 3 Opus model performs much better at this task compared to GPT4.
+* I tend to match a larger expression than necessary to provide the LLM with additional context.
+* I make heavy use of llm's [template](https://llm.datasette.io/en/stable/templates.html) feature.
