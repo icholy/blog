@@ -6,8 +6,15 @@
     <description>Recent content in Development on Choly&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 24 Mar 2024 12:00:00 -0500</lastBuildDate>
+    <lastBuildDate>Fri, 02 May 2025 09:25:37 -0400</lastBuildDate>
     <atom:link href="https://choly.ca/categories/development/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Refactoring Rhythm</title>
+      <link>https://choly.ca/post/refactor-rhythm/</link>
+      <pubDate>Fri, 02 May 2025 09:25:37 -0400</pubDate>
+      <guid>https://choly.ca/post/refactor-rhythm/</guid>
+      <description>Refactoring typically cycles between two distinct modes:&#xA;Small, local changes that enable larger structural improvements. Large, cross-cutting changes that improve the overall design. Before the big changes can happen, many small adjustments are needed to make them feasible. What developers often won’t admit is that they usually don’t know what those large changes will be at the outset. Instead, the initial small edits serve a dual purpose: they not only prepare the codebase but also help the developer re-familiarize themselves with the system.</description>
+    </item>
     <item>
       <title>Semgrep: AutoFixes using LLMs</title>
       <link>https://choly.ca/post/semgrep-autofix-llm/</link>

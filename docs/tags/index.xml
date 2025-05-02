@@ -6,13 +6,20 @@
     <description>Recent content in Tags on Choly&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 24 Mar 2024 12:00:00 -0500</lastBuildDate>
+    <lastBuildDate>Fri, 02 May 2025 09:25:37 -0400</lastBuildDate>
     <atom:link href="https://choly.ca/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Development</title>
       <link>https://choly.ca/tags/development/</link>
-      <pubDate>Sun, 24 Mar 2024 12:00:00 -0500</pubDate>
+      <pubDate>Fri, 02 May 2025 09:25:37 -0400</pubDate>
       <guid>https://choly.ca/tags/development/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Golang</title>
+      <link>https://choly.ca/tags/golang/</link>
+      <pubDate>Fri, 02 May 2025 09:25:37 -0400</pubDate>
+      <guid>https://choly.ca/tags/golang/</guid>
       <description></description>
     </item>
     <item>
@@ -97,13 +104,6 @@
       <link>https://choly.ca/tags/debug/</link>
       <pubDate>Mon, 22 Feb 2021 12:48:39 -0500</pubDate>
       <guid>https://choly.ca/tags/debug/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Golang</title>
-      <link>https://choly.ca/tags/golang/</link>
-      <pubDate>Mon, 22 Feb 2021 12:48:39 -0500</pubDate>
-      <guid>https://choly.ca/tags/golang/</guid>
       <description></description>
     </item>
     <item>
