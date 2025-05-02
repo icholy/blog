@@ -16,13 +16,6 @@
       <description></description>
     </item>
     <item>
-      <title>Golang</title>
-      <link>https://choly.ca/tags/golang/</link>
-      <pubDate>Fri, 02 May 2025 09:25:37 -0400</pubDate>
-      <guid>https://choly.ca/tags/golang/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>LLM</title>
       <link>https://choly.ca/tags/llm/</link>
       <pubDate>Sun, 24 Mar 2024 12:00:00 -0500</pubDate>
@@ -104,6 +97,13 @@
       <link>https://choly.ca/tags/debug/</link>
       <pubDate>Mon, 22 Feb 2021 12:48:39 -0500</pubDate>
       <guid>https://choly.ca/tags/debug/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Golang</title>
+      <link>https://choly.ca/tags/golang/</link>
+      <pubDate>Mon, 22 Feb 2021 12:48:39 -0500</pubDate>
+      <guid>https://choly.ca/tags/golang/</guid>
       <description></description>
     </item>
     <item>

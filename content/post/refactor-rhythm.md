@@ -1,8 +1,7 @@
 +++
 Description = ""
-Tags = ["Development", "golang"]
-Categories = ["Development", "GoLang"]
-menu = "main"
+Tags = ["Development"]
+Categories = ["Development"]
 date = "2025-05-02T09:25:37-04:00"
 title = "Refactoring Rhythm"
 +++

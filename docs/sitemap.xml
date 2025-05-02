@@ -14,12 +14,6 @@
     <loc>https://choly.ca/categories/development/</loc>
     <lastmod>2025-05-02T09:25:37-04:00</lastmod>
   </url><url>
-    <loc>https://choly.ca/tags/golang/</loc>
-    <lastmod>2025-05-02T09:25:37-04:00</lastmod>
-  </url><url>
-    <loc>https://choly.ca/categories/golang/</loc>
-    <lastmod>2025-05-02T09:25:37-04:00</lastmod>
-  </url><url>
     <loc>https://choly.ca/post/</loc>
     <lastmod>2025-05-02T09:25:37-04:00</lastmod>
   </url><url>
@@ -83,6 +77,9 @@
     <loc>https://choly.ca/tags/debugging/</loc>
     <lastmod>2023-01-17T12:44:05-05:00</lastmod>
   </url><url>
+    <loc>https://choly.ca/categories/golang/</loc>
+    <lastmod>2023-01-17T12:44:05-05:00</lastmod>
+  </url><url>
     <loc>https://choly.ca/tags/x-ray/</loc>
     <lastmod>2023-01-17T12:44:05-05:00</lastmod>
   </url><url>
@@ -90,6 +87,9 @@
     <lastmod>2021-02-22T12:48:39-05:00</lastmod>
   </url><url>
     <loc>https://choly.ca/post/debugging-go-with-rr/</loc>
+    <lastmod>2021-02-22T12:48:39-05:00</lastmod>
+  </url><url>
+    <loc>https://choly.ca/tags/golang/</loc>
     <lastmod>2021-02-22T12:48:39-05:00</lastmod>
   </url><url>
     <loc>https://choly.ca/tags/rr/</loc>

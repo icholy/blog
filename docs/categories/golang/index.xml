@@ -6,15 +6,8 @@
     <description>Recent content in GoLang on Choly&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 02 May 2025 09:25:37 -0400</lastBuildDate>
+    <lastBuildDate>Tue, 17 Jan 2023 12:44:05 -0500</lastBuildDate>
     <atom:link href="https://choly.ca/categories/golang/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Refactoring Rhythm</title>
-      <link>https://choly.ca/post/refactor-rhythm/</link>
-      <pubDate>Fri, 02 May 2025 09:25:37 -0400</pubDate>
-      <guid>https://choly.ca/post/refactor-rhythm/</guid>
-      <description>Refactoring typically cycles between two distinct modes:&#xA;Small, local changes that enable larger structural improvements. Large, cross-cutting changes that improve the overall design. Before the big changes can happen, many small adjustments are needed to make them feasible. What developers often won’t admit is that they usually don’t know what those large changes will be at the outset. Instead, the initial small edits serve a dual purpose: they not only prepare the codebase but also help the developer re-familiarize themselves with the system.</description>
-    </item>
     <item>
       <title>AWS X-Ray: Force Sample</title>
       <link>https://choly.ca/post/x-ray-force-sample/</link>
