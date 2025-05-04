@@ -2,7 +2,7 @@ baseurl = "https://choly.ca/"
 languageCode = "en-us"
 title = "Choly's Blog"
 theme = "hyde"
-googleAnalytics = "UA-36797023-1"
+googleAnalytics = "G-CDHKT8R34B"
 publishDir = "docs"
 
 [markup]
