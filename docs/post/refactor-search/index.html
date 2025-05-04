@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.123.7">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Refactoring as Discovery &middot; Choly&#39;s Blog</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://choly.ca/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://choly.ca/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://choly.ca/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://choly.ca/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://choly.ca/"><h1>Choly&#39;s Blog</h1></a>
+      <p class="lead">
+       Documented Procrastination 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://choly.ca/">Home</a> </li>
+        <li><a href="https://github.com/icholy"> Github </a></li><li><a href="https://stackoverflow.com/users/215969/ilia-choly"> Stack Overflow </a></li>
+      </ul>
+    </nav>
+
+    <p>&copy; 2025. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Refactoring as Discovery</h1>
+  <time datetime=2025-05-02T09:25:37-0400 class="post-date">Fri, May 2, 2025</time>
+  <p>Refactoring usually falls into two modes:</p>
+<ul>
+<li><strong>Small, local changes</strong> that make later improvements possible</li>
+<li><strong>Large, structural changes</strong> that improve the overall design</li>
+</ul>
+<p>Before the big changes can happen, you often need to do a lot of small, mechanical edits. These help clean things up, but they also serve as a way to re-learn the codebase. What developers often won’t admit is that they usually <em>don’t know</em> what the big change is going to be when they start. They just know the code isn’t right.</p>
+<p>Refactoring, in that sense, is a kind of guided search. Each small edit acts like a probe. You try something, see how the code responds, and slowly uncover the real shape of the problem. It’s not about making the code perfect, it’s about making it legible enough to see what needs fixing.</p>
+<p>This can be hard to justify. Leadership wants scoped work and clear outcomes, but that doesn&rsquo;t align with how messy systems work. If something feels off, the best starting point is often a few small cleanups. I usually carve out some time for &ldquo;discovery&rdquo; and start there.</p>
+<p>In some teams, this approach also runs into resistance. Developers don’t always see the value in changing code that “works”. Without a bug or feature tied to it, refactoring can look like churn. In those cases, I sometimes do the cleanups anyway and then throw most of them away. But I keep the useful ones and fold them into the larger improvements. Even the discarded edits help clarify what’s wrong or where to go next.</p>
+<p>If you were to graph the value of changes over time, you&rsquo;d probably see a curve like this:
+<img src="/images/refactor-rhythm.png" alt=""></p>
+<ul>
+<li><strong>Early</strong>: quick, low-risk changes that help you get your bearings</li>
+<li><strong>Middle</strong>: high-value structural edits, backed by smaller supporting tweaks</li>
+<li><strong>Late</strong>: momentum slows, and you’re mostly just polishing</li>
+</ul>
+<p>The tricky part is noticing when you&rsquo;ve hit that final phase. It&rsquo;s easy to stay busy with small edits that feel productive but aren’t actually moving anything forward. Once the high-leverage work is done, it&rsquo;s usually time to stop.</p>
+
+</div>
+
+
+    </main>
+
+    
+      
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-36797023-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    
+  </body>
+</html>
