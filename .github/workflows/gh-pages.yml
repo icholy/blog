@@ -3,7 +3,7 @@ name: Build and Deploy Hugo Site
 on:
   push:
     branches:
-      - main  # or your default branch
+      - master
 
 permissions:
   contents: read
