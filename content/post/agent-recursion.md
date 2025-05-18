@@ -11,8 +11,7 @@ Each `run_command` or `read_file` tool call dumps a lot of text that quickly los
 I've been experimenting with the idea of recursion to mitigate this issue.
 The idea is simple: **An agent can kick off new instances of itself to handle specific subtasks**.
 
-The key part is when a child agent finishes, it doesn't send its entire operational log or full tool output back to the parent.
-It just sends a brief summary of its results.
+The key part is that, when a child agent finishes, it doesn’t send its entire operational log or full tool output back to the parent; instead, it returns only a brief summary of the results.
 
 This does two important things:
 
