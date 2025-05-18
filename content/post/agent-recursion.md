@@ -19,7 +19,7 @@ This does two important things:
 2. Helps the parent agent stay focused on the overall objective.
 
 I've implemented this idea here: https://github.com/icholy/sloppy.
-The agent simply is provided with a `run_agent` tool.
+The agent is simply provided with a `run_agent` tool.
 
 ``` json
 {
